@@ -15,7 +15,7 @@ exports.addPost = async (req, res) => {
 exports.findOne = id => {
   CompanyPost.find({ _id: id });
 };
-///////////////////////
+
 exports.findAndDelete = async (req, res) => {
   CompanyPost.findByIdAndRemove(req.params.id).then(() => "List deleted");
 };
