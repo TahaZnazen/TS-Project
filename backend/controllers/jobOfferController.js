@@ -10,7 +10,6 @@ exports.addPost = async (req, res) => {
   } catch (err) {
     res.json({ err });
   }
-  /////////////////////
 };
 exports.findOne = id => {
   jobOffer.find({ _id: id });
@@ -19,7 +18,6 @@ exports.findOne = id => {
 exports.findAndDelete = async (req, res) => {
   jobOffer.findByIdAndRemove(req.params.id).then(() => "List deleted");
 };
-////////////////
 exports.findAndUpdate = async (req, res) => {
   try {
     const id = req.params.id;
@@ -30,7 +28,6 @@ exports.findAndUpdate = async (req, res) => {
   } catch (err) {
     res.json({ err });
   }
-  /////////////////
 };
 exports.findAll = id => {
   return jobOffer.find({ _id: id });
