@@ -5,6 +5,7 @@ const app = express();
 
 const userRouter = require("./routes/userRouter");
 const companypostRouter = require("./routes/companyPostRouter");
+const cvRouter = require("./routes/cvRouter");
 
 app.use(morgan("dev"));
 app.use(express.json());
@@ -14,4 +15,6 @@ app.use(cors());
 
 app.use("/api/v1/users", userRouter);
 app.use("/api/post", companypostRouter);
+app.use("/api/v1/cvs", cvRouter);
+
 module.exports = app;
