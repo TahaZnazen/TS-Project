@@ -10,22 +10,16 @@ exports.addPost = async (req, res) => {
   } catch (err) {
     res.json({ err });
   }
-  // req
-  // let post = new CompanyPost(obj);
-  // return post.save(obj);
+  /////////////////////
 };
 exports.findOne = id => {
   CompanyPost.find({ _id: id });
 };
+///////////////////////
 exports.findAndDelete = async (req, res) => {
   CompanyPost.findByIdAndRemove(req.params.id).then(() => "List deleted");
 };
-// exports.findAndDelete = async (req, res) => {
-//   try{
-//     const id = req.params.id
-//     const deletePost = await CompanyPost.findOneAndRemove()
-//   }
-// };
+////////////////
 exports.findAndUpdate = async (req, res) => {
   try {
     const id = req.params.id;
@@ -36,7 +30,7 @@ exports.findAndUpdate = async (req, res) => {
   } catch (err) {
     res.json({ err });
   }
-  // return CompanyPost.findOneAndUpdate({ _id: id }, { obj });
+  /////////////////
 };
 exports.findAll = id => {
   return CompanyPost.find({ _id: id });
