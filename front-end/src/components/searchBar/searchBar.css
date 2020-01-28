@@ -1,0 +1,40 @@
+#searchBar{
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    align-items: center;
+}
+#searchBar input {
+    height: 50px;
+    margin-left: 10px;
+    border: none;
+    outline: none;
+    padding: 0 10px;
+    font-size: 20px;
+    box-sizing: content-box;
+}
+#searchBar button{
+    height: 50px;
+    width:4%;
+    margin-left: 20px;
+    border-radius: 10px 10px 10px 10px ;
+    background: #2eb85c;
+    border: none;
+    color: white;
+    font-size: 25px;
+    transition: 0.1s;
+
+
+}
+#location{
+    width:15%;
+}
+#what {
+    width:35%;
+}
+#searchBar button:hover{
+    cursor: pointer;
+    transform: scale(1.1);
+    transition: 0.1s;
+}
