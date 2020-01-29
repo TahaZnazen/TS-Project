@@ -48,17 +48,29 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: [true, "Please proivde your location"]
   },
-
-  companyPost: [
+  expertise: String, // junior or senior
+  appliedJobs: [
     {
-      type: mongoose.Schema.ObjectId,
-      ref: "CompanyPost"
+      job: {
+        type: mongoose.Schema.ObjectId,
+        ref: "JobOffer"
+      },
+      status: {
+        type: String,
+        default: "Pending"
+      }
     }
-  ]
+  ],
+  userCv: {
+    type: mongoose.Schema.ObjectId,
+    ref: "CV"
+  },
+  cratedAt: {
+    type: Date,
+    default: Date.now
+  }
 });
 
-// this middelware will be invodked before  save() and create()
-// it's gonna crypt the password before added to the DB
 UserSchema.pre("save", async function(next) {
   // Only run this function if password was actually modified
   if (!this.isModified("password")) return next();

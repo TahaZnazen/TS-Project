@@ -24,13 +24,24 @@ const CompanySchema = new mongoose.Schema({
     type: String
     // required: [true, "Please provide us your phone number"]
   },
-  nationality: {
-    type: String
-    // required: [true, "Please proivde your nationality"]
-  },
   location: {
     type: String
     // required: [true, "Please proivde your location"]
+  },
+  description: String,
+  jobOffers: [
+    {
+      type: mongoose.Schema.ObjectId,
+      ref: "JobOffer"
+    }
+  ],
+  premium: {
+    type: Boolean,
+    default: false
+  },
+  cratedAt: {
+    type: Date,
+    default: Date.now
   }
 });
 

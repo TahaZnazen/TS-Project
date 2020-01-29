@@ -4,6 +4,7 @@
     justify-content: center;
     margin-top: 20px;
     align-items: center;
+    z-index: 5;
 }
 #searchBar input {
     height: 50px;
@@ -15,17 +16,14 @@
     box-sizing: content-box;
 }
 #searchBar button{
-    height: 50px;
+    height: 55px;
     width:4%;
-    margin-left: 20px;
-    border-radius: 10px 10px 10px 10px ;
+    margin-left: 5px;
     background: #2eb85c;
     border: none;
     color: white;
     font-size: 25px;
     transition: 0.1s;
-
-
 }
 #location{
     width:15%;
