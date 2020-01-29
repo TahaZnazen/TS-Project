@@ -1,13 +1,11 @@
-const mongoose = require('mongoose');
-const User = require('./UserModel')
+const mongoose = require("mongoose");
+const User = require("./UserModel");
 const LanguageSchema = new mongoose.Schema({
-    language: String,
-    level: String,
-    User: [{}]
-})
+  language: String,
+  level: String,
+  User: [{}]
+});
 
-
-
-const language = mongoose.model('language', userSchema);
+const language = mongoose.model("language", userSchema);
 
 module.exports = language;
