@@ -37,7 +37,10 @@ const JobOfferSchema = new mongoose.Schema({
   salaryMin: Number,
   salaryMax: Number,
   expirationDate: Date, // expiration date
-  cratedAt: new Date()
+  created: {
+    type: Date,
+    default: Date.now
+  }
 });
 
 const JobOffer = mongoose.model("JobOffer", JobOfferSchema);

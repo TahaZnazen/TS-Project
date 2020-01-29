@@ -8,6 +8,11 @@ exports.getAllCvs = (req, res) => {
 };
 
 //get Cv with user Id
+exports.getOneCv = (req, res) => {
+  res.json({
+    msg: "profile Id" + req.params.id_User
+  });
+};
 
 //get Cv with Id Cv
 
@@ -27,4 +32,6 @@ exports.createCv = (req, res) => {
 exports.deleteCv = (req, res) => {};
 
 //Update User CV
-exports.update = (req, res) => {};
+exports.updateCv = (req, res) => {
+  res.json({ msg: "id profile to update" + req.prams.id_cv });
+};

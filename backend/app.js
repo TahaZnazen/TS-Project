@@ -4,7 +4,7 @@ const cors = require("cors");
 const app = express();
 
 const userRouter = require("./routes/userRouter");
-const cvRouter = require("./routes/cvRouter");
+const cvRoute = require("./routes/cvRoute");
 
 app.use(morgan("dev"));
 app.use(express.json());
@@ -13,6 +13,6 @@ app.use(cors());
 //ROUTES
 
 app.use("/api/v1/users", userRouter);
-app.use("/api/v1/cvs", cvRouter);
+app.use("/api/cvs", cvRoute);
 
 module.exports = app;
