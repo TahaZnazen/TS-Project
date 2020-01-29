@@ -47,6 +47,7 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: [true, "Please proivde your location"]
   },
+<<<<<<< HEAD
 
   companyPost: [
     {
@@ -54,6 +55,26 @@ const UserSchema = new mongoose.Schema({
       ref: "CompanyPost"
     }
   ]
+=======
+  expertise: String, // junior or senior
+  appliedJobs: [
+    {
+      job: {
+        type: mongoose.Schema.ObjectId,
+        ref: "JobOffer"
+      },
+      status: {
+        type: String,
+        default: "Pending"
+      }
+    }
+  ],
+  userCv: {
+    type: mongoose.Schema.ObjectId,
+    ref: "CV"
+  },
+  cratedAt: new Date()
+>>>>>>> 4f5a6c61ff55867f51a92f3dbe8ce8471eac7647
 });
 
 const User = mongoose.model("User", UserSchema);
