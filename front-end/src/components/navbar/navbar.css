@@ -1,0 +1,30 @@
+nav{
+    height: 5vh;
+    box-shadow: 9px -2px 12px;
+    display: flex;
+    justify-content: center;
+}
+#mainNav{
+    height: 100%;
+    width: 80%;
+    position :relative;
+    display: flex;
+    justify-content: space-between;
+}
+#mainNav div{
+    display: flex;
+    width: 35%;
+    align-items: center;
+
+}
+#mainNav div h4{
+    margin: 0 5%;
+    color: white;
+    font-size:22px;
+    cursor: pointer;
+    
+}
+nav h1{
+    color: #000000;
+    font-family: sans-serif;
+}

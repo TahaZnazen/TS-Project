@@ -1,44 +1,164 @@
-*{
-    outline: none;
-  
-    margin:0;
-    padding: 0;
+* {
+  outline: none;
 
+  margin: 0;
+  padding: 0;
 }
-button{
-    cursor: pointer;
+body {
+  background-color: white;
 }
-section{
-    height:73vh;
-    background-color: pink;
-    background-image: url(wallpaper.gif);
-    background-size: 100% 100%; 
-    position: relative;
-    display: flex;
-    flex-direction: column;
+button {
+  cursor: pointer;
+}
+section {
+  height: 67vh;
+  background-color: pink;
+  background-image: url(https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80);
+  background-size: 100% 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  z-index: 1;
 }
 
-
-#container{
-    width: 100%;
-    color: white;
-    position: relative;
-    top: 20%;
-
+section:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(68, 68, 68, 0.247);
+  z-index: -1;
 }
-#container h1{
-    color: white;
-    text-align: center;
-    z-index: 20;
-    font-size: 60px;
-    font-family: sans-serif;
-    font-weight: lighter;
+
+#container {
+  width: 100%;
+  color: white;
+  position: relative;
+  top: 20%;
 }
-#container h2{
-    color: rgb(236, 236, 236);
-    text-align: center;
-    margin-top: 10px;
-    font-size: 20px;
-    font-family: sans-serif;
-    font-weight: lighter;
+#container h1 {
+  color: white;
+  text-align: center;
+  z-index: 20;
+  font-size: 60px;
+  font-family: sans-serif;
+  font-weight: lighter;
+}
+#container h2 {
+  color: rgb(236, 236, 236);
+  text-align: center;
+  margin-top: 10px;
+  font-size: 20px;
+  font-family: sans-serif;
+  font-weight: lighter;
+}
+
+#purpose {
+  height: 25vh;
+  background-color: #ebedef;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+#purpose h1 {
+  width: 100%;
+  text-align: center;
+}
+#purposeWork {
+  height: 80%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#purposeWork div {
+  margin: 10px;
+  padding: 10px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#purposeWork div h4 {
+  text-align: center;
+  font-size: 50px;
+  color: #2eb85c;
+}
+#information {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+  height: 70vh;
+  align-items: center;
+  width: 100%;
+}
+#information h1 {
+  width: 100%;
+  text-align: center;
+}
+#information h5 {
+  width: 50%;
+  text-align: center;
+  color: #8f8e8e;
+}
+.userInfo {
+  margin-top: 30px;
+  height: 60vh;
+  width: 100%;
+  display: flex;
+  background-image: url(https://cdn.pixabay.com/photo/2016/03/27/19/00/coffee-1283672_1280.jpg);
+  background-size: 100% 100%;
+}
+.userInfo div {
+  width: 60%;
+  height: 60vh;
+  display: flex;
+  justify-content: flex-end;
+  background-color: transparent;
+  position: relative;
+  z-index: 2;
+}
+
+.userDeepInfo {
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+  align-items: flex-start;
+  color: white;
+}
+.userDeepInfo h2 {
+  text-align: left;
+  width: 100%;
+  font-size: 50px;
+}
+.userDeepInfo p {
+  font-size: 18px;
+  width: 60%;
+}
+.userDeepInfo button {
+  background: none;
+  border: 2px solid white;
+  color: white;
+  font-size: 18px;
+  width: 60%;
+  height: 70px;
+  transition: 0.2s;
+}
+.userDeepInfo button:hover {
+  transition: 0.2s;
+  background-color: white;
+  color: black;
+}
+
+#secondDiv:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #33cc66b9;
+  z-index: 1;
 }
