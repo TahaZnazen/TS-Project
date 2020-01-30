@@ -6,7 +6,7 @@ const jwt = require("jsonwebtoken");
 const User = require("./models/UserModel");
 const userRouter = require("./routes/userRoute");
 const jobOfferRoute = require("./routes/jobOfferRoute");
-const cvRouter = require("./routes/cvRouter");
+const cvRoute = require("./routes/cvRoute");
 
 app.use(morgan("dev"));
 app.use(express.json());
@@ -32,6 +32,6 @@ app.get("/confirmation/:token", async (req, res) => {
 });
 app.use("/api/v1/users", userRouter);
 app.use("/api/post", jobOfferRoute);
-app.use("/api/v1/cvs", cvRouter);
+app.use("/api/cvs", cvRoute);
 
 module.exports = app;

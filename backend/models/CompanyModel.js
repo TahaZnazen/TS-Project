@@ -39,7 +39,7 @@ const CompanySchema = new mongoose.Schema({
     type: Boolean,
     default: false
   },
-  cratedAt: {
+  createdAt: {
     type: Date,
     default: Date.now
   }

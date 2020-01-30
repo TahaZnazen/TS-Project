@@ -65,7 +65,7 @@ const UserSchema = new mongoose.Schema({
     type: mongoose.Schema.ObjectId,
     ref: "CV"
   },
-  cratedAt: {
+  createdAt: {
     type: Date,
     default: Date.now
   },

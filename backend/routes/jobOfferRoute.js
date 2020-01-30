@@ -1,9 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const jobOfferModel = require("../controllers/jobOfferController");
+const jobOfferController = require("../controllers/jobOfferController");
 
-router.route("/addPost/:id").post(jobOfferModel.addPost);
-router.route("/postUpdate/:id").patch(jobOfferModel.findAndUpdate);
-router.route("/deletePost/:id").delete(jobOfferModel.findAndDelete);
-
+router.route("/addPost/:id").post(jobOfferController.addPost);
+router.route("/postUpdate/:id").patch(jobOfferController.findAndUpdate);
+router.route("/deletePost/:id").delete(jobOfferController.findAndDelete);
+router.route("/showPosts").get(jobOfferController.findAll);
+router.route("/showPosts/:id").get(jobOfferController.findOne);
+router.route("/search").get(jobOfferController.search);
 module.exports = router;
