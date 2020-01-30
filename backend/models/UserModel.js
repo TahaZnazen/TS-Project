@@ -68,7 +68,12 @@ const UserSchema = new mongoose.Schema({
   cratedAt: {
     type: Date,
     default: Date.now
-  }
+  },
+  active: {
+    type: Boolean,
+    default: false
+  },
+  verifeToken: String
 });
 
 UserSchema.pre("save", async function(next) {
