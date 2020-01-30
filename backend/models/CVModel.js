@@ -15,7 +15,7 @@ const CVSchema = new mongoose.Schema({
       start: Date,
       end: Date,
       companyName: String,
-      postion: String,
+      position: String,
       task: String
     }
   ],

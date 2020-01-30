@@ -64,7 +64,10 @@ const UserSchema = new mongoose.Schema({
     type: mongoose.Schema.ObjectId,
     ref: "CV"
   },
-  cratedAt: new Date()
+  created: {
+    type: Date,
+    default: Date.now
+  }
 });
 
 const User = mongoose.model("User", UserSchema);
