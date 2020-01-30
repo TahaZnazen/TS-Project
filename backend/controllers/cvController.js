@@ -70,7 +70,7 @@ exports.createCv = (req, res) => {
 
 /////////////////////////////////////// Experience  operation ///////////////////////////////////////////////////
 
-//Add experience to Cv Done ! //cvs/cv_id/id_experience
+//Add experiences to Cv Done ! //cvs/cv_id/id_experience
 exports.addExperience = (req, res) => {
   try {
     let _id = req.params.id_Cv;
@@ -83,6 +83,21 @@ exports.addExperience = (req, res) => {
         });
       }
     );
+  } catch (err) {
+    res.send(err);
+  }
+};
+//add all skills to cv Done !
+exports.addExperiences = (req, res) => {
+  const { data } = req.body;
+  _id = req.params.id_Cv;
+  try {
+    CV.findOneAndUpdate({ _id }, { $push: { experience: data } }).then(() => {
+      res.status(201).json({
+        status: "success",
+        msg: "experiences added to cv with id " + _id
+      });
+    });
   } catch (err) {
     res.send(err);
   }
@@ -137,10 +152,10 @@ exports.updateOneExperience = (req, res) => {
     const { start, end, companyName, position, task } = req.body;
     console.log(_id);
     console.log(id_experience);
-    CV.findOne({ _id, "experience.$._id": id_experience }).then(data => {
+    /* CV.updateOne({ _id, "experience._id": id_experience }).then(data => {
       console.log(data);
-    });
-    CV.findOneAndUpdate(
+    }); */
+    CV.findByIdAndUpdate(
       { _id, "experience.$._id": id_experience }, //$ to target element inside the array
       {
         $set: {
@@ -166,7 +181,6 @@ exports.updateOneExperience = (req, res) => {
     res.send(err);
   }
 };
-
 //Update All User experience Done
 //cvs/id_cv
 exports.updateAllExperiences = (req, res) => {
@@ -206,6 +220,21 @@ exports.addEducation = (req, res) => {
         });
       }
     );
+  } catch (err) {
+    res.send(err);
+  }
+};
+//add all educations to cv Done !
+exports.addEducations = (req, ress) => {
+  const { data } = req.body;
+  _id = req.params.id_Cv;
+  try {
+    CV.findOneAndUpdate({ _id }, { $push: { education: data } }).then(() => {
+      res.status(201).json({
+        status: "success",
+        msg: "educations added to cv with id " + _id
+      });
+    });
   } catch (err) {
     res.send(err);
   }
@@ -329,6 +358,22 @@ exports.addSkill = (req, res) => {
   }
 };
 
+//add all skills to cv Done !
+exports.addSkills = (req, ress) => {
+  const { data } = req.body;
+  _id = req.params.id_Cv;
+  try {
+    CV.findOneAndUpdate({ _id }, { $push: { skills: data } }).then(() => {
+      res.status(201).json({
+        status: "success",
+        msg: "Skills added to cv with id " + _id
+      });
+    });
+  } catch (err) {
+    res.send(err);
+  }
+};
+
 //Delete education from CV Done ! //cvs/id_cv/skill/id_skill
 exports.deleteSkill = (req, res) => {
   try {
@@ -424,7 +469,7 @@ exports.updateAllSKills = (req, res) => {
 
 /////////////////////////////////////// Language  operation ///////////////////////////////////////////////////
 
-//Add education to Cv Done ! //cvs/cv_id/addSkill
+//Add language to Cv Done ! //cvs/cv_id/addSkill
 exports.addLanguage = (req, res) => {
   try {
     let _id = req.params.id_Cv;
@@ -440,7 +485,23 @@ exports.addLanguage = (req, res) => {
   }
 };
 
-//Delete education from CV Done ! //cvs/id_cv/skill/id_language DONE
+//add All languages to Cv
+exports.addLanguages = (req, ress) => {
+  const { data } = req.body;
+  _id = req.params.id_Cv;
+  try {
+    CV.findOneAndUpdate({ _id }, { $push: { language: data } }).then(() => {
+      res.status(201).json({
+        status: "success",
+        msg: "languages added to cv with id " + _id
+      });
+    });
+  } catch (err) {
+    res.send(err);
+  }
+};
+
+//Delete language from CV Done ! //cvs/id_cv/skill/id_language DONE
 exports.deleteLanguage = (req, res) => {
   try {
     const _id = req.params.id_Cv;
@@ -463,7 +524,7 @@ exports.deleteLanguage = (req, res) => {
   }
 };
 
-//Get All education by Cv Done !
+//Get All language by Cv Done !
 exports.getAllLanguages = (req, res) => {
   try {
     let _id = req.params.id_Cv;
@@ -511,7 +572,7 @@ exports.updateOneLanguage = (req, res) => {
   }
 };
 
-//Update All User education//cvs/id_cv/languages  Done !!!
+//Update All User language //cvs/id_cv/languages  Done !!!
 exports.updateAllLanguages = (req, res) => {
   try {
     _id = req.params.id_Cv;
