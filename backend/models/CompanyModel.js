@@ -39,7 +39,10 @@ const CompanySchema = new mongoose.Schema({
     type: Boolean,
     default: false
   },
-  cratedAt: new Date() // company profile creation date
+  createdAt: {
+    type: Date,
+    default: Date.now
+  }
 });
 
 const Company = mongoose.model("Company", CompanySchema);
