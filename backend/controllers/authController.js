@@ -86,15 +86,6 @@ exports.signup = async (req, res) => {
   }
 };
 
-// // send mail with defined transport object
-// let info = await transporter.sendMail({
-//   from: "Wazzaka-Team <dandenhamza@yahoo.com>", // sender address
-//   to: newUser.email, // list of receivers
-//   subject: "verife your account", // Subject line
-//   text: "Verife your account", // plain text body
-//   html: `<a href='${url}'>Click here to verife you account</a>` // html body
-// });
-
 exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
