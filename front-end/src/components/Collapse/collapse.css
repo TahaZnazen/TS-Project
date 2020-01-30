@@ -1,0 +1,34 @@
+.panel-collapse {
+  max-height: 500px;
+  overflow: hidden;
+  transition: max-height 1s ease;
+}
+.panel-close {
+  max-height: 0;
+}
+.coll {
+  width: 100%;
+  display: flex;
+}
+.panel-title {
+  width: 80vw;
+  text-align: center;
+}
+.coll div {
+  margin: 0 40px;
+  width: 25%;
+  height: 500px;
+  display: flex;
+  justify-content: center;
+}
+.all {
+  display: flex;
+  flex-direction: column;
+}
+h6 {
+  font-size: 50px;
+  cursor: pointer;
+  height: 40px;
+  margin-bottom: "50px";
+  color: #20a8d8;
+}
