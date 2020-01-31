@@ -22,9 +22,7 @@ exports.findAll = async (req, res) => {
         createdAt: -1
       })
       .populate("companyName", ["name"]);
-    res.status(201).json({
-      data: result
-    });
+    res.status(201).json(result);
   } catch (err) {
     res.json({ err });
   }
