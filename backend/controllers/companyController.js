@@ -1,4 +1,5 @@
 const company = require("../models/CompanyModel");
+const offers = require("../models/JobOfferModel");
 exports.addCompany = async (req, res) => {
   try {
     const newCompany = await company.create(req.body);
@@ -29,6 +30,17 @@ exports.topCompanies = async (req, res) => {
     res.status(201).json({
       data: top5
     });
+  } catch (err) {
+    res.json({ err });
+  }
+};
+exports.findOffers = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const companyToShowOffers = await company
+      .findById(id)
+      .populate("jobOffers");
+    res.status(201).json(companyToShowOffers.jobOffers);
   } catch (err) {
     res.json({ err });
   }
