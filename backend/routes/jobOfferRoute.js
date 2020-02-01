@@ -8,4 +8,6 @@ router.route("/deletePost/:id").delete(jobOfferController.findAndDelete);
 router.route("/showPosts").get(jobOfferController.findAll);
 router.route("/showPosts/:id").get(jobOfferController.findOne);
 router.route("/search").get(jobOfferController.search);
+
+router.route("/category").post(jobOfferController.searchBycategory);
 module.exports = router;
