@@ -6,6 +6,7 @@ const app = express();
 const userRouter = require("./routes/userRouter");
 const jobOfferRoute = require("./routes/jobOfferRoute");
 const cvRoute = require("./routes/cvRoute");
+const companyRoute = require("./routes/companyRoute");
 
 app.use(morgan("dev"));
 app.use(express.json());
@@ -16,5 +17,5 @@ app.use(cors());
 app.use("/api/v1/users", userRouter);
 app.use("/api/post", jobOfferRoute);
 app.use("/api/cvs", cvRoute);
-
+app.use("/api/company", companyRoute);
 module.exports = app;
