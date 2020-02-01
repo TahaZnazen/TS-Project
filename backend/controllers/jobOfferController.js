@@ -96,24 +96,36 @@ exports.search = async (req, res) => {
     res.json({ err });
   }
 };
-// exports.salaryFilter = async (req, res) => {
-//   try {
-//     const salaryMin = req.body.salaryMin;
-//     const salaryMax = req.body.salaryMax;
-//     const filters = await jobOffer.find({
-//       salaryMin: { $gte: salaryMin }
-//     });
-//     res.status(201).json({ data: filters });
-//   } catch (err) {}
-// };
-exports.salaryFilter = async (req, res) => {
+
+const convertDateToInt = dateString => {
+  let result;
+  const now = new Date();
+  if (dateString === "month ago") {
+    result = now.setMonth(now.getMonth() - 1);
+  } else if (dateString === "week ago") {
+    result = now.setDate(now.getDate() - 1 * 7);
+  } else if (dateString === "day ago") {
+    result = now.setDate(now.getDate() - 1);
+  }
+  return result;
+};
+
+exports.searchBycategory = async (req, res) => {
   try {
-    const salarybetween = await jobOffer.aggregate([
-      { $match: { salaryMin: { $gte: req.body.salaryMin } } },
-      { $match: { salaryMax: { $lte: req.body.salaryMin } } }
-    ]);
-    res.status(201).json({
-      data: salarybetween
+    const time = convertDateToInt(req.body.time);
+    // const test = await jobOffer.findOne();
+    // console.log(new Date() < test.createdAt);
+
+    req.body.salaryMin = req.body.salaryMin || 0;
+    const jobs = await jobOffer.find({
+      salaryMin: { $gte: req.body.salaryMin },
+      jobType: { $eq: req.body.jobType },
+      createdAt: { $gte: new Date(time) }
     });
-  } catch (err) {}
+
+    res.json({ results: jobs.length, jobs });
+  } catch (err) {
+    console.log(err);
+    res.json({ err });
+  }
 };

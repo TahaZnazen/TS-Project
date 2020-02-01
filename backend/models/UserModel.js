@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
+const bcrypt = require("bcryptjs");
 
 const UserSchema = new mongoose.Schema({
   name: {
@@ -64,11 +65,36 @@ const UserSchema = new mongoose.Schema({
     type: mongoose.Schema.ObjectId,
     ref: "CV"
   },
-  created: {
+  createdAt: {
     type: Date,
     default: Date.now
-  }
+  },
+  active: {
+    type: Boolean,
+    default: false
+  },
+  verifeToken: String
 });
+
+UserSchema.pre("save", async function(next) {
+  // Only run this function if password was actually modified
+  if (!this.isModified("password")) return next();
+
+  // hash the password with cost of 12
+  this.password = await bcrypt.hash(this.password, 12);
+
+  // delete passwordConfirm field
+  this.passwordConfirm = undefined;
+  next();
+});
+
+// This is an insteans method will  available for this collection
+UserSchema.methods.correctPassword = async function(
+  candidatePassword,
+  userPassword
+) {
+  return await bcrypt.compare(candidatePassword, userPassword);
+};
 
 const User = mongoose.model("User", UserSchema);
 
