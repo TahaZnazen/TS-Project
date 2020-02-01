@@ -41,7 +41,8 @@ const JobOfferSchema = new mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now
-  }
+  },
+  jobType: String
 });
 
 const JobOffer = mongoose.model("JobOffer", JobOfferSchema);
