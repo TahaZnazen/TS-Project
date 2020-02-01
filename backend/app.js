@@ -7,6 +7,7 @@ const User = require("./models/UserModel");
 const userRouter = require("./routes/userRoute");
 const jobOfferRoute = require("./routes/jobOfferRoute");
 const cvRoute = require("./routes/cvRoute");
+const companyRoute = require("./routes/companyRoute");
 
 app.use(morgan("dev"));
 app.use(express.json());
@@ -33,5 +34,5 @@ app.get("/confirmation/:token", async (req, res) => {
 app.use("/api/v1/users", userRouter);
 app.use("/api/post", jobOfferRoute);
 app.use("/api/cvs", cvRoute);
-
+app.use("/api/company", companyRoute);
 module.exports = app;

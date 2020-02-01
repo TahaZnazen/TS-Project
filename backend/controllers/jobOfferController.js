@@ -1,16 +1,23 @@
 const jobOffer = require("../models/JobOfferModel");
-require("../models/CompanyModel");
+const Company = require("./../models/CompanyModel");
 
 const _ = require("underscore");
+//
 exports.addPost = async (req, res) => {
   try {
+    // const company = await Company.findById(req.params.id);
+    // if (company.premium === false) {
+    // }
     req.body.companyName = req.params.id;
     const newPost = await jobOffer.create(req.body);
-    res.status(201).json({
-      data: { newPost }
-    });
+    res.status(201).json(newPost);
+    return Company.findByIdAndUpdate(
+      req.body.companyName,
+      { $push: { jobOffers: newPost._id } },
+      { new: true, useFindAndModify: false }
+    );
   } catch (err) {
-    res.json({ err });
+    console.log(err);
   }
 };
 
@@ -22,9 +29,7 @@ exports.findAll = async (req, res) => {
         createdAt: -1
       })
       .populate("companyName", ["name"]);
-    res.status(201).json({
-      data: result
-    });
+    res.status(201).json(result);
   } catch (err) {
     res.json({ err });
   }
@@ -35,7 +40,7 @@ exports.findOne = async (req, res) => {
     const id = req.params.id;
     const result = await jobOffer
       .findById(id)
-      .populate("companyName", ["name", "description"]);
+      .populate("companyName", ["name", "description"]); // add ,"photo" when database is correctly filled
     res.status(201).json({
       data: result
     });
@@ -68,48 +73,29 @@ exports.findAndUpdate = async (req, res) => {
 
 exports.search = async (req, res) => {
   try {
-    const skills = req.body.skills.split(" ");
+    const skills = req.body.skills.toLowerCase().split(" ");
     const location = req.body.location;
     const offers = await jobOffer.find({
-      location,
-      "skillRequired.name": {
-        $in: skills
-      }
+      $or: [
+        { location },
+        {
+          "skillRequired.name": {
+            $in: skills
+          }
+        },
+        {
+          location,
+          "skillRequired.name": {
+            $in: skills
+          }
+        }
+      ]
     });
-    res.send(offers);
+    res.status(201).send(offers);
   } catch (err) {
     res.json({ err });
   }
 };
-
-// exports.searchBycategory = async (req, res) => {
-//   try {
-//     req.body.salaryMin = req.body.salaryMin || 0;
-
-//     // req.body.jobType = req.body.jobType || "any"; //
-//     console.log(req.body.jobType, req.body.salaryMin);
-//     const jobs = await jobOffer.aggregate([
-//       {
-//         $match: {
-//           salaryMin: { $gte: req.body.salaryMin }
-//         }
-//       },
-//       // {
-//       //   $match: {
-//       //     salaryMin: { $lte: req.body.salaryMax }
-//       //   }
-//       // },
-//       {
-//         $match: {
-//           jobType: { $eq: req.body.jobType }
-//         }
-//       }
-//     ]);
-//     res.json({ jobs });
-//   } catch (err) {
-//     console.log(err);
-//   }
-// };
 
 const convertDateToInt = dateString => {
   let result;
@@ -143,29 +129,3 @@ exports.searchBycategory = async (req, res) => {
     res.json({ err });
   }
 };
-
-// exports.search = async (req, res) => {
-//   try {
-//     const skills = req.body.skills.split(" ");
-//     const location = req.body.location;
-//     const offers = await jobOffer.find({
-//       $or: [
-//         { location },
-//         {
-//           "skillRequired.name": {
-//             $in: skills
-//           }
-//         },
-//         {
-//           location,
-//           "skillRequired.name": {
-//             $in: skills
-//           }
-//         }
-//       ]
-//     });
-//     res.status(201).send(offers);
-//   } catch (err) {
-//     res.json({ err });
-//   }
-// };
