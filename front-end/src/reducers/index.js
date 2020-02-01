@@ -1,12 +1,10 @@
 import { combineReducers } from "redux";
-import TestReducer from "./testReducer";
-import counter from "../store/reducers/counter";
-import items from "../store/reducers/items";
+import cvReducer from "./cvReducer";
+//import { reducer as formReducer } from "redux-form";
 
 const reducers = combineReducers({
-  test: TestReducer,
-  counter: counter,
-  items: items
+  cvUser: cvReducer
+  //userExperiencesForm: formReducer
 });
 
 export default reducers;

@@ -6,20 +6,9 @@ import App from "./App";
 import { Provider } from "react-redux";
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
-import counterReducer from "./store/reducers/counter";
-import itemsReducer from "./store/reducers/items";
 
-//test my reducer
-
-import reducer from "./reducers";
-import testReducer from "./reducers/testReducer";
-
-/* const rootReducer = combineReducers({
-  count: counterReducer,
-  items: itemsReducer,
-  data: testReducer
-}); */
-const store = createStore(reducer, applyMiddleware(thunk));
+import reducers from "./reducers";
+const store = createStore(reducers, applyMiddleware(thunk));
 
 ReactDOM.render(
   <Provider store={store}>
