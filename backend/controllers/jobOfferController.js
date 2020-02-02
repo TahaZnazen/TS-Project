@@ -1,6 +1,6 @@
 const jobOffer = require("../models/JobOfferModel");
 const Company = require("./../models/CompanyModel");
-
+const user = require("../models/UserModel");
 const _ = require("underscore");
 //
 exports.addPost = async (req, res) => {
@@ -73,7 +73,7 @@ exports.findAndUpdate = async (req, res) => {
 
 exports.search = async (req, res) => {
   try {
-    const skills = req.body.skills.toLowerCase().split(" ");
+    const skills = req.body.skills.split(" ");
     const location = req.body.location;
     const offers = await jobOffer.find({
       $or: [
@@ -127,5 +127,14 @@ exports.searchBycategory = async (req, res) => {
   } catch (err) {
     console.log(err);
     res.json({ err });
+  }
+};
+exports.apply = async (req, res) => {
+  try {
+    const idUser = req.params.idUser;
+    const idOffre = req.params.idOffer;
+    const offer = await jobOffer.findById(idOffre);
+  } catch (err) {
+    res.json(err);
   }
 };
