@@ -8,7 +8,7 @@ export default class Login extends Component {
     super(props);
     this.state = {
       email: "",
-      passWord: ""
+      password: ""
     };
 
     this.Change = this.Change.bind(this);
@@ -17,13 +17,13 @@ export default class Login extends Component {
 
   Submit(e) {
     e.preventDefault();
-    if (this.state.email !== "" && this.state.passWord !== "") {
+    if (this.state.email !== "" && this.state.password !== "") {
       console.log(this.state);
       let data = this.state;
       axios
-        .post(`/api/v1/users/signin`, { data })
+        .post("http://localhost:8080/api/v1/users/login", { data })
         .then(res => {
-          console.log(res.data);
+          localStorage.setItem("Token", res.data.token);
         })
         .catch(err => console.log(err));
     }
@@ -46,7 +46,7 @@ export default class Login extends Component {
             type="email"
           />
           <input
-            name="passWord"
+            name="password"
             placeholder="Password ..."
             onChange={this.Change}
             type="passWord"

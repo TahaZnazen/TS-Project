@@ -58,7 +58,7 @@ exports.createCv = (req, res) => {
     let newCv = new CV();
     CV.create(newCv)
       .then(() => {
-        res.json({ tatus: "success", msg: "new cv Created ", details: newCv });
+        res.json({ status: "success", msg: "new cv Created ", details: newCv });
       })
       .catch(err => {
         res.send(err);

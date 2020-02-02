@@ -73,7 +73,7 @@ exports.findAndUpdate = async (req, res) => {
 
 exports.search = async (req, res) => {
   try {
-    const skills = req.body.skills.toLowerCase().split(" ");
+    const skills = req.body.skills.split(" ");
     const location = req.body.location;
     const offers = await jobOffer.find({
       $or: [

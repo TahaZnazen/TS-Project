@@ -6,9 +6,9 @@ export default class Register extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      userName: "",
-      passWord: "",
-      passWordVerification: "",
+      name: "",
+      password: "",
+      passwordConfirmation: "",
       email: ""
     };
 
@@ -18,11 +18,11 @@ export default class Register extends Component {
 
   Submit(e) {
     e.preventDefault();
-    if (this.state.email !== "" && this.state.passWord !== "") {
+    if (this.state.email !== "" && this.state.password !== "") {
       console.log(this.state);
       let data = this.state;
       axios
-        .post(`/api/v1/users/signup`, { data })
+        .post(`http://localhost:8080/api/v1/users/signup`, { data })
         .then(res => {
           console.log(res.data);
         })
@@ -41,22 +41,22 @@ export default class Register extends Component {
 
         <form className="AuthForm">
           <input
-            name="userName"
+            name="name"
             placeholder="user name ... "
             onChange={this.Change}
             type="text"
           />
           <input
-            name="passWord"
-            placeholder="Password ..."
+            name="password"
+            placeholder="password ..."
             onChange={this.Change}
-            type="passWord"
+            type="password"
           />
           <input
-            name="passWordVerification"
-            placeholder="passWord Verification ..."
+            name="passwordConfirmation"
+            placeholder="password Confirmation ..."
             onChange={this.Change}
-            type="passWord"
+            type="password"
           />
           <input
             name="email"

@@ -36,7 +36,7 @@ class SearchBar extends Component {
         />
         <button
           onClick={() =>
-            this.state.skills && this.state.location
+            this.state.skills || this.state.location
               ? this.props.filterPosts(this.state.skills, this.state.location)
               : null
           }
