@@ -1,6 +1,9 @@
 const User = require("./../models/UserModel");
 const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
+const Cv = require("./../models/CVModel");
+const { promisify } = require("util");
+
 // signToken will create a token to the user take the id of the user
 const signToken = (id, secret) => {
   return jwt.sign({ id: id }, secret, {
@@ -42,9 +45,14 @@ const sendEmail = option => {
   main().catch(console.error);
 };
 
+// const { createCv } = require("./cvController");
 exports.signup = async (req, res) => {
   try {
+    // console.log(createCv);
+
     const newUser = await User.create(req.body);
+    newCv = await Cv.create({ user_id: newUser._id });
+    // Cv.create();
 
     const token = signToken(newUser._id, process.env.JWT_SECRET); // This token for autheraztion
     const verifeToken = signToken(newUser._id, "emailsecter"); // this toke is for verification
@@ -106,7 +114,7 @@ exports.login = async (req, res) => {
     }
 
     //  If  everything ok , create token and send it to client
-    const token = signToken(user._id, "passSecret");
+    const token = signToken(user._id, process.env.JWT_SECRET);
     res.status(200).json({
       status: "success",
       token
@@ -117,3 +125,27 @@ exports.login = async (req, res) => {
     res.json({ err });
   }
 };
+
+exports.protectUser = async (req, res, next) => {
+  try {
+    if (!req.headers.token) {
+      res.json({ message: "login please" });
+    }
+
+    // we promesify this to escape from callback hell
+    const decoded = await promisify(jwt.verify)(
+      req.headers.token,
+      process.env.JWT_SECRET
+    );
+
+    const user = await User.findOne({ _id: decoded.id });
+    // res.json({ user });
+    if (user) {
+      next;
+    }
+  } catch (err) {
+    res.json({ err });
+  }
+
+  next();
+}; // protect DONE!

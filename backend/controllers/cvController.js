@@ -55,10 +55,12 @@ exports.deleteCv = (req, res) => {
 //Add User CV DONE ! //cvs
 exports.createCv = (req, res) => {
   try {
-    let newCv = new CV();
+    console.log(req.body);
+    let newCv = new CV(req.body._id);
     CV.create(newCv)
       .then(() => {
-        res.json({ tatus: "success", msg: "new cv Created ", details: newCv });
+        // console.log(newCv);
+        res.json({ status: "success", msg: "new cv Created ", details: newCv });
       })
       .catch(err => {
         res.send(err);
