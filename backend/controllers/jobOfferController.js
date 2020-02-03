@@ -5,9 +5,6 @@ const _ = require("underscore");
 //
 exports.addPost = async (req, res) => {
   try {
-    // const company = await Company.findById(req.params.id);
-    // if (company.premium === false) {
-    // }
     req.body.companyName = req.params.id;
     const newPost = await jobOffer.create(req.body);
     res.status(201).json(newPost);
@@ -132,9 +129,19 @@ exports.searchBycategory = async (req, res) => {
 exports.apply = async (req, res) => {
   try {
     const idUser = req.params.idUser;
-    const idOffre = req.params.idOffer;
-    const offer = await jobOffer.findById(idOffre);
+    const idOffre = req.params.idOffre;
+    let data = {};
+    data.job = idOffre;
+    await user.findByIdAndUpdate(idUser, {
+      $push: { appliedJobs: data }
+    });
+    res.json(201);
+    return jobOffer.findByIdAndUpdate(
+      idOffre,
+      { $push: { candidates: idUser } },
+      { new: true, useFindAndModify: false }
+    );
   } catch (err) {
-    res.json(err);
+    console.log(err);
   }
 };
