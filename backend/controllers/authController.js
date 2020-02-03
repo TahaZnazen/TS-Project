@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
 const Cv = require("./../models/CVModel");
 const { promisify } = require("util");
-
+const Company = require("./../models/CompanyModel");
 // signToken will create a token to the user take the id of the user
 const signToken = (id, secret) => {
   return jwt.sign({ id: id }, secret, {
@@ -48,8 +48,6 @@ const sendEmail = option => {
 // const { createCv } = require("./cvController");
 exports.signup = async (req, res) => {
   try {
-    // console.log(createCv);
-
     const newUser = await User.create(req.body);
     newCv = await Cv.create({ user_id: newUser._id });
     // Cv.create();
@@ -148,4 +146,38 @@ exports.protectUser = async (req, res, next) => {
   }
 
   next();
-}; // protect DONE!
+}; // protect need some refactor
+
+exports.signupCompany = async (req, res) => {
+  try {
+    const newCompany = await Company.create(req.body);
+    const token = signToken(newCompany._id, process.env.JWT_SECRET);
+    res.json({ newCompany });
+  } catch (err) {
+    console.log(err);
+    res.json({ err });
+  }
+};
+
+exports.loginCompany = async (req, res) => {
+  try {
+    const company = await Company.findOne({ email: req.body.email }).select(
+      "+password"
+    );
+    const correctPass = await company.comparePassword(
+      req.body.password,
+      company.password
+    );
+    if (!correctPass) {
+      res.json({ message: "wrong company Email or password" });
+    }
+    const token = signToken(company._id, process.env.JWT_SECRET);
+
+    res.json({ message: "degla", token, email: company.email });
+  } catch (err) {
+    console.log(err);
+    res.json({
+      err
+    });
+  }
+};
