@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { addEducation } from "../../../actions/cvActions";
-import { Link, BrowserRouter as Router, Redirect } from "react-router-dom";
+
+import { Form, FormGroup, Col, Label, Button, Input } from "reactstrap";
 
 class EducationForm extends Component {
   state = {
-    displayEducation: [],
+    displayEducation: {},
     key: 0
   };
 
@@ -20,131 +21,129 @@ class EducationForm extends Component {
 
     const id = this.props.cvUser[0]._id;
     this.props.addEducation(id, newEducation);
+
+    let elementToDelete = e.target.id;
+    let newDisplay = this.state.displayEducation;
+    delete newDisplay[elementToDelete];
+    this.setState({ displayEducation: newDisplay });
   };
 
   renderForm = () => {
-    console.log("form rendered");
     return (
-      <div
+      <Form
+        id={this.state.key}
+        onSubmit={this.handleSubmit}
         key={this.state.key}
-        className="container col-lg-8 mx-auto text-center"
       >
-        <form onSubmit={this.handleSubmit}>
-          <div className="row col-lg-10 mx-auto">
-            <div className="col-lg-4 text-left">
-              <label>Diploma</label>
-              <select id="diploma">
-                <option value="Bachelor">Bachelor</option>
-                <option value="Master">Master</option>
-                <option value="Bac +5">Bac +5 </option>
-                <option value="bac +10">Bac +10 </option>
-              </select>
-              <input
-                type="text"
-                name="degree"
-                id="degree"
-                className="form-control"
-                required
-              />
-            </div>
-            <div className="col-lg-4 text-left">
-              <label>establishment</label>
-              <input
-                type="text"
-                name="establishment"
-                id="establishment"
-                className="form-control"
-                required
-              />
-            </div>
-            <div className="col-lg-4 text-left">
-              <label>start date</label>
-              <input
-                type="date"
-                name="start"
-                id="start"
-                className="form-control"
-                required
-              />
-            </div>
-            <div className="col-lg-4 text-left">
-              <label>End date</label>
-              <input
-                type="date"
-                name="end"
-                id="end"
-                className="form-control"
-                required
-              />
-            </div>
-            <br />
-            <button type="submit" className="btn btn-info">
-              Save
-            </button>
-          </div>
-        </form>
-        <hr />
-      </div>
+        <FormGroup row>
+          <Col md="3">
+            <Label htmlFor="diploma">Diploma</Label>
+          </Col>
+          <Col xs="12" md="9">
+            <Input
+              type="text"
+              id="diploma"
+              name="diploma"
+              placeholder="diploma name ..."
+            />
+          </Col>
+        </FormGroup>
+        <FormGroup row>
+          <Col md="3">
+            <Label htmlFor="diploma">Degree</Label>
+          </Col>
+          <Col xs="12" md="9">
+            <Input type="select" name="degree" id="degree" bsSize="sm">
+              <option value="Bachelor">Bachelor</option>
+              <option value="Master">Master</option>
+              <option value="Engineer">Engineer</option>
+              <option value="Phd">Phd</option>
+              <option value="Others">Others</option>
+            </Input>
+          </Col>
+        </FormGroup>
+        <FormGroup row>
+          <Col md="3">
+            <Label htmlFor="establishment"> establishment</Label>
+          </Col>
+          <Col xs="12" md="9">
+            <Input
+              type="text"
+              id="establishment"
+              name="establishment"
+              placeholder="establishment name ..."
+            />
+          </Col>
+        </FormGroup>
+        <FormGroup row>
+          <Col md="3">
+            <Label htmlFor="start">Start Date</Label>
+          </Col>
+          <Col xs="12" md="9">
+            <Input
+              type="date"
+              id="start"
+              name="start"
+              placeholder="start at ..."
+            />
+          </Col>
+        </FormGroup>
+        <FormGroup row>
+          <Col md="3">
+            <Label htmlFor="end">End Date</Label>
+          </Col>
+          <Col xs="12" md="9">
+            <Input type="date" id="end" name="end" placeholder="date" />
+          </Col>
+        </FormGroup>
+        <Button
+          type="submit"
+          size="sm"
+          color="primary"
+          onSubmit={this.handleSubmit}
+        >
+          Add to my profil
+        </Button>
+      </Form>
     );
   };
 
   renderNewForm() {
-    const educationForms = this.state.displayEducation;
-    educationForms.push(this.renderForm());
+    const educationsForms = this.state.displayEducation;
+
+    educationsForms[this.state.key] = this.renderForm();
+
     let newKey = this.state.key + 1;
     this.setState({
-      displayEducation: educationForms,
+      displayEducation: educationsForms,
       key: newKey
     });
-  }
-  buttonDisplay() {
-    if (this.state.displayEducation.length > 0) {
-      return (
-        <div className="container text-center">
-          <Router>
-            <Link>
-              <button type="submit" className="btn btn-info">
-                Education
-              </button>
-            </Link>
-            <Link>
-              <button type="submit" className="btn btn-info">
-                skills
-              </button>
-            </Link>
-          </Router>
-        </div>
-      );
-    }
-    return null;
   }
   render() {
     return (
       <div>
         <div className="card animated fadeInLeft">
           <div className="card-body">
-            <h3 className="card-title">Education</h3>
+            <h3 className="card-title">My Educations</h3>
             <hr />
             <div>
               <button
                 className="btn btn-info"
                 onClick={this.renderNewForm.bind(this)}
               >
-                add language
+                add new education
               </button>
             </div>
           </div>
         </div>
 
-        <div>{this.state.displayEducation}</div>
-        <div>{this.buttonDisplay()}</div>
+        <div>{Object.values(this.state.displayEducation)}</div>
       </div>
     );
   }
 }
 
 const mapStateToProps = (state, ownProps) => {
-  console.log(state);
   return state;
 };
 

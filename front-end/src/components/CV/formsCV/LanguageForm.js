@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { addLanguage } from "../../../actions/cvActions";
-import { Link, BrowserRouter as Router, Redirect } from "react-router-dom";
 
-class Language extends Component {
+import { Form, FormGroup, Col, Label, Button, Input } from "reactstrap";
+
+class LanguageForm extends Component {
   state = {
-    displayLanguage: [],
+    displayLanguage: {},
     key: 0
   };
 
@@ -17,105 +18,97 @@ class Language extends Component {
 
     const id = this.props.cvUser[0]._id;
     this.props.addLanguage(id, newLanguage);
+
+    let elementToDelete = e.target.id;
+
+    let newDisplay = this.state.displayLanguage;
+    delete newDisplay[elementToDelete];
+    this.setState({ displayLanguage: newDisplay });
   };
 
   renderForm = () => {
-    console.log("form Language rendered");
     return (
-      <div
+      <Form
+        id={this.state.key}
+        onSubmit={this.handleSubmit}
         key={this.state.key}
-        className="container col-lg-8 mx-auto text-center"
       >
-        <form onSubmit={this.handleSubmit}>
-          <div className="row col-lg-10 mx-auto">
-            <div className="col-lg-4 text-left">
-              <label>Name</label>
-              <input
-                type="text"
-                name="name"
-                id="name"
-                className="form-control"
-                required
-              />
-            </div>
-            <div className="col-lg-4 text-left">
-              <label>Level</label>
-              <select id="level">
-                <option value="Native">Native</option>
-                <option value="Basic">Basic</option>
-                <option value="Advanced">Advanced</option>
-                <option value="Fluent">Fluent</option>
-              </select>
-            </div>
-          </div>
-          <button type="submit" className="btn btn-info">
-            Save
-          </button>
-          <br />
-        </form>
-        <hr />
-      </div>
+        <FormGroup row>
+          <Col md="3">
+            <Label htmlFor="language">Language</Label>
+          </Col>
+          <Col xs="12" md="9">
+            <Input
+              type="text"
+              id="name"
+              name="name"
+              placeholder="langauges .."
+            />
+          </Col>
+        </FormGroup>
+        <FormGroup row>
+          <Col md="3">
+            <Label htmlFor="diploma">Level</Label>
+          </Col>
+          <Col xs="12" md="9">
+            <Input type="select" name="level" id="degree" bsSize="sm">
+              <option value="Basic">Basic level</option>
+              <option value="Intermidate">Intermediate level</option>
+              <option value="Advanced">Advanced level</option>
+              <option value="Native">Native</option>
+            </Input>
+          </Col>
+        </FormGroup>
+        <Button
+          type="submit"
+          size="sm"
+          color="primary"
+          onSubmit={this.handleSubmit}
+        >
+          Add to my profil
+        </Button>
+      </Form>
     );
   };
 
   renderNewForm() {
-    const languageForms = this.state.displayLanguage;
-    languageForms.push(this.renderForm());
+    const languagesForms = this.state.displayLanguage;
+
+    languagesForms[this.state.key] = this.renderForm();
+
     let newKey = this.state.key + 1;
     this.setState({
-      displayLanguage: languageForms,
+      displaylanguage: languagesForms,
       key: newKey
     });
   }
-  buttonDisplay() {
-    if (this.state.displayLanguage.length > 0) {
-      return (
-        <div className="container text-center">
-          <Router>
-            <Link>
-              <button type="submit" className="btn btn-info">
-                Education
-              </button>
-            </Link>
-            <Link>
-              <button type="submit" className="btn btn-info">
-                langguage
-              </button>
-            </Link>
-          </Router>
-        </div>
-      );
-    }
-    return null;
-  }
   render() {
+    console.log(this.props);
     return (
       <div>
         <div className="card animated fadeInLeft">
           <div className="card-body">
-            <h3 className="card-title">Language</h3>
+            <h3 className="card-title">My Languages</h3>
             <hr />
             <div>
               <button
                 className="btn btn-info"
                 onClick={this.renderNewForm.bind(this)}
               >
-                add Language
+                add new language
               </button>
             </div>
           </div>
         </div>
 
-        <div>{this.state.displayLanguage}</div>
-        <div>{this.buttonDisplay()}</div>
+        <div>{Object.values(this.state.displayLanguage)}</div>
       </div>
     );
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
-  console.log(state);
+const mapStateToProps = state => {
   return state;
 };
 
-export default connect(mapStateToProps, { addLanguage })(Language);
+export default connect(mapStateToProps, { addLanguage })(LanguageForm);

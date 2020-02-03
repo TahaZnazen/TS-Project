@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { addSkill } from "../../../actions/cvActions";
+import { addSkill } from "../actions/cvActions";
 
 import { Form, FormGroup, Col, Label, Button, Input } from "reactstrap";
 
-class SkillsForm extends Component {
+class formTest extends Component {
   state = {
     displaySkills: {},
     key: 0
@@ -86,7 +86,7 @@ class SkillsForm extends Component {
       <div>
         <div className="card animated fadeInLeft">
           <div className="card-body">
-            <h3 className="card-title">My Skills</h3>
+            <h3 className="card-title">My skillls</h3>
             <hr />
             <div>
               <button
@@ -109,4 +109,4 @@ const mapStateToProps = state => {
   return state;
 };
 
-export default connect(mapStateToProps, { addSkill })(SkillsForm);
+export default connect(mapStateToProps, { addSkill })(formTest);
