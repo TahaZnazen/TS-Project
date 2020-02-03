@@ -3,7 +3,9 @@ import "./App.scss";
 import FirstPage from "./components/FirstPAge/FirstPage";
 import JobOffers from "./components/jobOffers/JobOffers";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import CompanyProfile from "./components/companyProfile/CompanyProfile";
 
+import Offer from "./components/companyProfile/addOffer/Offer";
 import MainAuth from "./components/Auth/MainAuth";
 function App() {
   return (
@@ -15,6 +17,12 @@ function App() {
           </Route>
           <Route exact path="/Jobs">
             <JobOffers />
+          </Route>
+          <Route exact path="/company">
+            <CompanyProfile />
+          </Route>
+          <Route exact path="/addOffer">
+            <Offer />
           </Route>
         </Switch>
       </div>

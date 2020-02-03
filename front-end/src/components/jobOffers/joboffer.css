@@ -72,17 +72,17 @@
 }
 
 div::-webkit-scrollbar {
-  width: 4px;
-  height: 0px;
+  width: 1px;
+  height: 2px;
 }
 div::-webkit-scrollbar-track {
   background: #f1f1f1;
 }
 div::-webkit-scrollbar-thumb {
-  background: #888;
+  background: rgb(184, 184, 184);
 }
 div::-webkit-scrollbar-thumb:hover {
-  background: #555;
+  background: rgb(163, 163, 163);
 }
 
 .companyCompo {

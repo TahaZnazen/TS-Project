@@ -20,6 +20,7 @@ class JobOffers extends Component {
     //fetch a data
     //or update a query to get data
   };
+
   componentDidMount() {
     this.props.getPosts();
   }

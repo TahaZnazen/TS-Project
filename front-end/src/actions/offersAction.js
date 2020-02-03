@@ -30,3 +30,17 @@ export const filterPosts = (skills, location) => dispatch => {
     })
     .catch(err => console.log(err));
 };
+// export const filterByCompany = () => dispatch => {
+//   let fetchedData = [];
+//   axios
+//     .post("http://localhost:8080/api/post/search", {})
+//     .then(data => {
+//       console.log(data.data);
+//       fetchedData = data.data;
+//       dispatch({
+//         type: SEARCH,
+//         payload: fetchedData
+//       });
+//     })
+//     .catch(err => console.log(err));
+// };
