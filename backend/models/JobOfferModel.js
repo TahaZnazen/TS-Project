@@ -22,7 +22,7 @@ const JobOfferSchema = new mongoose.Schema({
     //   level: String
     // }
   ],
-  condidates: [
+  candidates: [
     {
       type: mongoose.Schema.ObjectId,
       ref: "User"

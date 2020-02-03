@@ -1,13 +1,10 @@
 const jobOffer = require("../models/JobOfferModel");
 const Company = require("./../models/CompanyModel");
-
+const user = require("../models/UserModel");
 const _ = require("underscore");
 //
 exports.addPost = async (req, res) => {
   try {
-    // const company = await Company.findById(req.params.id);
-    // if (company.premium === false) {
-    // }
     req.body.companyName = req.params.id;
     const newPost = await jobOffer.create(req.body.data);
     res.status(201).json(newPost);
@@ -127,5 +124,24 @@ exports.searchBycategory = async (req, res) => {
   } catch (err) {
     console.log(err);
     res.json({ err });
+  }
+};
+exports.apply = async (req, res) => {
+  try {
+    const idUser = req.params.idUser;
+    const idOffre = req.params.idOffre;
+    let data = {};
+    data.job = idOffre;
+    await user.findByIdAndUpdate(idUser, {
+      $push: { appliedJobs: data }
+    });
+    res.json(201);
+    return jobOffer.findByIdAndUpdate(
+      idOffre,
+      { $push: { candidates: idUser } },
+      { new: true, useFindAndModify: false }
+    );
+  } catch (err) {
+    console.log(err);
   }
 };

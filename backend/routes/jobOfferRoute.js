@@ -9,4 +9,5 @@ router.route("/showPosts").get(jobOfferController.findAll);
 router.route("/showPosts/:id").get(jobOfferController.findOne);
 router.route("/search").post(jobOfferController.search);
 router.route("/category").post(jobOfferController.searchBycategory);
+router.route("/:idOffre/user/:idUser").post(jobOfferController.apply);
 module.exports = router;
