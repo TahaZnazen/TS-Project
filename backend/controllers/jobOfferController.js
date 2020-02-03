@@ -10,7 +10,7 @@ exports.addPost = async (req, res) => {
         return res.json("pass premium to post more offers");
     });
     req.body.companyName = req.params.id;
-    const newPost = await jobOffer.create(req.body);
+    const newPost = await jobOffer.create(req.body.data);
     res.status(201).json(newPost);
     return Company.findByIdAndUpdate(
       req.body.companyName,

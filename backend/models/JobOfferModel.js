@@ -6,20 +6,21 @@ const JobOfferSchema = new mongoose.Schema({
     type: String
     // required: [true, "Please Tell us your Post name"]
   },
-  // description: {
-  //   type: String,
-  //   required: [true, "Please provide us your post Bio"]
-  // },
+  description: {
+    type: String
+    // required: [true, "Please provide us your post Bio"]
+  },
   location: String,
   companyName: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Company"
   },
   skillRequired: [
-    {
-      name: String,
-      level: String
-    }
+    String
+    // {
+    //   name: String,
+    //   level: String
+    // }
   ],
   candidates: [
     {

@@ -1,0 +1,57 @@
+.all {
+  width: 99vw;
+  margin: 0;
+  padding: 0;
+}
+
+#companyProf {
+  background-color: #ebedef;
+  width: 99vw;
+  height: 90vh;
+  display: flex;
+  padding: 1%;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+#jobPosts {
+  min-width: 30%;
+  width: 30%;
+  margin: 1%;
+  overflow-y: scroll;
+  flex-direction: column;
+  padding: 1%;
+  height: 85vh;
+  background-color: #ebedef;
+}
+#mainPosts {
+  width: 65%;
+  min-width: 30%;
+  border: 1px solid rgb(209, 208, 208);
+  margin: 1% 1%;
+  overflow-y: scroll;
+  flex-direction: column;
+  padding: 1%;
+  height: 85vh;
+  background-color: white;
+}
+.card-body {
+  height: 16vh;
+}
+.jobdiscription {
+  transition: 0.3s;
+}
+.jobdiscription:hover {
+  transform: translateY(-10px);
+  transition: 0.3s;
+  box-shadow: -4px 12px 10px rgb(151, 151, 151);
+}
+.btnadd {
+  position: fixed;
+  z-index: 5;
+  right: 6vh;
+  bottom: 0;
+  width: 3vw;
+  height: 6vh;
+  border-radius: 50%;
+}
