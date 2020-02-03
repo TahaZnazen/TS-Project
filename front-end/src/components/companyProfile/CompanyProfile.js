@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import "./companyProfile.css";
 import Stat from "./stat/Stat";
-import { getPosts } from "../../actions/offersAction";
+import { filterByCompany, findCompany } from "../../actions/offersAction";
 import { connect } from "react-redux";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Offer from "./addOffer/Offer";
+import ReactGoogleMaps from "../../views/GoogleMaps/GoogleMaps";
 class CompanyProfile extends Component {
   state = {
     addPost: false
@@ -16,7 +17,8 @@ class CompanyProfile extends Component {
     });
   }
   componentDidMount() {
-    this.props.getPosts();
+    this.props.filterByCompany();
+    this.props.findCompany();
   }
   render() {
     return (
@@ -52,9 +54,11 @@ class CompanyProfile extends Component {
               }}
             ></div>
             <div>
-              <h1 className="card-title text-left">Company Name PlaceHolder</h1>
+              <h1 className="card-title text-left">
+                {this.props.companyInfo.map(elm => elm.name)}
+              </h1>
               <h4 className="card-title text-left">
-                Company location PlaceHolder
+                {this.props.companyInfo.map(elm => elm.email)}
               </h4>
             </div>
           </div>
@@ -63,8 +67,8 @@ class CompanyProfile extends Component {
         <Stat />
         <div id="companyProf">
           <div id="jobPosts">
-            {this.props.posts &&
-              this.props.posts.map(elm =>
+            {this.props.companyOffers &&
+              this.props.companyOffers.map(elm =>
                 elm.map(offer => (
                   <div className="card jobdiscription">
                     <div className="card-body">
@@ -100,7 +104,16 @@ class CompanyProfile extends Component {
                 ))
               )}
           </div>
-          <div id="mainPosts"></div>
+          <div id="mainPosts">
+            <h1>About us</h1>
+            <p style={{ fontSize: "18px", padding: "3vh" }}>
+              {this.props.companyInfo.map(elm => elm.description)}
+            </p>
+            <h1>location</h1>
+            <div style={{ paddingBottom: "20px" }}>
+              <ReactGoogleMaps />
+            </div>
+          </div>
         </div>
         {this.state.addPost && <Offer />}
       </div>
@@ -108,6 +121,9 @@ class CompanyProfile extends Component {
   }
 }
 const mapStateToProps = state => ({
-  posts: state.posts.posts
+  companyOffers: state.posts.companyPosts,
+  companyInfo: state.posts.companyInfo
 });
-export default connect(mapStateToProps, { getPosts })(CompanyProfile);
+export default connect(mapStateToProps, { filterByCompany, findCompany })(
+  CompanyProfile
+);

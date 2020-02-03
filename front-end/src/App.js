@@ -4,6 +4,7 @@ import FirstPage from "./components/FirstPAge/FirstPage";
 import JobOffers from "./components/jobOffers/JobOffers";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import CompanyProfile from "./components/companyProfile/CompanyProfile";
+import DashBoard from "./components/companyDashBoard/dashBoard";
 
 import Offer from "./components/companyProfile/addOffer/Offer";
 import MainAuth from "./components/Auth/MainAuth";
@@ -23,6 +24,9 @@ function App() {
           </Route>
           <Route exact path="/addOffer">
             <Offer />
+          </Route>
+          <Route exact path="/dashBoard">
+            <DashBoard />
           </Route>
         </Switch>
       </div>

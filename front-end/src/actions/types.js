@@ -5,3 +5,5 @@
 // export const SET_CURRENT = 'SET_CURRENT';
 export const GET_POSTS = "GET_POSTS";
 export const SEARCH = "SEARCH";
+export const COMPANY_OFFERS = "COMPANY_OFFERS";
+export const COMPANY_INFO = "COMPANY_INFO";

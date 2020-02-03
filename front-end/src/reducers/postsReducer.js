@@ -1,7 +1,14 @@
-import { GET_POSTS, SEARCH } from "../actions/types";
+import {
+  GET_POSTS,
+  SEARCH,
+  COMPANY_OFFERS,
+  COMPANY_INFO
+} from "../actions/types";
 
 const initialState = {
-  posts: []
+  posts: [],
+  companyPosts: [],
+  companyInfo: []
 };
 
 export default (state = initialState, action) => {
@@ -16,6 +23,17 @@ export default (state = initialState, action) => {
         ...state,
         posts: [action.payload]
       };
+    case COMPANY_OFFERS:
+      return {
+        ...state,
+        companyPosts: [action.payload]
+      };
+    case COMPANY_INFO:
+      return {
+        ...state,
+        companyInfo: [action.payload]
+      };
+
     default:
       return state;
   }
