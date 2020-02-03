@@ -18,8 +18,8 @@ const sendEmail = option => {
       port: 587,
       secure: false,
       auth: {
-        user: process.env.GMAIL,
-        pass: process.env.GMAIL_PASSWORD
+        user: "mrawebsami@gmail.com",
+        pass: "samisamimraweb"
       },
       tls: {
         rejectUnauthorized: false
@@ -48,16 +48,21 @@ const sendEmail = option => {
 // const { createCv } = require("./cvController");
 exports.signup = async (req, res) => {
   try {
+<<<<<<< HEAD
     const newUser = await User.create(req.body);
     newCv = await Cv.create({ user_id: newUser._id });
     // Cv.create();
+=======
+    console.log(req.body.data);
+
+    const newUser = await User.create(req.body.data);
+>>>>>>> f85bdfa6f88c1d4c32ac20a56f369987e8067393
 
     const token = signToken(newUser._id, process.env.JWT_SECRET); // This token for autheraztion
     const verifeToken = signToken(newUser._id, "emailsecter"); // this toke is for verification
     const url = `http://localhost:8080/confirmation/${verifeToken}`;
     const message = "Submite to verife your account";
     // Send email verification
-
     try {
       await sendEmail({
         email: newUser.email,
@@ -94,10 +99,11 @@ exports.signup = async (req, res) => {
 
 exports.login = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    // const { email, password } = req.body;
 
-    const user = await User.findOne({ email: email }).select("+password");
-
+    const user = await User.findOne({ email: req.body.data.email }).select(
+      "+password"
+    );
     if (!user.active) {
       res.json({
         err: "verife your email to log in"
@@ -105,12 +111,14 @@ exports.login = async (req, res) => {
     }
 
     // check if user exist and for the password correct or not
-    if (!user || !(await user.correctPassword(password, user.password))) {
+    if (
+      !user ||
+      !(await user.correctPassword(req.body.data.password, user.password))
+    ) {
       res.json({
         err: "verife your email to log in"
       });
     }
-
     //  If  everything ok , create token and send it to client
     const token = signToken(user._id, process.env.JWT_SECRET);
     res.status(200).json({

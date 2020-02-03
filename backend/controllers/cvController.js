@@ -33,7 +33,7 @@ exports.getCvByUserID = (req, res) => {
       });
     });
   } catch (err) {
-    rs.send(err);
+    res.send(err);
   }
 };
 
@@ -59,7 +59,6 @@ exports.createCv = (req, res) => {
     let newCv = new CV(req.body._id);
     CV.create(newCv)
       .then(() => {
-        // console.log(newCv);
         res.json({ status: "success", msg: "new cv Created ", details: newCv });
       })
       .catch(err => {
@@ -157,15 +156,15 @@ exports.updateOneExperience = (req, res) => {
     /* CV.updateOne({ _id, "experience._id": id_experience }).then(data => {
       console.log(data);
     }); */
-    CV.findByIdAndUpdate(
-      { _id, "experience.$._id": id_experience }, //$ to target element inside the array
+    CV.update(
+      { _id, "experience._id": id_experience }, //$ to target element inside the array
       {
         $set: {
-          "experience.start": start,
-          "experience.end": end,
-          "experience.companyName": companyName,
-          "experience.position": position,
-          "experience.task": task
+          "experience.$.start": start,
+          "experience.$.end": end,
+          "experience.$.companyName": companyName,
+          "experience.$.position": position,
+          "experience.$.task": task
         }
       }
     ).then(data => {
@@ -291,15 +290,15 @@ exports.updateOneEducation = (req, res) => {
     const { start, end, diploma, degree, establishment } = req.body.education;
     console.log(req.body.education);
 
-    CV.findOneAndUpdate(
-      { _id, "education.$._id": id_education }, //$ to target element inside the array
+    CV.update(
+      { _id, "education._id": id_education }, //$ to target element inside the array
       {
         $set: {
-          "education.start": start,
-          "education.end": end,
-          "education.diploma": diploma,
-          "education.degree": degree,
-          "education.establishment": establishment
+          "education.$.start": start,
+          "education.$.end": end,
+          "education.$.diploma": diploma,
+          "education.$.degree": degree,
+          "education.$.establishment": establishment
         }
       }
     ).then(() => {
@@ -424,11 +423,11 @@ exports.updateOneSkill = (req, res) => {
     const { name, level } = req.body;
 
     CV.findOneAndUpdate(
-      { _id, "skills.$._id": id_skill }, //$ to target element inside the array
+      { _id, "skills._id": id_skill }, //$ to target element inside the array
       {
         $set: {
-          "skills.name": name,
-          "skills.level": level
+          "skills.$.name": name,
+          "skills.$.level": level
         }
       }
     ).then(() => {
@@ -550,12 +549,12 @@ exports.updateOneLanguage = (req, res) => {
     const _id = req.params.id_Cv;
     const id_language = req.params.id_language;
     const { name, level } = req.body;
-    CV.findOneAndUpdate(
-      { _id, "language.$._id": id_language }, //$ to target element inside the array
+    CV.update(
+      { _id, "language._id": id_language }, //$ to target element inside the array
       {
         $set: {
-          "language.name": name,
-          "language.level": level
+          "language.$.name": name,
+          "language.$.level": level
         }
       }
     ).then(() => {

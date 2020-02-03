@@ -1,0 +1,27 @@
+.sideNav {
+  width: 200px;
+  height: auto;
+  background-color: red;
+  transition: 0.4s;
+}
+
+.noSideNav {
+  width: 0;
+  height: auto;
+  background-color: red;
+  transition: 0.4s;
+  z-index: 1;
+}
+.sideBtn {
+  top: 10px;
+  left: 0px;
+  z-index: 10;
+  height: 40px;
+  width: 40px;
+}
+.dashBoard {
+  height: 100vh;
+  position: relative;
+  overflow-y: scroll;
+  width: 100vw;
+}

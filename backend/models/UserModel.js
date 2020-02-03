@@ -33,20 +33,20 @@ const UserSchema = new mongoose.Schema({
   },
   photo: { type: String, default: "None" },
   phone: {
-    type: String,
-    required: [true, "Please provide us your phone number"]
+    type: String
+    // required: [true, "Please provide us your phone number"]
   },
   nationality: {
-    type: String,
-    required: [true, "Please proivde your nationality"]
+    type: String
+    // required: [true, "Please proivde your nationality"]
   },
   gender: {
-    type: String,
-    required: [true, "Please proivde your gender"]
+    type: String
+    // required: [true, "Please proivde your gender"]
   },
   location: {
-    type: String,
-    required: [true, "Please proivde your location"]
+    type: String
+    // required: [true, "Please proivde your location"]
   },
   expertise: String, // junior or senior
   appliedJobs: [

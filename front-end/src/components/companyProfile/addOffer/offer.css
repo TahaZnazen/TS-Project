@@ -1,0 +1,40 @@
+.jobOffer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 60vh;
+  padding: 1%;
+  border: 1px solid rgb(153, 153, 153);
+  position: fixed;
+  left: 30vw;
+  top: 10vh;
+  background-color: #ebedef;
+}
+.jobOffer input {
+  width: 50vh;
+  height: 40px;
+  margin: 3px;
+}
+.jobOffer textarea {
+  width: 50vh;
+  height: 70px;
+  margin: 3px;
+}
+.jobOffer label {
+  width: 50vh;
+  text-align: left;
+  margin: 3px;
+}
+
+.jobOffer button {
+  width: 50vh;
+  height: 50px;
+  background: none;
+  color: white;
+  background-color: #4dbd74;
+  border: none;
+}
+#someInput {
+  display: flex;
+  width: 90%;
+}

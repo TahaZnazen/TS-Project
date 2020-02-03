@@ -11,4 +11,6 @@ router.route("/addCompanyInformation").post(companyCotroller.addCompany);
 router.route("/updateCompany/:id").patch(companyCotroller.updateCompany);
 router.route("/top5").get(companyCotroller.topCompanies);
 router.route("/showPosts/:id").get(companyCotroller.findOffers);
+router.route("/companyInfo/:id").get(companyCotroller.findCompany);
+
 module.exports = router;
