@@ -45,3 +45,13 @@ exports.findOffers = async (req, res) => {
     res.json({ err });
   }
 };
+
+exports.findCompany = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const companyInformation = await company.findById(id);
+    res.status(201).json(companyInformation);
+  } catch (err) {
+    res.json({ err });
+  }
+};

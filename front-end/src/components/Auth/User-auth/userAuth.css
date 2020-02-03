@@ -1,0 +1,25 @@
+.AuthForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.AuthForm input {
+  width: 90%;
+  height: 50px;
+  margin: 10px 0;
+  border-radius: 10px 10px 10px 10px;
+  border: 1px solid rgb(207, 207, 207);
+  padding: 0 0 0 20px;
+}
+.AuthForm button {
+  width: 90%;
+  height: 50px;
+  background-color: #2eb85c;
+  border: 1px solid white;
+  color: white;
+  transition: 0.4s;
+}
+.AuthForm button:hover {
+  background-color: #f0267a;
+  transition: 0.4s;
+}

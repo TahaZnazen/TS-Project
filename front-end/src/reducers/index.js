@@ -1,10 +1,9 @@
 import { combineReducers } from "redux";
+import postReducer from "./postsReducer";
 import cvReducer from "./cvReducer";
-//import { reducer as formReducer } from "redux-form";
-
-const reducers = combineReducers({
+export default combineReducers({
+  posts: postReducer,
   cvUser: cvReducer
-  //userExperiencesForm: formReducer
 });
 
-export default reducers;
+
