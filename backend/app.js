@@ -8,6 +8,7 @@ const userRouter = require("./routes/userRoute");
 const jobOfferRoute = require("./routes/jobOfferRoute");
 const cvRoute = require("./routes/cvRoute");
 const companyRoute = require("./routes/companyRoute");
+
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(cors());
