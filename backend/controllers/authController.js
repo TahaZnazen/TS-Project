@@ -48,15 +48,9 @@ const sendEmail = option => {
 // const { createCv } = require("./cvController");
 exports.signup = async (req, res) => {
   try {
-<<<<<<< HEAD
     const newUser = await User.create(req.body);
     newCv = await Cv.create({ user_id: newUser._id });
     // Cv.create();
-=======
-    console.log(req.body.data);
-
-    const newUser = await User.create(req.body.data);
->>>>>>> f85bdfa6f88c1d4c32ac20a56f369987e8067393
 
     const token = signToken(newUser._id, process.env.JWT_SECRET); // This token for autheraztion
     const verifeToken = signToken(newUser._id, "emailsecter"); // this toke is for verification
