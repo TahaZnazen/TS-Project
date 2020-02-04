@@ -32,7 +32,7 @@ const UserSchema = new mongoose.Schema({
       message: "Password are not the same!"
     }
   },
-  photo: String,
+  photo: { type: String, default: "None" },
   phone: {
     type: String
     // required: [true, "Please provide us your phone number"]
