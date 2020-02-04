@@ -5,6 +5,10 @@ const _ = require("underscore");
 //
 exports.addPost = async (req, res) => {
   try {
+    Company.find({ _id: req.params.id, jobOffers: { $size: 5 } }).then(data => {
+      if (data.length && !data.premium)
+        return res.json("pass premium to post more offers");
+    });
     req.body.companyName = req.params.id;
     const newPost = await jobOffer.create(req.body.data);
     res.status(201).json(newPost);
@@ -41,7 +45,7 @@ exports.findOne = async (req, res) => {
     res.status(201).json({
       data: result
     });
-    console.log(result.companyName.name);
+    console.log({ result }.companyName.name);
   } catch (err) {
     res.json({ err });
   }

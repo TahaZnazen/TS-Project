@@ -1,5 +1,7 @@
 const company = require("../models/CompanyModel");
 const offers = require("../models/JobOfferModel");
+const users = require("../models/UserModel");
+const ObjectId = require("mongoose").Types.ObjectId;
 exports.addCompany = async (req, res) => {
   try {
     const newCompany = await company.create(req.body);
@@ -45,12 +47,23 @@ exports.findOffers = async (req, res) => {
     res.json({ err });
   }
 };
-
 exports.findCompany = async (req, res) => {
   try {
     const id = req.params.id;
-    const companyInformation = await company.findById(id);
-    res.status(201).json(companyInformation);
+    const companyToShow = await company.findById(id);
+    res.status(201).json({ data: companyToShow });
+  } catch (err) {
+    res.json({ err });
+  }
+};
+exports.CompanyOffersCandidates = async (req, res) => {
+  try {
+    const companyId = req.params.id;
+    const OffersPostedByTheCompany = await offers
+      .find({ companyName: companyId })
+      .populate("candidates");
+
+    res.json({ OffersPostedByTheCompany });
   } catch (err) {
     res.json({ err });
   }
