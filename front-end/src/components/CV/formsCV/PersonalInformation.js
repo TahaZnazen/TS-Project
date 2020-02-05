@@ -23,7 +23,6 @@ class EducationForm extends Component {
     newInformation.expertise = e.target.expertise.value;
 
     // const id = this.props.cvUser[0]._id;
-
     console.log(newInformation);
     /* this.props.addEducation(id, newEducation);
 
