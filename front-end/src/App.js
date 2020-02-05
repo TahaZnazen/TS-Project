@@ -8,6 +8,10 @@ import DashBoard from "./components/companyDashBoard/dashBoard";
 
 import Offer from "./components/companyProfile/addOffer/Offer";
 import MainAuth from "./components/Auth/MainAuth";
+import Cv from "./components/CV/Cv";
+import TestBilel from "./components/TestBilel";
+import TestBilel2 from "./components/TestBilel2";
+import Test from "./views/Forms/BasicForms/BasicForms";
 function App() {
   return (
     <Router>
@@ -27,6 +31,18 @@ function App() {
           </Route>
           <Route exact path="/dashBoard">
             <DashBoard />
+          </Route>
+          <Route exact path="/cv">
+            <Cv />
+          </Route>
+          <Route exact path="/test">
+            <TestBilel />
+          </Route>
+          <Route exact path="/test2">
+            <TestBilel2 />
+          </Route>
+          <Route exact path="/template">
+            <Test />
           </Route>
         </Switch>
       </div>
