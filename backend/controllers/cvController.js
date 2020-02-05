@@ -24,11 +24,11 @@ exports.getOneCv = (req, res) => {
 //Get Cv with user ID Done //cvs/user_id
 exports.getCvByUserID = (req, res) => {
   try {
-    const _id = req.prams.id_user;
-    CV.find({ _id: user_id }).then(cv => {
+    const user_id = req.params.user_id;
+    CV.find({ user_id: user_id }).then(cv => {
       res.status(200).json({
         status: "success",
-        msg: "CV for user " + _id,
+        msg: "CV for user " + user_id,
         data: cv
       });
     });
@@ -54,19 +54,20 @@ exports.deleteCv = (req, res) => {
 
 //Add User CV DONE ! //cvs
 exports.createCv = (req, res) => {
-  try {
-    console.log(req.body);
-    let newCv = new CV(req.body._id);
-    CV.create(newCv)
-      .then(() => {
-        res.json({ status: "success", msg: "new cv Created ", details: newCv });
-      })
-      .catch(err => {
-        res.send(err);
+  user_id = req.params.user_id;
+  let newCv = new CV({ user_id });
+  CV.create(newCv)
+    .then(cv => {
+      res.status(200).json({
+        status: "success",
+        msg: "new cv created for user with id " + user_id,
+        details: cv,
+        user_id: user_id
       });
-  } catch (err) {
-    res.send(err);
-  }
+    })
+    .catch(err => {
+      res.send(err);
+    });
 };
 
 /////////////////////////////////////// Experience  operation ///////////////////////////////////////////////////
