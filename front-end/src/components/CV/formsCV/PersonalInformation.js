@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { addEducation } from "../../../actions/cvActions";
+import { addInfo } from "../../../actions/cvActions";
 
 import { Form, FormGroup, Col, Label, Button, Input, Alert } from "reactstrap";
 
-class EducationForm extends Component {
+class PersonalInfoForm extends Component {
   state = {
     displayInformation: {},
     key: 1
@@ -12,37 +12,33 @@ class EducationForm extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    let newInformation = {};
-    console.log(e.target.photo.value);
+    let newInformation = new FormData();
+    newInformation.append("photo", document.getElementById("photo").files[0]);
+    newInformation.append(
+      "nationality",
+      document.getElementById("nationality").value
+    );
+    newInformation.append("gender", document.getElementById("gender").value);
+    newInformation.append(
+      "expertise",
+      document.getElementById("expertise").value
+    );
+    newInformation.append(
+      "location",
+      document.getElementById("locationUser").value
+    );
+    newInformation.append("phone", document.getElementById("phone").value);
 
-    newInformation.photo = e.target.photo.value;
-    newInformation.phone = e.target.phone.value;
-    newInformation.nationality = e.target.nationality.value;
-    newInformation.location = e.target.locationUser.value;
-    newInformation.gender = e.target.gender.value;
-    newInformation.expertise = e.target.expertise.value;
-
-    // const id = this.props.cvUser[0]._id;
-    console.log(newInformation);
-    /* this.props.addEducation(id, newEducation);
-
-    let elementToDelete = e.target.id;
-    let newDisplay = this.state.displayEducation;
-    delete newDisplay[elementToDelete];
-    this.setState({ displayEducation: newDisplay }); */
+    const id = this.props.cvUser[0].user_id;
+    //console.log(id);
+    this.props.addInfo(id, newInformation);
     this.setState({ displayInformation: [] });
-    /*  return (
-      <div>
-        <Alert color="secondary">
-          This is a secondary alert — check it out!
-        </Alert>
-      </div>
-    ); */
   };
 
   renderForm = () => {
     return (
       <Form
+        encType="multipart/form-data"
         id={this.state.key}
         onSubmit={this.handleSubmit}
         key={this.state.key}
@@ -118,9 +114,7 @@ class EducationForm extends Component {
 
   renderNewForm() {
     const informationForms = this.state.displayInformation;
-
     informationForms[this.state.key] = this.renderForm();
-
     this.setState({
       displayInformation: informationForms
     });
@@ -153,4 +147,4 @@ const mapStateToProps = (state, ownProps) => {
   return state;
 };
 
-export default connect(mapStateToProps, { addEducation })(EducationForm);
+export default connect(mapStateToProps, { addInfo })(PersonalInfoForm);

@@ -4,12 +4,13 @@ import {
   ADD_EXPERIENCE,
   ADD_SKILL,
   ADD_LANGUAGE,
-  ADD_EDUCATION
+  ADD_EDUCATION,
+  ADD_INFO
 } from "./types";
 
 //function return function that return an actions
 export const fetchUserCv = () => async dispatch => {
-  const response = await API.get(`/cvs/5e32a6a423e31a79093ffd3b`);
+  const response = await API.get(`/cvs/5e32e9fe0e58762ad85f5089`);
   return dispatch({
     type: FETCH_CV,
     payload: response.data.data
@@ -88,10 +89,9 @@ export const addEducation = (id, data) => async dispatch => {
 // complete information
 
 //update/iduser
-export const updateUser = (id, data) => async dispatch => {
-  API.post(`/users/update/${id}/`, data);
-
+export const addInfo = (id, data) => async dispatch => {
+  API.patch(`/users/update/${id}`, data);
   return (dispatch = {
-    type: ADD_EXPERIENCE
+    type: ADD_INFO
   });
 };
