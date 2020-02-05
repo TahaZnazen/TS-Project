@@ -1,14 +1,13 @@
 const Company = require("./../models/CompanyModel");
-const stripe = require("stripe")("sk_live_5pZYSIqsVes45RIqOnvOlVVK00jAjbUjX5");
-// sk_live_5pZYSIqsVes45RIqOnvOlVVK00jAjbUjX5
+
+const dotenv = require("dotenv");
+dotenv.config({ path: "./config.env" });
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+
 exports.getPremium = async (req, res) => {
   // 1) Get the company
   try {
     const company = await Company.findById(req.params.id);
-
-    // const customer = await stripe.customers.create({
-    //   email: company.email
-    // });
 
     // console.log(customer.id);
     const session = await stripe.checkout.sessions.create({

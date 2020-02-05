@@ -32,7 +32,7 @@ app.get("/confirmation/:token", async (req, res) => {
   // user.active = true;
   // await User.findOneAndUpdate();
 });
-app.use("/api/v1/users", userRouter);
+app.use("/api/users", userRouter);
 app.use("/api/post", jobOfferRoute);
 app.use("/api/cvs", cvRoute);
 app.use("/api/company", companyRoute);
