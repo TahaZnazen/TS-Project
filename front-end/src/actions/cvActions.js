@@ -74,7 +74,7 @@ export const addLanguage = (id, data) => async dispatch => {
   });
 };
 
-// Language
+// Education
 export const addEducation = (id, data) => async dispatch => {
   let education = {};
   education.data = data;
@@ -82,5 +82,16 @@ export const addEducation = (id, data) => async dispatch => {
 
   return (dispatch = {
     type: ADD_EDUCATION
+  });
+};
+
+// complete information
+
+//update/iduser
+export const updateUser = (id, data) => async dispatch => {
+  API.post(`/users/update/${id}/`, data);
+
+  return (dispatch = {
+    type: ADD_EXPERIENCE
   });
 };

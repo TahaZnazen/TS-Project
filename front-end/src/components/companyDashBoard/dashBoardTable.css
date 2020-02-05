@@ -1,27 +1,78 @@
 .sideNav {
-  width: 200px;
+  width: 15vw;
   height: auto;
-  background-color: red;
-  transition: 0.4s;
+  background-color: #2f353a;
+  transition: 0.7s;
 }
 
 .noSideNav {
   width: 0;
   height: auto;
-  background-color: red;
-  transition: 0.4s;
+  background-color: #2f353a;
+  transition: 0.7s;
   z-index: 1;
 }
 .sideBtn {
-  top: 10px;
-  left: 0px;
   z-index: 10;
-  height: 40px;
-  width: 40px;
+  height: 50px;
+  width: 50px;
+  position: absolute;
+  left: 13vw;
+  transition: 0.7s;
+  background: none;
+  border: none;
+  font-size: 25px;
+}
+.sideBtnOver {
+  z-index: 10;
+  height: 50px;
+  width: 50px;
+  position: absolute;
+  left: 0;
+  transition: 0.7s;
+  background: none;
+  border: none;
+  font-size: 25px;
 }
 .dashBoard {
   height: 100vh;
   position: relative;
   overflow-y: scroll;
   width: 100vw;
+}
+
+.hidden {
+  opacity: 0;
+  transition: 0.2s;
+}
+.showed {
+  transition: 1.5s;
+  opacity: 1;
+  color: white;
+  transition-timing-function: ease-in;
+}
+#sideMenu {
+  position: relative;
+  top: 5vh;
+
+  height: 30vh;
+}
+#sideMenu h1 {
+  text-align: left;
+  border-top: 1px solid #5c6873;
+  border-bottom: 1px solid #5c6873;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 30px;
+  padding: 1vw;
+  /* transition: 0.4s; */
+}
+/* #sideMenu h1:hover {
+  transform: translateY(-10px);
+  transition: 0.4s;
+  color: #20c997;
+} */
+#navTitle::first-letter {
+  font-size: 50px;
+  color: #20c997;
 }

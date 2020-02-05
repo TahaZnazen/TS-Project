@@ -8,6 +8,8 @@ import DataTable from "./dataTable/dataTable";
 // import data from "./_data";
 import Widget01 from "../../views/Widgets/Widget01";
 import { CardGroup, Col, Row } from "reactstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStream, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 
 class DashBoard extends Component {
   state = {
@@ -22,10 +24,43 @@ class DashBoard extends Component {
     return (
       <div>
         <div className="d-flex">
-          <div className={this.state.sideNav ? "sideNav" : "noSideNav"}>
-            <button onClick={this.hideNav.bind(this)} className="sideBtn">
-              x
+          <div
+            id="sideNav"
+            className={this.state.sideNav ? "sideNav" : "noSideNav"}
+          >
+            <button
+              onClick={this.hideNav.bind(this)}
+              className={this.state.sideNav ? "sideBtn" : "sideBtnOver"}
+              style={{ outline: "none" }}
+            >
+              <FontAwesomeIcon icon={faStream} />
             </button>
+            <h1
+              id="navTitle"
+              className={this.state.sideNav ? "showed" : "hidden"}
+            >
+              Dash Board
+            </h1>
+            <div id="sideMenu">
+              <h1 className={this.state.sideNav ? "showed" : "hidden"}>
+                Profile
+              </h1>
+              <h1 className={this.state.sideNav ? "showed" : "hidden"}>Jobs</h1>
+              <h1 className={this.state.sideNav ? "showed" : "hidden"}>
+                Setting
+              </h1>
+            </div>
+            <h1
+              style={{
+                position: "absolute",
+                bottom: "2vh",
+                left: "10vw",
+                cursor: "pointer"
+              }}
+              className={this.state.sideNav ? "showed" : "hidden"}
+            >
+              <FontAwesomeIcon icon={faSignOutAlt} />
+            </h1>
           </div>
           {/*  */}
           <div className="dashBoard">
@@ -34,7 +69,7 @@ class DashBoard extends Component {
                 <PieChart />
               </div>
 
-              <Row className="mt-5" style={{ width: "60vw" }}>
+              <Row className="mt-5" style={{ width: "60vw", padding: "10px" }}>
                 <Col xs="4" sm="4" lg="4">
                   <Widget01 color="primary" variant="inverse" header="89.9%" />
                 </Col>

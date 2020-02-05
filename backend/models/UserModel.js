@@ -22,6 +22,7 @@ const UserSchema = new mongoose.Schema({
   },
   passwordConfirmation: {
     type: String,
+    select: false,
     required: [true, "Please confirm your password"],
     validate: {
       // this only works on CREATE and SAVE!!
@@ -31,7 +32,7 @@ const UserSchema = new mongoose.Schema({
       message: "Password are not the same!"
     }
   },
-  photo: String,
+  photo: { type: String, default: "None" },
   phone: {
     type: String
     // required: [true, "Please provide us your phone number"]
