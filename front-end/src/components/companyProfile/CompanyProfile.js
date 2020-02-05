@@ -20,9 +20,16 @@ class CompanyProfile extends Component {
     this.props.filterByCompany();
     this.props.findCompany();
   }
+  closefrombody() {
+    if (this.state.addPost) {
+      this.setState({
+        addPost: false
+      });
+    }
+  }
   render() {
     return (
-      <div className="all">
+      <div onClick={this.closefrombody.bind(this)} className="all">
         <button
           onClick={this.addPost.bind(this)}
           type="button"
