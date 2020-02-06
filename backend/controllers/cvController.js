@@ -22,7 +22,7 @@ exports.getOneCv = (req, res) => {
 };
 
 //Get Cv with user ID Done //cvs/user_id
-exports.getCvByUserID = (req, res) => {
+/* exports.getCvByUserID = (req, res) => {
   try {
     const user_id = req.params.user_id;
     CV.find({ user_id: user_id }).then(cv => {
@@ -32,6 +32,24 @@ exports.getCvByUserID = (req, res) => {
         data: cv
       });
     });
+  } catch (err) {
+    res.send(err);
+  }
+}; */
+
+//Get Cv with user ID Done //cvs/user_id
+exports.getCvByUserID = (req, res) => {
+  try {
+    const user_id = req.params.user_id;
+    CV.find({ user_id: user_id })
+      .populate("user_id")
+      .then(cv => {
+        res.status(200).json({
+          status: "success",
+          msg: "CV for user " + user_id,
+          data: cv
+        });
+      });
   } catch (err) {
     res.send(err);
   }

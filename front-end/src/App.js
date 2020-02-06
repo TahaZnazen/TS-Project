@@ -11,7 +11,8 @@ import MainAuth from "./components/Auth/MainAuth";
 import Cv from "./components/CV/Cv";
 import TestBilel from "./components/TestBilel";
 import TestBilel2 from "./components/TestBilel2";
-import Test from "./views/Forms/BasicForms/BasicForms";
+import ProfileUser from "./components/Profile/ProfileUser";
+//import Test from "./views/index";
 function App() {
   return (
     <Router>
@@ -41,8 +42,9 @@ function App() {
           <Route exact path="/test2">
             <TestBilel2 />
           </Route>
-          <Route exact path="/template">
-            <Test />
+          <Route exact path="/template"></Route>
+          <Route exact path="/profileUser">
+            <ProfileUser />
           </Route>
         </Switch>
       </div>
