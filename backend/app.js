@@ -29,8 +29,6 @@ app.get("/confirmation/:token", async (req, res) => {
   } catch (err) {
     res.json({ err });
   }
-  // user.active = true;
-  // await User.findOneAndUpdate();
 });
 app.use("/api/users", userRouter);
 app.use("/api/post", jobOfferRoute);

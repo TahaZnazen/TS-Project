@@ -14,7 +14,7 @@ exports.addCompany = async (req, res) => {
 };
 exports.updateCompany = async (req, res) => {
   try {
-    console.log(req.body.photo);
+    console.log(req.body);
     if (req.file) {
       req.body.photo = req.file.filename;
     }

@@ -64,3 +64,14 @@ exports.matchingRate = async (req, res) => {
     res.json({ err });
   }
 };
+
+exports.findJobs = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const jobs = await user.findById(id).populate("appliedJobs.job");
+    res.json({ data: jobs });
+  } catch (err) {
+    console.log(err);
+    res.json({ message: "err" });
+  }
+};

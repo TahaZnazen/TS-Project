@@ -127,27 +127,16 @@ exports.login = async (req, res) => {
 
 exports.protectUser = async (req, res, next) => {
   try {
-    if (!req.headers.token) {
-      res.json({ message: "login please" });
-    }
-
-    // we promesify this to escape from callback hell
     const decoded = await promisify(jwt.verify)(
       req.headers.token,
       process.env.JWT_SECRET
     );
-
-    const user = await User.findOne({ _id: decoded.id });
-    // res.json({ user });
-    if (user) {
-      next();
-    }
+    req.userData = decoded;
+    next();
   } catch (err) {
-    res.json({ err });
+    return res.status(401).json({ message: "Auth failed" });
   }
-
-  next();
-}; // protect need some refactor
+};
 
 exports.signupCompany = async (req, res) => {
   try {
