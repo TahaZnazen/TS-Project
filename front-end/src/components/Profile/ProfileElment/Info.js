@@ -13,7 +13,7 @@ class Info extends Component {
       expertise
     } = this.props.userInfo;
 
-    const imgSrc = "backend/public/img/users/" + photo;
+    const imgSrc = "localhost:3000/backend/public/img/users/" + photo;
     console.log(imgSrc);
     return (
       <div>
@@ -30,6 +30,7 @@ class Info extends Component {
         <div>
           <img src={imgSrc} width="250px" height="250px" />
         </div>
+        <button>Edit</button>
       </div>
     );
   };

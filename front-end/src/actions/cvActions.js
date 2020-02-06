@@ -5,7 +5,11 @@ import {
   ADD_SKILL,
   ADD_LANGUAGE,
   ADD_EDUCATION,
-  ADD_INFO
+  ADD_INFO,
+  DEL_SKILL,
+  DEL_LANGUAGE,
+  DEL_EDUCATION,
+  DEL_EXPERIENCE
 } from "./types";
 
 //function return function that return an actions
@@ -30,6 +34,7 @@ export const createCV = () => {
   };
 };
 
+//////////////////////////// Experience //////////////////////////
 //add one experience
 export const addExperience = (id, data) => async dispatch => {
   API.post(`/cvs/${id}/addExperience`, data);
@@ -40,10 +45,11 @@ export const addExperience = (id, data) => async dispatch => {
 };
 
 //delete selected experience
-export const deleteExperience = () => {
-  return {
-    type: "DELETE_EXPERIENCE"
-  };
+export const deleteExperience = (idCv, idExperience) => async dispatch => {
+  API.delete(`/cvs/${idCv}/experience/${idExperience}`);
+  return (dispatch = {
+    type: DEL_EXPERIENCE
+  });
 };
 
 //update one experience
@@ -53,7 +59,9 @@ export const UpdateExperience = () => {
   };
 };
 
-// SKILLS
+//////////////////////////// SKILLS //////////////////////////
+
+//Add SKILL
 export const addSkill = (id, data) => async dispatch => {
   let skill = {};
   skill.data = data;
@@ -63,8 +71,23 @@ export const addSkill = (id, data) => async dispatch => {
     type: ADD_SKILL
   });
 };
+//DEL SKILL
+export const deleteSkill = (idCv, idSkill) => async dispatch => {
+  API.delete(`/cvs/${idCv}/skill/${idSkill}`);
+  return (dispatch = {
+    type: DEL_SKILL
+  });
+};
+//update  SKILL
+export const UpdateSKILL = () => {
+  return {
+    type: "UPDATE_EXPERIENCE"
+  };
+};
 
-// Language
+//////////////////////////// LANGUAGE //////////////////////////
+
+// Add Language
 export const addLanguage = (id, data) => async dispatch => {
   let language = {};
   language.data = data;
@@ -75,7 +98,23 @@ export const addLanguage = (id, data) => async dispatch => {
   });
 };
 
-// Education
+// DEL language
+export const deleteLanguage = (idCv, languageId) => async dispatch => {
+  API.delete(`/cvs/${idCv}/language/${languageId}`);
+  return (dispatch = {
+    type: DEL_LANGUAGE
+  });
+};
+//update  language
+export const UpdateLanguage = () => {
+  return {
+    type: "UPDATE_EXPERIENCE"
+  };
+};
+
+//////////////////////////// EDUCATION //////////////////////////
+
+//Add Education
 export const addEducation = (id, data) => async dispatch => {
   let education = {};
   education.data = data;
@@ -84,6 +123,21 @@ export const addEducation = (id, data) => async dispatch => {
   return (dispatch = {
     type: ADD_EDUCATION
   });
+};
+//Del Education
+export const deleteEducation = (idCv, educationId) => async dispatch => {
+  console.log("education", idCv, educationId);
+  API.delete(`/cvs/${idCv}/education/${educationId}`);
+  return (dispatch = {
+    type: DEL_EDUCATION
+  });
+};
+
+//update education
+export const updateEducation = () => {
+  return {
+    type: "UPDATE_EXPERIENCE"
+  };
 };
 
 // complete information

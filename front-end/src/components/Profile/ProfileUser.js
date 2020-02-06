@@ -1,11 +1,29 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { fetchUserCv } from "../../actions/cvActions";
+import {
+  fetchUserCv,
+  deleteSkill,
+  deleteLanguage,
+  deleteEducation,
+  deleteExperience
+} from "../../actions/cvActions";
 import Experience from "./ProfileElment/Experience";
 import Education from "./ProfileElment/Education";
 import Language from "./ProfileElment/Language";
 import Skill from "./ProfileElment/Skill";
 import Info from "./ProfileElment/Info";
+import {
+  Badge,
+  Card,
+  CardBody,
+  CardHeader,
+  Col,
+  ListGroup,
+  ListGroupItem,
+  Row,
+  TabContent,
+  TabPane
+} from "reactstrap";
 class ProfileUser extends Component {
   state = {};
   componentDidMount() {
@@ -19,22 +37,26 @@ class ProfileUser extends Component {
           <hr />
           <Experience
             userExperience={this.props.cvUser[0].experience}
-            userId={this.props.cvUser[0].user_id._id}
+            cvId={this.props.cvUser[0]._id}
+            deleteExperience={this.props.deleteExperience}
           />
           <hr />
           <Education
             userEducation={this.props.cvUser[0].education}
-            userId={this.props.cvUser[0].user_id._id}
+            cvId={this.props.cvUser[0]._id}
+            deleteEducation={this.props.deleteEducation}
           />
           <hr />
           <Language
             userLanguages={this.props.cvUser[0].language}
-            userId={this.props.cvUser[0].user_id._id}
+            cvId={this.props.cvUser[0]._id}
+            deleteLanguage={this.props.deleteLanguage}
           />
           <hr />
           <Skill
             userSkill={this.props.cvUser[0].skills}
-            userId={this.props.cvUser[0].user_id._id}
+            cvId={this.props.cvUser[0]._id}
+            deleteSkill={this.props.deleteSkill}
           />
         </div>
       );
@@ -51,4 +73,10 @@ const mapStateToProps = state => {
   return state;
 };
 
-export default connect(mapStateToProps, { fetchUserCv })(ProfileUser);
+export default connect(mapStateToProps, {
+  fetchUserCv,
+  deleteSkill,
+  deleteLanguage,
+  deleteEducation,
+  deleteExperience
+})(ProfileUser);
