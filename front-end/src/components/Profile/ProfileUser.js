@@ -1,15 +1,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { fetchUserCv } from "../../actions/cvActions";
-import Experience from "./Experience";
-import Education from "./Education";
-import Language from "./Language";
-import Skill from "./Skill";
-import Info from "./Info";
+import Experience from "./ProfileElment/Experience";
+import Education from "./ProfileElment/Education";
+import Language from "./ProfileElment/Language";
+import Skill from "./ProfileElment/Skill";
+import Info from "./ProfileElment/Info";
 class ProfileUser extends Component {
-  state = {
-    id: ""
-  };
+  state = {};
   componentDidMount() {
     this.props.fetchUserCv();
   }
