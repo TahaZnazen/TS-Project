@@ -5,7 +5,6 @@ const socket = require("socket.io");
 
 dotenv.config({ path: "./config.env" });
 const port = process.env.PORT || 8080;
-
 //connection data base
 
 const DB = process.env.DATABASE;
