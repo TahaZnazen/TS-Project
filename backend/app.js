@@ -1,4 +1,4 @@
-const express = require("express");
+const express = require("express.io");
 const morgan = require("morgan");
 const cors = require("cors");
 const app = express();
@@ -9,7 +9,9 @@ const jobOfferRoute = require("./routes/jobOfferRoute");
 const cvRoute = require("./routes/cvRoute");
 const companyRoute = require("./routes/companyRoute");
 const premiumRoute = require("./routes/premiumRoute");
+const http = require("http");
 
+app.http().io();
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(cors());

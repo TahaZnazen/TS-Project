@@ -8,7 +8,10 @@ router
   .get(cvController.getAllCvs) // get all Cvs
   .post(cvController.createCv); // need to update with to add user id
 
-router.route("/id_user").get(cvController.getCvByUserID);
+router
+  .route("/:user_id")
+  .get(cvController.getCvByUserID)
+  .post(cvController.createCv);
 router
   .route("/:id_Cv")
   .get(cvController.getOneCv) // get one Cv using the id of Cv
