@@ -83,31 +83,16 @@ exports.findJobs = async (req, res) => {
   }
 };
 
-// exports.getUserImg = async (req, res) => {
-//   try {
-//     const id = req.params.id;
-//     const User = await user.findById(id);
-//     console.log("public/img/users/" + User.photo);
-//     const { photo } = User;
-
-//     res
-//       .status(200)
-//       .json({ photo: "http://localhost:8080/public/img/users/" + photo });
-//   } catch (err) {
-//     console.log(err);
-//   }
-// };
-
-// exports.getimg = async (req, res) => {
-//   try {
-//     const imgPath = req.params.imgPath;
-//     // console.log(imgPath);
-//     // const img = require("./../public/img/users/" + imgPath);
-//     const img = path.join(__dirname, `/../public/img/users/${imgPath}`);
-//     const img1 = require(img);
-//     console.log(img1, "this is the img");
-//     res.json({ img1 });
-//   } catch (err) {
-//     res.json({ err });
-//   }
-// };
+exports.updatePassword = async (req, res) => {
+  try {
+    const User = await user.findById(req.params.id).select("+password");
+    const iscorrect = await User.correctPassword(
+      req.body.password,
+      User.password
+    );
+    res.status(200).json({ iscorrect });
+  } catch (err) {
+    console.log(err);
+    res.json({ message: "fail" });
+  }
+};

@@ -12,8 +12,7 @@ router.route("/getjobs/:id").get(userController.findJobs);
 router
   .route("/update/:id")
   .patch(userController.uploadUserPhoto, userController.updateUser);
-// router.route("/upload/:id").get(userController.getUserImg);
-// router.route("/getimg/:imgPath").get(userController.getimg);
 router.route("/image/:id").get(userController.getimg);
+router.route("/updatePassword/:id").patch(userController.updatePassword);
 
 module.exports = router;
