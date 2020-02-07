@@ -1,6 +1,7 @@
 const user = require("../models/UserModel");
 const offer = require("../models/JobOfferModel");
 const cv = require("../models/CVModel");
+const path = require("path");
 
 const multer = require("multer");
 
@@ -29,14 +30,19 @@ exports.uploadUserPhoto = upload.single("photo");
 exports.updateUser = async (req, res) => {
   try {
     if (req.file) {
-      req.body.photo = req.file.filename;
+      req.body.photo = `http://localhost:8080/api/users/image/${req.file.filename}`;
     }
+    console.log(req.body.photo);
     const test = await user.findOneAndUpdate({ _id: req.params.id }, req.body);
     res.json({ message: "user updated" });
   } catch (err) {
     // console.log(err);
     res.json({ err });
   }
+};
+
+exports.getimg = (req, res) => {
+  res.sendFile(path.resolve(__dirname, `./../public/img/users`, req.params.id));
 };
 
 exports.findAllUsers = async (req, res) => {
@@ -75,3 +81,32 @@ exports.findJobs = async (req, res) => {
     res.json({ message: "err" });
   }
 };
+
+// exports.getUserImg = async (req, res) => {
+//   try {
+//     const id = req.params.id;
+//     const User = await user.findById(id);
+//     console.log("public/img/users/" + User.photo);
+//     const { photo } = User;
+
+//     res
+//       .status(200)
+//       .json({ photo: "http://localhost:8080/public/img/users/" + photo });
+//   } catch (err) {
+//     console.log(err);
+//   }
+// };
+
+// exports.getimg = async (req, res) => {
+//   try {
+//     const imgPath = req.params.imgPath;
+//     // console.log(imgPath);
+//     // const img = require("./../public/img/users/" + imgPath);
+//     const img = path.join(__dirname, `/../public/img/users/${imgPath}`);
+//     const img1 = require(img);
+//     console.log(img1, "this is the img");
+//     res.json({ img1 });
+//   } catch (err) {
+//     res.json({ err });
+//   }
+// };
