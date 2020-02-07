@@ -1,4 +1,4 @@
-const express = require("express");
+const express = require("express.io");
 const morgan = require("morgan");
 const cors = require("cors");
 const app = express();
@@ -8,7 +8,9 @@ const userRouter = require("./routes/userRoute");
 const jobOfferRoute = require("./routes/jobOfferRoute");
 const cvRoute = require("./routes/cvRoute");
 const companyRoute = require("./routes/companyRoute");
+const http = require("http");
 
+app.http().io();
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(cors());
@@ -31,7 +33,7 @@ app.get("/confirmation/:token", async (req, res) => {
   // user.active = true;
   // await User.findOneAndUpdate();
 });
-app.use("/api/v1/users", userRouter);
+app.use("/api/users", userRouter);
 app.use("/api/post", jobOfferRoute);
 app.use("/api/cvs", cvRoute);
 app.use("/api/company", companyRoute);

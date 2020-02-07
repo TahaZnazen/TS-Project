@@ -27,9 +27,9 @@ const upload = multer({ storage: multerStorage, fileFilter: multerFilter });
 exports.uploadUserPhoto = upload.single("photo");
 
 exports.updateUser = async (req, res) => {
+  console.log(req.file);
   try {
     if (req.file) {
-      console.log("hii");
       req.body.photo = req.file.filename;
     }
     const test = await user.findOneAndUpdate({ _id: req.params.id }, req.body);
