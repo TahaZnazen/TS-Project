@@ -27,9 +27,6 @@ const server = app.listen(8080, () =>
 //Socket IO
 
 const io = socket(server);
-/* io.on("test", socket => {
-  console.log("helllo");
-}); */
 
 io.on("connection", socket => {
   console.log("socket  connected --------------", socket.id);
@@ -69,3 +66,7 @@ io.on("disconnect", () => {
   connections = [];
   console.log("Client  disconnected");
 });
+
+/* app.get("/images/:id", (req, res) => {
+  res.sendfile(path.resolve(__dirname, "./public/img/users", req.params.id));
+}); */

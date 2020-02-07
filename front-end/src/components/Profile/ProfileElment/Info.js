@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-
 class Info extends Component {
-  state = {};
+  state = {
+    userPhoto: this.props.userInfo.photo
+  };
   renderInfo = () => {
     const {
       name,
@@ -13,8 +14,11 @@ class Info extends Component {
       expertise
     } = this.props.userInfo;
 
-    const imgSrc = "localhost:3000/backend/public/img/users/" + photo;
-    console.log(imgSrc);
+    //const imgSrc = photo;
+    const imgSrc =
+      "backend/public/img/users/user-5e32e9fe0e58762ad85f5089-1580926012168.jpeg";
+    //console.log(imgSrc);
+    console.log(photo);
     return (
       <div>
         <div>
@@ -28,7 +32,14 @@ class Info extends Component {
           <h3>{expertise}</h3>
         </div>
         <div>
-          <img src={imgSrc} width="250px" height="250px" />
+          <img
+            alt="user photo"
+            src={
+              "http://localhost:8080/images/user-5e32e9fe0e58762ad85f5089-1580925768929.jpeg"
+            }
+            width="250px"
+            height="250px"
+          />
         </div>
         <button>Edit</button>
       </div>
