@@ -42,7 +42,10 @@ const CompanySchema = new mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now
-  }
+  },
+  verifeEmail: String,
+  verife: { type: Boolean, default: false },
+  verifyToken: String
 });
 
 CompanySchema.pre("save", async function(req, res, next) {
