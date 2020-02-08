@@ -247,3 +247,13 @@ exports.forgetPassword = async (req, res) => {
     res.json({ err });
   }
 };
+
+exports.generateID = async (req, res) => {
+  try {
+    const token = req.body.token;
+    const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
+    res.json({ id: decoded.id });
+  } catch (err) {
+    res.json({ err });
+  }
+};

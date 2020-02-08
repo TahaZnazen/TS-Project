@@ -17,4 +17,6 @@ router.route("/updatePassword/:id").patch(userController.updatePassword);
 router.route("/forgetPassword").post(authController.forgetPassword);
 router.route("/forgetPassword").patch(userController.forgetPassword);
 
+router.route("/generateID").post(authController.generateID);
+
 module.exports = router;
