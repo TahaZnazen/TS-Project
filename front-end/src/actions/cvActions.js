@@ -144,6 +144,7 @@ export const updateEducation = () => {
 
 //update/iduser
 export const addInfo = (id, data) => async dispatch => {
+  console.log(id);
   API.patch(`/users/update/${id}`, data);
   return (dispatch = {
     type: ADD_INFO
