@@ -4,6 +4,7 @@ const nodemailer = require("nodemailer");
 const Cv = require("./../models/CVModel");
 const { promisify } = require("util");
 const Company = require("./../models/CompanyModel");
+
 // signToken will create a token to the user take the id of the user
 const signToken = (id, secret) => {
   return jwt.sign({ id: id }, secret, {
@@ -25,7 +26,6 @@ const sendEmail = option => {
         rejectUnauthorized: false
       }
     });
-    // console.log("this is send to ", option.email);
     const mailOptions = {
       from: "Wazzaka-Team", // sender address
       to: option.email, // list of receivers
@@ -178,10 +178,11 @@ exports.signupCompany = async (req, res) => {
     res.json({ err });
   }
 };
+
 exports.verifeCompany = async (req, res) => {
   try {
     const company = await Company.findOne({ verifyToken: req.params.id });
-    console.log(company);
+
     if (company) {
       // console.log(company.name);
       company.verife = true;
@@ -206,11 +207,57 @@ exports.loginCompany = async (req, res) => {
     }
     const token = signToken(company._id, process.env.JWT_SECRET);
 
-    res.json({ message: "degla", token, email: company.email });
+    res.json({ token, email: company.email });
   } catch (err) {
     console.log(err);
     res.json({
       err
     });
+  }
+};
+
+exports.forgetPassword = async (req, res) => {
+  try {
+    const user = await User.findOne({ email: req.body.email });
+    if (!user) {
+      res.status(404).json({ message: "User not found!" });
+    }
+
+    const verifeToken = signToken(user._id, "emailsecter"); // this toke is for verification
+    const url = `http://localhost:8080/confirmation-company/${verifeToken}`;
+    const message = "Submite to verife your company account";
+    console.log(user.email);
+    try {
+      await sendEmail({
+        email: user.email,
+        subject: "Forget Password",
+        message,
+        text: url,
+        html: `
+        <h1>Hello, ${user.name}</h1>
+        <p>If you really forget your password you can chenge it the link below</p>
+        <a href='${url}'>CLICK HERE</a>
+        <p>If you are not interrseting just ignore this email</p>
+        `
+      });
+
+      res.json({ status: "sucess", email: "sent!" });
+    } catch (err) {
+      console.log(err);
+      res.json({ err });
+    }
+  } catch (err) {
+    console.log(err);
+    res.json({ err });
+  }
+};
+
+exports.generateID = async (req, res) => {
+  try {
+    const token = req.body.token;
+    const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
+    res.json({ id: decoded.id });
+  } catch (err) {
+    res.json({ err });
   }
 };
