@@ -1,4 +1,10 @@
-import { GET_POSTS, SEARCH, COMPANY_OFFERS, COMPANY_INFO } from "./types";
+import {
+  GET_POSTS,
+  SEARCH,
+  COMPANY_OFFERS,
+  COMPANY_INFO,
+  COMPANY_DASHBOARD
+} from "./types";
 import axios from "axios";
 export const getPosts = () => async dispatch => {
   try {
@@ -55,6 +61,22 @@ export const findCompany = () => dispatch => {
       console.log(fetchedData);
       dispatch({
         type: COMPANY_INFO,
+        payload: fetchedData
+      });
+    })
+    .catch(err => console.log(err));
+};
+export const companyDashboard = () => dispatch => {
+  let fetchedData = [];
+  axios
+    .get(
+      "http://localhost:8080/api/company/candidates/5e317ff8059a3a57a4d3639d"
+    )
+    .then(data => {
+      fetchedData = data.data;
+      console.log(fetchedData);
+      dispatch({
+        type: COMPANY_DASHBOARD,
         payload: fetchedData
       });
     })

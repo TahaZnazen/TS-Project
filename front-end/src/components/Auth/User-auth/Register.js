@@ -2,7 +2,10 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import "./userAuth.css";
 import axios from "axios";
-export default class Register extends Component {
+import { registerAuth } from "../../../actions/authActions";
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+class Register extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -18,15 +21,14 @@ export default class Register extends Component {
 
   Submit(e) {
     e.preventDefault();
-    if (this.state.email !== "" && this.state.password !== "") {
-      console.log(this.state);
+    if (
+      this.state.email !== "" &&
+      this.state.password !== "" &&
+      this.state.passwordConfirmation === this.state.password &&
+      this.state.name
+    ) {
       let data = this.state;
-      axios
-        .post(`http://localhost:8080/api/v1/users/signup`, { data })
-        .then(res => {
-          console.log(res.data);
-        })
-        .catch(err => console.log(err));
+      this.props.registerAuth({ data }, this.props);
     }
   }
   Change(e) {
@@ -36,43 +38,50 @@ export default class Register extends Component {
   }
   render() {
     return (
-      <div>
-        <h1>user register</h1>
+      <div className="login">
+        <div className="loginInfo ">
+          <h1>user register</h1>
 
-        <form className="AuthForm">
-          <input
-            name="name"
-            placeholder="user name ... "
-            onChange={this.Change}
-            type="text"
-          />
-          <input
-            name="password"
-            placeholder="password ..."
-            onChange={this.Change}
-            type="password"
-          />
-          <input
-            name="passwordConfirmation"
-            placeholder="password Confirmation ..."
-            onChange={this.Change}
-            type="password"
-          />
-          <input
-            name="email"
-            placeholder="RBK@gmail.com"
-            onChange={this.Change}
-            type="email"
-          />
+          <form className="AuthForm">
+            <input
+              name="name"
+              placeholder="user name ... "
+              onChange={this.Change}
+              type="text"
+            />
+            <input
+              name="password"
+              placeholder="password ..."
+              onChange={this.Change}
+              type="password"
+            />
+            <input
+              name="passwordConfirmation"
+              placeholder="password Confirmation ..."
+              onChange={this.Change}
+              type="password"
+            />
+            <input
+              name="email"
+              placeholder="RBK@gmail.com"
+              onChange={this.Change}
+              type="email"
+            />
 
-          <button type="submit" onClick={this.Submit}>
-            Login
-          </button>
-        </form>
-        <Link to="/Employee">
-          <h5>Sign Up</h5>
-        </Link>
+            <button type="submit" onClick={this.Submit}>
+              Register
+            </button>
+          </form>
+          <Link to="/Employee">
+            <h5>Login</h5>
+          </Link>
+        </div>
+        <div className="loginFormPhoto regphoto"></div>
       </div>
     );
   }
 }
+const mapStateToProps = state => ({
+  authInfo: state.auth
+});
+export default withRouter(connect(mapStateToProps, { registerAuth })(Register));

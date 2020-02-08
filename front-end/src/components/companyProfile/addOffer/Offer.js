@@ -4,7 +4,9 @@ import axios from "axios";
 class Offer extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      companyName: "5e317ff8059a3a57a4d3639d"
+    };
     this.change = this.change.bind(this);
   }
   change(e) {
@@ -25,15 +27,12 @@ class Offer extends Component {
       axios
         .post(
           "http://localhost:8080/api/post/addPost/5e317ff8059a3a57a4d3639d",
-
-          /*
-          jwt.verify(localStorage.getItem('Token'), process.env.SECRET_KEY, function(err, decode) {
-            decode.id === user id
-          })
-          */
           { data }
         )
-        .then(res => console.log(res))
+        .then(res => {
+          console.log(res);
+          window.location.reload();
+        })
         .catch(err => console.log(err));
     } else {
       alert("req not sended");
@@ -43,6 +42,20 @@ class Offer extends Component {
   render() {
     return (
       <div className="jobOffer">
+        <button
+          style={{
+            position: "absolute",
+            top: "0",
+            right: "0",
+            width: "40px",
+            background: "none",
+            color: "black",
+            fontSize: "19px"
+          }}
+          onClick={this.props.closeOffer}
+        >
+          x
+        </button>
         <label>Job Title</label>
         <input onChange={this.change} type="text" name="title" />
         <label>Description</label>
