@@ -2,6 +2,7 @@ const express = require("express");
 const userController = require("./../controllers/userController");
 const router = express.Router();
 const authController = require("./../controllers/authController");
+const path = require("path");
 
 router.route("/").get(userController.findAllUsers);
 router.post("/signup", authController.signup);

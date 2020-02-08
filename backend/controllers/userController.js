@@ -28,12 +28,12 @@ const upload = multer({ storage: multerStorage, fileFilter: multerFilter });
 exports.uploadUserPhoto = upload.single("photo");
 
 exports.updateUser = async (req, res) => {
-  console.log(req.file);
+  console.log(req.params.id);
   try {
     if (req.file) {
       req.body.photo = `http://localhost:8080/api/users/image/${req.file.filename}`;
     }
-    console.log(req.body.photo);
+    // console.log(req.body.photo);
     const test = await user.findOneAndUpdate({ _id: req.params.id }, req.body);
     res.json({ message: "user updated" });
   } catch (err) {
