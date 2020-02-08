@@ -8,7 +8,10 @@ const userRouter = require("./routes/userRoute");
 const jobOfferRoute = require("./routes/jobOfferRoute");
 const cvRoute = require("./routes/cvRoute");
 const companyRoute = require("./routes/companyRoute");
+const premiumRoute = require("./routes/premiumRoute");
+const http = require("http");
 
+// app.http().io();
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(cors());
@@ -28,11 +31,11 @@ app.get("/confirmation/:token", async (req, res) => {
   } catch (err) {
     res.json({ err });
   }
-  // user.active = true;
-  // await User.findOneAndUpdate();
 });
 app.use("/api/users", userRouter);
 app.use("/api/post", jobOfferRoute);
 app.use("/api/cvs", cvRoute);
 app.use("/api/company", companyRoute);
+app.use("/company", premiumRoute);
+
 module.exports = app;

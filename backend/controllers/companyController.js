@@ -14,6 +14,11 @@ exports.addCompany = async (req, res) => {
 };
 exports.updateCompany = async (req, res) => {
   try {
+    console.log(req.body);
+    if (req.file) {
+      req.body.photo = req.file.filename;
+    }
+    // const test = await user.findOneAndUpdate({ _id: req.params.id }, req.body);
     const id = req.params.id;
     const updateCompany = await company.findByIdAndUpdate(id, req.body);
     res.json({

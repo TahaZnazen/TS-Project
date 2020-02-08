@@ -10,7 +10,9 @@ export const COMPANY_INFO = "COMPANY_INFO";
 export const FETCH_CV = "FETCH_CV";
 export const ADD_EXPERIENCE = "ADD_EXPERIENCE";
 export const ADD_SKILL = "ADD_SKILL";
+export const DEL_SKILL = "DEL_SKILL";
 export const ADD_EDUCATION = "ADD_EDUCATION";
+export const DEL_EDUCATION = "DEL_EDUCATION";
 export const ADD_LANGUAGE = "ADD_LANGUAGE";
 export const COMPANY_DASHBOARD = "COMPANY_DASHBOARD";
 

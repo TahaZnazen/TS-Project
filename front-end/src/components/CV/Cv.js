@@ -5,6 +5,7 @@ import ExperienceForm from "../CV/formsCV/ExperienceForm";
 import EducationForm from "../CV/formsCV/EducationForm";
 import LanguageForm from "../CV/formsCV/LanguageForm";
 import SkillsForm from "../CV/formsCV/SkillsForm";
+import PersonalInformation from "../CV/formsCV/PersonalInformation";
 
 import {
   Badge,
@@ -90,7 +91,9 @@ class Cv extends Component {
                   </Col>
                   <Col xs="8">
                     <TabContent activeTab={this.state.activeTab}>
-                      <TabPane tabId={0}>info form</TabPane>
+                      <TabPane tabId={0}>
+                        <PersonalInformation />
+                      </TabPane>
                       <TabPane tabId={1}>
                         <ExperienceForm />
                       </TabPane>

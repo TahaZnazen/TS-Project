@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { addSkill } from "../../../actions/cvActions";
 
+import "react-toastify/dist/ReactToastify.css";
+
 import { Form, FormGroup, Col, Label, Button, Input } from "reactstrap";
 
 class SkillsForm extends Component {
@@ -25,7 +27,6 @@ class SkillsForm extends Component {
     delete newDisplay[elementToDelete];
     this.setState({ displaySkills: newDisplay });
   };
-
   renderForm = () => {
     return (
       <Form

@@ -1,6 +1,7 @@
 const user = require("../models/UserModel");
 const offer = require("../models/JobOfferModel");
 const cv = require("../models/CVModel");
+const path = require("path");
 
 const multer = require("multer");
 
@@ -27,17 +28,22 @@ const upload = multer({ storage: multerStorage, fileFilter: multerFilter });
 exports.uploadUserPhoto = upload.single("photo");
 
 exports.updateUser = async (req, res) => {
+  console.log(req.params.id);
   try {
     if (req.file) {
-      console.log("hii");
-      req.body.photo = req.file.filename;
+      req.body.photo = `http://localhost:8080/api/users/image/${req.file.filename}`;
     }
+    // console.log(req.body.photo);
     const test = await user.findOneAndUpdate({ _id: req.params.id }, req.body);
     res.json({ message: "user updated" });
   } catch (err) {
     // console.log(err);
     res.json({ err });
   }
+};
+
+exports.getimg = (req, res) => {
+  res.sendFile(path.resolve(__dirname, `./../public/img/users`, req.params.id));
 };
 
 exports.findAllUsers = async (req, res) => {
@@ -63,5 +69,30 @@ exports.matchingRate = async (req, res) => {
     const offers = await offer.find({});
   } catch (err) {
     res.json({ err });
+  }
+};
+
+exports.findJobs = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const jobs = await user.findById(id).populate("appliedJobs.job");
+    res.json({ data: jobs });
+  } catch (err) {
+    console.log(err);
+    res.json({ message: "err" });
+  }
+};
+
+exports.updatePassword = async (req, res) => {
+  try {
+    const User = await user.findById(req.params.id).select("+password");
+    const iscorrect = await User.correctPassword(
+      req.body.password,
+      User.password
+    );
+    res.status(200).json({ iscorrect });
+  } catch (err) {
+    console.log(err);
+    res.json({ message: "fail" });
   }
 };

@@ -25,7 +25,7 @@ const sendEmail = option => {
         rejectUnauthorized: false
       }
     });
-    console.log("this is send to ", option.email);
+    // console.log("this is send to ", option.email);
     const mailOptions = {
       from: "Wazzaka-Team", // sender address
       to: option.email, // list of receivers
@@ -37,8 +37,6 @@ const sendEmail = option => {
     transport.sendMail(mailOptions, function(err, data) {
       if (err) {
         console.log("this is the error ", err);
-      } else {
-        console.log("email sent!");
       }
     });
   }
@@ -73,6 +71,7 @@ exports.signup = async (req, res) => {
       });
     } catch (err) {
       console.log(err);
+      res.json({ err });
     }
 
     newUser.verifeToken = verifeToken;
@@ -131,40 +130,68 @@ exports.login = async (req, res) => {
 
 exports.protectUser = async (req, res, next) => {
   try {
-    if (!req.headers.token) {
-      res.json({ message: "login please" });
-    }
-
-    // we promesify this to escape from callback hell
     const decoded = await promisify(jwt.verify)(
       req.headers.token,
       process.env.JWT_SECRET
     );
-
-    const user = await User.findOne({ _id: decoded.id });
-    // res.json({ user });
-    if (user) {
-      next;
-    }
+    req.userData = decoded;
+    next();
   } catch (err) {
-    res.json({ err });
+    return res.status(401).json({ message: "Auth failed" });
   }
-
-  next();
-}; // protect need some refactor
+};
 
 exports.signupCompany = async (req, res) => {
   try {
     // console.log(req.body);
     const newCompany = await Company.create(req.body);
     const token = signToken(newCompany._id, process.env.JWT_SECRET);
-    res.json({ newCompany });
+    // res.json({ newCompany });
+
+    const verifeToken = signToken(newCompany._id, "emailsecter"); // this toke is for verification
+    const url = `http://localhost:8080/confirmation-company/${verifeToken}`;
+    const message = "Submite to verife your company account";
+    // Send email verification
+    try {
+      await sendEmail({
+        email: newCompany.email,
+        subject: "Verife",
+        message,
+        text: url,
+        html: `
+        <h1>Hello, ${newCompany.name}</h1>
+        <p>Please verife your account to login and be part of our plateform</p>
+        <a href='${url}'>CLICK HERE</a>
+        <p>If you are not interrseting just ignore this email</p>
+        `
+      });
+      newCompany.verifyToken = verifeToken;
+
+      await newCompany.save({ validateBeforeSave: false });
+      res.json({ status: "sucess", email: "sent!" });
+    } catch (err) {
+      console.log(err);
+      res.json({ err });
+    }
   } catch (err) {
     console.log(err);
     res.json({ err });
   }
 };
-
+exports.verifeCompany = async (req, res) => {
+  try {
+    const company = await Company.findOne({ verifyToken: req.params.id });
+    console.log(company);
+    if (company) {
+      // console.log(company.name);
+      company.verife = true;
+      await company.save({ validateBeforeSave: false });
+    }
+    res.json({ message: company.name + " verifed" });
+  } catch (err) {
+    res.json({ err });
+  }
+};
 exports.loginCompany = async (req, res) => {
   try {
     const company = await Company.findOne({ email: req.body.email }).select(
