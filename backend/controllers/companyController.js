@@ -1,7 +1,8 @@
 const company = require("../models/CompanyModel");
 const offers = require("../models/JobOfferModel");
-const users = require("../models/UserModel");
+const User = require("../models/UserModel");
 const ObjectId = require("mongoose").Types.ObjectId;
+const nodemailer = require("nodemailer");
 exports.addCompany = async (req, res) => {
   try {
     const newCompany = await company.create(req.body);
@@ -73,3 +74,89 @@ exports.CompanyOffersCandidates = async (req, res) => {
     res.json({ err });
   }
 };
+
+exports.acceptUser = async (req, res) => {
+  try {
+  } catch (err) {}
+};
+
+exports.rejectUser = async (req, res) => {
+  try {
+    const user = await User.findById(req.body.userId);
+    const Company = await company.findById(req.body.companyId);
+    const job = await offers.findById(req.body.jobId);
+    const message =
+      req.body.message ||
+      `Sorry for that but you have been rejected by ${Company.name}, on the job ${job.title}`;
+
+    try {
+      await sendEmail({
+        email: user.email,
+        subject: "Company response",
+        message,
+        html: `
+         <h1>Hello, ${user.name}</h1>
+         <p>${message}</p>
+         
+         `
+      });
+    } catch (err) {
+      console.log(err);
+    }
+    res.json({ status: "good" });
+  } catch (err) {
+    console.log(err);
+    res.json({ status: "fail" });
+  }
+};
+
+const sendEmail = option => {
+  async function main() {
+    const transport = nodemailer.createTransport({
+      host: process.env.HOST,
+      port: 587,
+      secure: false,
+      auth: {
+        user: "mrawebsami@gmail.com",
+        pass: "samisamimraweb"
+      },
+      tls: {
+        rejectUnauthorized: false
+      }
+    });
+    const mailOptions = {
+      from: "Wazzaka-Team", // sender address
+      to: option.email, // list of receivers
+      subject: option.subject, // Subject line
+      text: option.text, // plain text body
+      html: option.html // html body
+    };
+
+    transport.sendMail(mailOptions, function(err, data) {
+      if (err) {
+        console.log("this is the error ", err);
+      }
+    });
+  }
+  main().catch(console.error);
+};
+
+// const message = "Submite to verife your account";
+// // Send email verification
+// try {
+//   await sendEmail({
+//     email: newUser.email,
+//     subject: "Verife",
+//     message,
+//     text: url,
+//     html: `
+//         <h1>Hello, ${newUser.name}</h1>
+//         <p>Please verife your account to login and be part of our plateform</p>
+//         <a href='${url}'>CLICK HERE</a>
+//         <p>If you are not interrseting just ignore this email</p>
+//         `
+//   });
+// } catch (err) {
+//   console.log(err);
+//   res.json({ err });
+// }
