@@ -77,7 +77,30 @@ exports.CompanyOffersCandidates = async (req, res) => {
 
 exports.acceptUser = async (req, res) => {
   try {
-  } catch (err) {}
+    const user = await User.findById(req.body.userId);
+    const Company = await company.findById(req.body.companyId);
+    const job = await offers.findById(req.body.jobId);
+    const date = req.body.date;
+    const message =
+      req.body.message ||
+      `You have been accepeted on a ${job.title} that you applied on the company "${Company.name}" and your interview date is ${date} get ready for the interview and good luck`;
+    try {
+      await sendEmail({
+        email: user.email,
+        subject: "Company response",
+        message,
+        html: `
+        <h1>Hello, ${user.name}</h1>
+        <p>${message}</p>`
+      });
+    } catch (err) {
+      res.json({ err });
+    }
+
+    res.json({ email: "sent!" });
+  } catch (err) {
+    res.json({ err });
+  }
 };
 
 exports.rejectUser = async (req, res) => {
@@ -87,7 +110,7 @@ exports.rejectUser = async (req, res) => {
     const job = await offers.findById(req.body.jobId);
     const message =
       req.body.message ||
-      `Sorry for that but you have been rejected by ${Company.name}, on the job ${job.title}`;
+      `Sorry for that but you have been rejected by ${Company.name}, on the job ${job.title}. better luck next time`;
 
     try {
       await sendEmail({
@@ -140,23 +163,3 @@ const sendEmail = option => {
   }
   main().catch(console.error);
 };
-
-// const message = "Submite to verife your account";
-// // Send email verification
-// try {
-//   await sendEmail({
-//     email: newUser.email,
-//     subject: "Verife",
-//     message,
-//     text: url,
-//     html: `
-//         <h1>Hello, ${newUser.name}</h1>
-//         <p>Please verife your account to login and be part of our plateform</p>
-//         <a href='${url}'>CLICK HERE</a>
-//         <p>If you are not interrseting just ignore this email</p>
-//         `
-//   });
-// } catch (err) {
-//   console.log(err);
-//   res.json({ err });
-// }
