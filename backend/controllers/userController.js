@@ -103,7 +103,7 @@ exports.updatePassword = async (req, res) => {
   }
 };
 
-exports.forgetPassword = async (req, res) => {
+exports.forgetUpdatePassword = async (req, res) => {
   try {
     const User = await user.findOne({ email: req.body.email });
     User.password = req.body.password;

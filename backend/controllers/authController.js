@@ -220,7 +220,7 @@ exports.forgetPassword = async (req, res) => {
     }
 
     const verifeToken = signToken(user._id, "emailsecter"); // this toke is for verification
-    const url = `http://localhost:8080/confirmation-company/${verifeToken}`;
+    const url = `MUST REFACTOR THIS`;
     const message = "Submite to verife your company account";
     console.log(user.email);
     try {
