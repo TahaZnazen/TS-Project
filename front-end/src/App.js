@@ -11,6 +11,7 @@ import MainAuth from "./components/Auth/MainAuth";
 import Cv from "./components/CV/Cv";
 import TestBilel from "./components/TestBilel";
 import TestBilel2 from "./components/TestBilel2";
+import Template from "./views/Notifications/Modals";
 import ProfileUser from "./components/Profile/ProfileUser";
 //import Test from "./views/index";
 function App() {

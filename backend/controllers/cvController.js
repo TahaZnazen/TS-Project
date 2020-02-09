@@ -301,13 +301,14 @@ exports.getAllEducations = (req, res) => {
   }
 };
 
-//Update one User education  Done ! //cvs/id_cv/id_experience NO
+//Update one User education  Done ! //cvs/id_cv/id_experience
 exports.updateOneEducation = (req, res) => {
+  console.log("hello update one education", req.body);
+  console.log("hhhhh", req.params.id_education);
   try {
     const _id = req.params.id_Cv;
     const id_education = req.params.id_education;
-    const { start, end, diploma, degree, establishment } = req.body.education;
-    console.log(req.body.education);
+    const { start, end, diploma, degree, establishment } = req.body;
 
     CV.update(
       { _id, "education._id": id_education }, //$ to target element inside the array
@@ -568,6 +569,7 @@ exports.updateOneLanguage = (req, res) => {
     const _id = req.params.id_Cv;
     const id_language = req.params.id_language;
     const { name, level } = req.body;
+    console.log(req.body);
     CV.update(
       { _id, "language._id": id_language }, //$ to target element inside the array
       {
