@@ -2,6 +2,7 @@ const company = require("../models/CompanyModel");
 const offers = require("../models/JobOfferModel");
 const User = require("../models/UserModel");
 const ObjectId = require("mongoose").Types.ObjectId;
+const multer = require("multer");
 const nodemailer = require("nodemailer");
 exports.addCompany = async (req, res) => {
   try {
@@ -13,22 +14,7 @@ exports.addCompany = async (req, res) => {
     res.json({ err });
   }
 };
-exports.updateCompany = async (req, res) => {
-  try {
-    console.log(req.body);
-    if (req.file) {
-      req.body.photo = req.file.filename;
-    }
-    // const test = await user.findOneAndUpdate({ _id: req.params.id }, req.body);
-    const id = req.params.id;
-    const updateCompany = await company.findByIdAndUpdate(id, req.body);
-    res.json({
-      data: { updateCompany }
-    });
-  } catch (err) {
-    res.json({ err });
-  }
-};
+
 exports.topCompanies = async (req, res) => {
   try {
     const top5 = await company
@@ -162,4 +148,61 @@ const sendEmail = option => {
     });
   }
   main().catch(console.error);
+};
+
+const multerStorage = multer.diskStorage({
+  destination: (req, res, cb) => {
+    cb(null, "public/img/company");
+  },
+  filename: (req, file, cb) => {
+    const ext = file.mimetype.split("/")[1];
+
+    cb(null, `company-${req.params.id}-${Date.now()}.${ext}`);
+  }
+});
+
+const multerFilter = (req, file, cb) => {
+  if (file.mimetype.startsWith("image")) {
+    cb(null, true);
+  } else {
+    cb(new Error("Not an image! Please upload only images."), false);
+  }
+};
+const upload = multer({ storage: multerStorage, fileFilter: multerFilter });
+exports.uploadUserPhoto = upload.single("photo");
+
+// exports.updateUser = async (req, res) => {
+//   try {
+//     if (req.file) {
+//       req.body.photo = `http://localhost:8080/api/users/image/${req.file.filename}`;
+//     }
+//     // console.log(req.body.photo);
+//     const test = await user.findOneAndUpdate({ _id: req.params.id }, req.body);
+//     res.json({ message: "user updated" });
+//   } catch (err) {
+//     // console.log(err);
+//     res.json({ err });
+//   }
+// };
+
+exports.getimg = (req, res) => {
+  res.sendFile(
+    path.resolve(__dirname, `./../public/img/company`, req.params.id)
+  );
+};
+
+exports.updateCompany = async (req, res) => {
+  try {
+    if (req.file) {
+      req.body.photo = `http://localhost:8080/api/users/image/${req.file.filename}`;
+    }
+
+    const id = req.params.id;
+    const updateCompany = await company.findByIdAndUpdate(id, req.body);
+    res.json({
+      data: { updateCompany }
+    });
+  } catch (err) {
+    res.json({ err });
+  }
 };
