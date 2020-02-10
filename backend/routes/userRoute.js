@@ -16,7 +16,7 @@ router
 router.route("/image/:id").get(userController.getimg);
 router.route("/updatePassword/:id").patch(userController.updatePassword);
 router.route("/forgetPassword").post(authController.forgetPassword);
-router.route("/forgetPassword").patch(userController.forgetPassword);
+router.route("/forgetPassword").patch(userController.forgetUpdatePassword);
 
 router.route("/generateID").post(authController.generateID);
 

@@ -11,11 +11,14 @@ const companyCotroller = require("../controllers/companyController");
 router.route("/addCompanyInformation").post(companyCotroller.addCompany);
 router
   .route("/updateCompany/:id")
-  .patch(userController.uploadUserPhoto, companyCotroller.updateCompany);
+  .patch(companyCotroller.uploadUserPhoto, companyCotroller.updateCompany);
 router.route("/top5").get(companyCotroller.topCompanies);
 router.route("/showPosts/:id").get(companyCotroller.findOffers);
 router.route("/companyInfo/:id").get(companyCotroller.findCompany);
 router.route("/confirmation-company/:id").get(authController.verifeCompany);
-
+router.route("/rejectUser").post(companyCotroller.rejectUser);
+router.route("/acceptUser").post(companyCotroller.acceptUser);
 router.route("/candidates/:id").get(companyCotroller.CompanyOffersCandidates);
+router.route("/image/:id").get(companyCotroller.getimg);
+
 module.exports = router;
