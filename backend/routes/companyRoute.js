@@ -20,4 +20,5 @@ router.route("/rejectUser").post(companyCotroller.rejectUser);
 router.route("/acceptUser").post(companyCotroller.acceptUser);
 router.route("/candidates/:id").get(companyCotroller.CompanyOffersCandidates);
 router.route("/image/:id").get(companyCotroller.getimg);
+
 module.exports = router;

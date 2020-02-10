@@ -171,20 +171,6 @@ const multerFilter = (req, file, cb) => {
 const upload = multer({ storage: multerStorage, fileFilter: multerFilter });
 exports.uploadUserPhoto = upload.single("photo");
 
-// exports.updateUser = async (req, res) => {
-//   try {
-//     if (req.file) {
-//       req.body.photo = `http://localhost:8080/api/users/image/${req.file.filename}`;
-//     }
-//     // console.log(req.body.photo);
-//     const test = await user.findOneAndUpdate({ _id: req.params.id }, req.body);
-//     res.json({ message: "user updated" });
-//   } catch (err) {
-//     // console.log(err);
-//     res.json({ err });
-//   }
-// };
-
 exports.getimg = (req, res) => {
   res.sendFile(
     path.resolve(__dirname, `./../public/img/company`, req.params.id)
@@ -206,3 +192,35 @@ exports.updateCompany = async (req, res) => {
     res.json({ err });
   }
 };
+
+// exports.updatePassword = async (req, res) => {
+//   try {
+//     const User = await user.findById(req.params.id).select("+password");
+//     const iscorrect = await User.correctPassword(
+//       req.body.password,
+//       User.password
+//     );
+//     if (iscorrect) {
+//       User.password = req.body.newPassword;
+//       await User.save();
+//       res.json({ message: "password changed" });
+//     }
+
+//     res.status(200).json({ message: "wrong password" });
+//   } catch (err) {
+//     console.log(err);
+//     res.json({ message: "fail" });
+//   }
+// };
+
+// exports.forgetUpdatePassword = async (req, res) => {
+//   try {
+//     const User = await user.findOne({ email: req.body.email });
+//     User.password = req.body.password;
+//     await User.save({ validateBeforeSave: false });
+//     console.log("Password Updated");
+//     res.json({ password: "updated" });
+//   } catch (err) {
+//     res.json({ err });
+//   }
+// };

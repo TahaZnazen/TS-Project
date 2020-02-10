@@ -109,6 +109,7 @@ exports.forgetUpdatePassword = async (req, res) => {
     User.password = req.body.password;
     await User.save({ validateBeforeSave: false });
     console.log("Password Updated");
+    res.json({ password: "updated" });
   } catch (err) {
     res.json({ err });
   }
