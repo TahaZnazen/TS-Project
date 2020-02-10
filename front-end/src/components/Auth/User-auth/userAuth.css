@@ -23,3 +23,24 @@
   background-color: #f0267a;
   transition: 0.4s;
 }
+.login {
+  display: flex;
+}
+.login div {
+  height: 100vh;
+}
+.loginInfo {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 40vw;
+}
+
+.loginFormPhoto {
+  width: 60vw;
+  background-image: url("https://images.wallpaperscraft.com/image/forest_trees_fog_110485_3840x2400.jpg");
+  background-size: 100% 100%;
+}
+.regphoto {
+  background-image: url("https://cdn.pixabay.com/photo/2015/09/02/12/35/forest-918548_960_720.jpg");
+}

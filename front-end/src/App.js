@@ -1,8 +1,14 @@
-import React from "react";
+import React, { Component } from "react";
 import "./App.scss";
 import FirstPage from "./components/FirstPAge/FirstPage";
 import JobOffers from "./components/jobOffers/JobOffers";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  Redirect
+} from "react-router-dom";
 import CompanyProfile from "./components/companyProfile/CompanyProfile";
 import DashBoard from "./components/companyDashBoard/dashBoard";
 
@@ -56,5 +62,4 @@ function App() {
     </Router>
   );
 }
-
 export default App;

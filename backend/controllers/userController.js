@@ -12,7 +12,7 @@ const multerStorage = multer.diskStorage({
   filename: (req, file, cb) => {
     // user-userID-Timestamp.ext
     const ext = file.mimetype.split("/")[1];
-    // console.log(req);
+
     cb(null, `user-${req.params.id}-${Date.now()}.${ext}`);
   }
 });
@@ -91,9 +91,27 @@ exports.updatePassword = async (req, res) => {
       req.body.password,
       User.password
     );
-    res.status(200).json({ iscorrect });
+    if (iscorrect) {
+      User.password = req.body.newPassword;
+      await User.save();
+      res.json({ message: "password changed" });
+    }
+
+    res.status(200).json({ message: "wrong password" });
   } catch (err) {
     console.log(err);
     res.json({ message: "fail" });
+  }
+};
+
+exports.forgetUpdatePassword = async (req, res) => {
+  try {
+    const User = await user.findOne({ email: req.body.email });
+    User.password = req.body.password;
+    await User.save({ validateBeforeSave: false });
+    console.log("Password Updated");
+    res.json({ password: "updated" });
+  } catch (err) {
+    res.json({ err });
   }
 };

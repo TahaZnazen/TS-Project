@@ -1,10 +1,15 @@
 import React, { Component } from "react";
 import "./offer.css";
 import axios from "axios";
+import { connect } from "react-redux";
+
 class Offer extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      companyName: "5e317ff8059a3a57a4d3639d",
+      token: this.props.authInfo.token
+    };
     this.change = this.change.bind(this);
   }
   change(e) {
@@ -21,28 +26,42 @@ class Offer extends Component {
       this.state.jobType
     ) {
       let data = this.state;
+      let token = this.props.authInfo.token;
+
       console.log(data);
       axios
-        .post(
-          "http://localhost:8080/api/post/addPost/5e317ff8059a3a57a4d3639d",
-
-          /*
-          jwt.verify(localStorage.getItem('Token'), process.env.SECRET_KEY, function(err, decode) {
-            decode.id === user id
-          })
-          */
-          { data }
-        )
-        .then(res => console.log(res))
-        .catch(err => console.log(err));
-    } else {
-      alert("req not sended");
+        .post("http://localhost:8080/api/users/generateID", { token: token })
+        .then(res => {
+          axios
+            .post(`http://localhost:8080/api/post/addPost/${res.data.id}`, {
+              data
+            })
+            .then(res => {
+              console.log(res);
+              window.location.reload();
+            })
+            .catch(err => console.log(err));
+        });
     }
   }
 
   render() {
     return (
       <div className="jobOffer">
+        <button
+          style={{
+            position: "absolute",
+            top: "0",
+            right: "0",
+            width: "40px",
+            background: "none",
+            color: "black",
+            fontSize: "19px"
+          }}
+          onClick={this.props.closeOffer}
+        >
+          x
+        </button>
         <label>Job Title</label>
         <input onChange={this.change} type="text" name="title" />
         <label>Description</label>
@@ -76,4 +95,7 @@ class Offer extends Component {
   }
 }
 
-export default Offer;
+const mapStateToProps = state => ({
+  authInfo: state.auth
+});
+export default connect(mapStateToProps, null)(Offer);
