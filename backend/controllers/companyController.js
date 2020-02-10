@@ -78,6 +78,7 @@ exports.acceptUser = async (req, res) => {
     const message =
       req.body.message ||
       `You have been accepeted on a ${job.title} that you applied on the company "${Company.name}" and your interview date is ${date} get ready for the interview and good luck`;
+    // chnage status to true
     try {
       await sendEmail({
         email: user.email,
@@ -107,7 +108,7 @@ exports.rejectUser = async (req, res) => {
     const message =
       req.body.message ||
       `Sorry for that but you have been rejected by ${Company.name}, on the job ${job.title}. better luck next time`;
-
+    // change status to false
     try {
       await sendEmail({
         email: user.email,

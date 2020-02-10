@@ -141,6 +141,19 @@ exports.protectUser = async (req, res, next) => {
   }
 };
 
+exports.protectCompany = async (req, res, next) => {
+  try {
+    const decoded = await promisify(jwt.verify)(
+      req.headers.token,
+      process.env.JWT_SECRET
+    );
+    req.companyData = decoded;
+    next();
+  } catch (err) {
+    return res.status(401).json({ message: "Auth failed" });
+  }
+};
+
 exports.signupCompany = async (req, res) => {
   try {
     // console.log(req.body);
