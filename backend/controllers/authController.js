@@ -223,7 +223,6 @@ exports.forgetPassword = async (req, res) => {
       res.status(404).json({ message: "User not found!" });
     }
 
-    const verifeToken = signToken(user._id, "emailsecter"); // this toke is for verification
     const url = `http://localhost:3000/Employee/forgetpasswordConfirmation`;
     const message = "Submite to verife your company account";
     console.log(user.email);

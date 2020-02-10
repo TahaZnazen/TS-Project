@@ -85,7 +85,9 @@ exports.acceptUser = async (req, res) => {
         message,
         html: `
         <h1>Hello, ${user.name}</h1>
-        <p>${message}</p>`
+        <p>${message}</p>
+        <p>if you can't show up on that date feel free to contact the company on there email ${Company.email}</p>
+        `
       });
     } catch (err) {
       res.json({ err });
@@ -187,11 +189,6 @@ exports.getimg = (req, res) => {
 
 exports.updateCompany = async (req, res) => {
   try {
-    // if (req.body.photo) {
-    //   req.body.photo = `http://localhost:8080/api/users/image/${
-    //     req.body.photo.split("\\")[2]
-    //   }`;
-    // }
     if (req.file) {
       req.body.photo = `http://localhost:8080/api/company/image/${req.file.filename}`;
     }
@@ -213,6 +210,18 @@ exports.getImage = async (req, res) => {
     res.json({
       img: photo
     });
+  } catch (err) {
+    res.json({ err });
+  }
+};
+
+exports.forgetUpdatePassword = async (req, res) => {
+  try {
+    const Company = await company.findOne({ email: req.body.data.email });
+    Company.password = req.body.data.password;
+    await Company.save({ validateBeforeSave: false });
+
+    res.json({ password: "updated" });
   } catch (err) {
     res.json({ err });
   }
