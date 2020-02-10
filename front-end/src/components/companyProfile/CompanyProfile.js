@@ -7,19 +7,43 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Offer from "./addOffer/Offer";
 import ReactGoogleMaps from "../../views/GoogleMaps/GoogleMaps";
+import axios, { patch } from "axios";
 class CompanyProfile extends Component {
-  state = {
-    addPost: false
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      addPost: false,
+      selectedFile: null,
+      companyID: ""
+    };
+  }
+
   addPost() {
     this.setState({
       addPost: !this.state.addPost
     });
   }
   componentDidMount() {
-    this.props.filterByCompany();
-    this.props.findCompany();
+    let data = this.props.authInfo.token;
+    console.log(data);
+    axios
+      .post("http://localhost:8080/api/users/generateID", { token: data })
+      .then(res => {
+        this.setState({
+          companyID: res.data.id
+        });
+        this.props.filterByCompany(res.data.id);
+        this.props.findCompany(res.data.id);
+      })
+      .catch(err => console.log(err));
   }
+  componentWillUnmount() {
+    axios
+      .get(`http://localhost:8080/api/company/image/${this.state.companyID}`)
+      .then(res => console.log(res), "/////")
+      .catch(err => console.log(err));
+  }
+
   // closefrombody() {
   //   if (this.state.addPost) {
   //     this.setState({
@@ -27,6 +51,39 @@ class CompanyProfile extends Component {
   //     });
   //   }
   // }
+  // sendImg() {
+  //   const data = new FormData();
+  //   data.append("file", this.state.coverImg);
+  //   axios
+  //     .patch(
+  //       `http://localhost:8080/api/company/updateCompany/${this.state.companyID}`,
+  //       { data }
+  //     )
+  //     .then(res => {
+  //       console.log(res);
+  //       // this.setState({coverImg:res.data.})
+  //     })
+  //     .catch(err => console.log(err));
+  // }
+  onChangeHandler = event => {
+    this.setState({
+      selectedFile: event.target.files[0],
+      loaded: 0
+    });
+  };
+  onClickHandler = () => {
+    const data = new FormData();
+    data.append("photo", this.state.selectedFile);
+    axios
+      .patch(
+        `http://localhost:8080/api/company/updateCompany/${this.state.companyID}`,
+        data
+      )
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => console.log(err));
+  };
   render() {
     return (
       // onClick={this.closefrombody.bind(this)}
@@ -44,10 +101,30 @@ class CompanyProfile extends Component {
               width: "100wh",
               height: "300px",
               backgroundImage:
-                "url(http://www.ellendriscoll.net/sites/default/files/distantweb.jpg?1392682694)",
+                "url(http://localhost:8080/api/company/image/company-5e4080c855dc233d88e5e307-1581301937764.jpeg)",
               backgroundSize: "100% 100%"
             }}
-          ></div>
+          >
+            {/* multe */}
+            <form
+              encType="multipart/form-data"
+              onSubmit={this.onClickHandler.bind(this)}
+            >
+              <input
+                type="file"
+                name="selectedFile"
+                onChange={this.onChangeHandler.bind(this)}
+              />
+              <button
+                type="button"
+                className="btn btn-success btn-block"
+                onClick={this.onClickHandler.bind(this)}
+              >
+                Upload
+              </button>
+            </form>
+          </div>
+
           <div
             className="card-body d-flex "
             style={{ backgroundColor: "#ebedef" }}
@@ -63,10 +140,10 @@ class CompanyProfile extends Component {
             ></div>
             <div>
               <h1 className="card-title text-left">
-                {this.props.companyInfo.map(elm => elm.name)}
+                {this.props.companyInfo.map(elm => elm.data.name)}
               </h1>
               <h4 className="card-title text-left">
-                {this.props.companyInfo.map(elm => elm.email)}
+                {this.props.companyInfo.map(elm => elm.data.email)}
               </h4>
             </div>
           </div>
@@ -115,7 +192,7 @@ class CompanyProfile extends Component {
           <div id="mainPosts">
             <h1>About us</h1>
             <p style={{ fontSize: "18px", padding: "3vh" }}>
-              {this.props.companyInfo.map(elm => elm.description)}
+              {this.props.companyInfo.map(elm => elm.data.description)}
             </p>
             <h1>location</h1>
             <div style={{ paddingBottom: "20px" }}>
@@ -130,7 +207,8 @@ class CompanyProfile extends Component {
 }
 const mapStateToProps = state => ({
   companyOffers: state.posts.companyPosts,
-  companyInfo: state.posts.companyInfo
+  companyInfo: state.posts.companyInfo,
+  authInfo: state.auth
 });
 export default connect(mapStateToProps, { filterByCompany, findCompany })(
   CompanyProfile

@@ -2,13 +2,15 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import "./companyAuth.css";
 import axios from "axios";
-
-export default class CompanyLogin extends Component {
+import { companyLoginAuth } from "../../../actions/authActions";
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+class CompanyLogin extends Component {
   constructor(props) {
     super(props);
     this.state = {
       CompanyEmail: "",
-      passWord: ""
+      password: ""
     };
 
     this.Change = this.Change.bind(this);
@@ -17,15 +19,10 @@ export default class CompanyLogin extends Component {
 
   Submit(e) {
     e.preventDefault();
-    if (this.state.email !== "" && this.state.passWord !== "") {
+    if (this.state.email !== "" && this.state.password !== "") {
       console.log(this.state);
       let data = this.state;
-      axios
-        .post(`/company/login`, { data })
-        .then(res => {
-          console.log(res.data);
-        })
-        .catch(err => console.log(err));
+      this.props.companyLoginAuth(data, this.props);
     }
   }
   Change(e) {
@@ -36,7 +33,7 @@ export default class CompanyLogin extends Component {
   render() {
     return (
       <div>
-        <h1>company login</h1>
+        <h1 onClick={() => console.log(this.props)}>company login</h1>
         <form className="AuthForm">
           <input
             name="CompanyEmail"
@@ -45,7 +42,7 @@ export default class CompanyLogin extends Component {
             type="email"
           />
           <input
-            name="passWord"
+            name="password"
             placeholder="Password ..."
             onChange={this.Change}
             type="passWord"
@@ -61,3 +58,9 @@ export default class CompanyLogin extends Component {
     );
   }
 }
+const mapStateToProps = state => ({
+  authInfo: state.auth
+});
+export default withRouter(
+  connect(mapStateToProps, { companyLoginAuth })(CompanyLogin)
+);

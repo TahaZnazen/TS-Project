@@ -144,12 +144,12 @@ exports.protectUser = async (req, res, next) => {
 exports.signupCompany = async (req, res) => {
   try {
     // console.log(req.body);
-    const newCompany = await Company.create(req.body);
+    const newCompany = await Company.create(req.body.data);
     const token = signToken(newCompany._id, process.env.JWT_SECRET);
     // res.json({ newCompany });
 
     const verifeToken = signToken(newCompany._id, "emailsecter"); // this toke is for verification
-    const url = `http://localhost:8080/confirmation-company/${verifeToken}`;
+    const url = `http://localhost:8080/api/company/confirmation-company/${verifeToken}`;
     const message = "Submite to verife your company account";
     // Send email verification
     try {
@@ -182,9 +182,8 @@ exports.signupCompany = async (req, res) => {
 exports.verifeCompany = async (req, res) => {
   try {
     const company = await Company.findOne({ verifyToken: req.params.id });
-
+    console.log(company);
     if (company) {
-      // console.log(company.name);
       company.verife = true;
       await company.save({ validateBeforeSave: false });
     }
@@ -195,9 +194,10 @@ exports.verifeCompany = async (req, res) => {
 };
 exports.loginCompany = async (req, res) => {
   try {
-    const company = await Company.findOne({ email: req.body.email }).select(
-      "+password"
-    );
+    const company = await Company.findOne({
+      email: req.body.CompanyEmail
+    }).select("+password");
+    console.log(req.body);
     const correctPass = await company.comparePassword(
       req.body.password,
       company.password
@@ -218,13 +218,13 @@ exports.loginCompany = async (req, res) => {
 
 exports.forgetPassword = async (req, res) => {
   try {
-    const user = await User.findOne({ email: req.body.email });
+    const user = await User.findOne({ email: req.body.data.email });
     if (!user) {
       res.status(404).json({ message: "User not found!" });
     }
 
     const verifeToken = signToken(user._id, "emailsecter"); // this toke is for verification
-    const url = `MUST REFACTOR THIS`;
+    const url = `http://localhost:3000/Employee/forgetpasswordConfirmation`;
     const message = "Submite to verife your company account";
     console.log(user.email);
     try {
@@ -254,6 +254,7 @@ exports.forgetPassword = async (req, res) => {
 
 exports.generateID = async (req, res) => {
   try {
+    console.log(req.body);
     const token = req.body.token;
     const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
     res.json({ id: decoded.id });
