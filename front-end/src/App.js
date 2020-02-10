@@ -13,6 +13,7 @@ import TestBilel from "./components/TestBilel";
 import TestBilel2 from "./components/TestBilel2";
 import Template from "./views/Notifications/Modals";
 import ProfileUser from "./components/Profile/ProfileUser";
+import ProfileTest from "./components/Profile/ProfileElment/Profiletest";
 //import Test from "./views/index";
 function App() {
   return (
@@ -46,6 +47,9 @@ function App() {
           <Route exact path="/template"></Route>
           <Route exact path="/profileUser">
             <ProfileUser />
+          </Route>
+          <Route exact path="/profileTest">
+            <ProfileTest />
           </Route>
         </Switch>
       </div>

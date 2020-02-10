@@ -26,7 +26,7 @@ class ProfileUser extends Component {
   renderProfile = () => {
     if (this.props.cvUser[0]) {
       return (
-        <div>
+        <div className="container">
           <Info
             userInfo={this.props.cvUser[0].user_id}
             addInfo={this.props.addInfo}
