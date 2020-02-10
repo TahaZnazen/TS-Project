@@ -31,7 +31,6 @@ exports.topCompanies = async (req, res) => {
 };
 exports.findOffers = async (req, res) => {
   try {
-    console.log(req.body, "z");
     const id = req.params.id;
     const companyToShowOffers = await company
       .findById(id)
@@ -71,7 +70,7 @@ exports.CompanyOffersCandidates = async (req, res) => {
 
 exports.acceptUser = async (req, res) => {
   try {
-    const user = await User.findById(req.body.userId);
+    let user = await User.findById(req.body.userId);
     const Company = await company.findById(req.body.companyId);
     const job = await offers.findById(req.body.jobId);
     const date = req.body.date;
@@ -79,6 +78,13 @@ exports.acceptUser = async (req, res) => {
       req.body.message ||
       `You have been accepeted on a ${job.title} that you applied on the company "${Company.name}" and your interview date is ${date} get ready for the interview and good luck`;
     // chnage status to true
+    user.appliedJobs = user.appliedJobs.map(elm => {
+      if (elm.job == req.body.jobId) {
+        elm.status = "accepted";
+      }
+      return elm;
+    });
+    await user.save({ validateBeforeSave: false });
     try {
       await sendEmail({
         email: user.email,
