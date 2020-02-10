@@ -2,14 +2,16 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import "./companyAuth.css";
 import axios from "axios";
-
-export default class CompanyRegister extends Component {
+import { companyRegisterAuth } from "../../../actions/authActions";
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+class CompanyRegister extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      userName: "",
-      passWord: "",
-      passWordVerification: "",
+      name: "",
+      password: "",
+      passwordConfirmation: "",
       email: ""
     };
 
@@ -19,15 +21,14 @@ export default class CompanyRegister extends Component {
 
   Submit(e) {
     e.preventDefault();
-    if (this.state.email !== "" && this.state.passWord !== "") {
-      console.log(this.state);
+    if (
+      this.state.email !== "" &&
+      this.state.password !== "" &&
+      this.state.passwordConfirmation === this.state.password &&
+      this.state.name
+    ) {
       let data = this.state;
-      axios
-        .post(`/company/signup`, { data })
-        .then(res => {
-          console.log(res.data);
-        })
-        .catch(err => console.log(err));
+      this.props.companyRegisterAuth({ data }, this.props);
     }
   }
   Change(e) {
@@ -42,19 +43,19 @@ export default class CompanyRegister extends Component {
 
         <form className="AuthForm">
           <input
-            name="userName"
+            name="name"
             placeholder="user name ... "
             onChange={this.Change}
             type="text"
           />
           <input
-            name="email"
+            name="password"
             placeholder="Password ..."
             onChange={this.Change}
             type="passWord"
           />
           <input
-            name="passWordVerification"
+            name="passwordConfirmation"
             placeholder="passWord Verification ..."
             onChange={this.Change}
             type="passWord"
@@ -77,3 +78,9 @@ export default class CompanyRegister extends Component {
     );
   }
 }
+const mapStateToProps = state => ({
+  authInfo: state.auth
+});
+export default withRouter(
+  connect(mapStateToProps, { companyRegisterAuth })(CompanyRegister)
+);

@@ -1,23 +1,15 @@
-import { LOGIN_SUCCESS, REGISTER_SUCCESS } from "../actions/types";
+import {
+  LOGIN_SUCCESS,
+  REGISTER_SUCCESS,
+  COMPANY_LOGIN_SUCCESS,
+  COMPANY_REGISTER_SUCCESS,
+  LOGOUT
+} from "../actions/types";
 
 const initialState = {
   token: localStorage.getItem("token"),
-  isAuthenticated: null,
-  userID: null,
   errMsg: null
 };
-
-// jwt.verify(token, 'shhhhh', function(err, decoded) {
-//   if (err) {
-//     /*
-//       err = {
-//         name: 'TokenExpiredError',
-//         message: 'jwt expired',
-//         expiredAt: 1408621000
-//       }
-//     */
-//   }
-// });
 
 export default function(state = initialState, action) {
   switch (action.type) {
@@ -25,8 +17,18 @@ export default function(state = initialState, action) {
     case REGISTER_SUCCESS:
       return {
         ...state,
-        isAuthenticated: true,
-        userID: action.payload.user._id
+        isAuthenticated: true
+      };
+    case COMPANY_LOGIN_SUCCESS:
+    case COMPANY_REGISTER_SUCCESS:
+      return {
+        ...state,
+        isAuthenticated: true
+      };
+    case LOGOUT:
+      return {
+        ...state,
+        isAuthenticated: false
       };
     default:
       return state;

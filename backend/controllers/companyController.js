@@ -43,6 +43,7 @@ exports.topCompanies = async (req, res) => {
 };
 exports.findOffers = async (req, res) => {
   try {
+    console.log(req.body, "z");
     const id = req.params.id;
     const companyToShowOffers = await company
       .findById(id)

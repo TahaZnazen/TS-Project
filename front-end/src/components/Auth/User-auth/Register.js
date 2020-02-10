@@ -5,6 +5,7 @@ import axios from "axios";
 import { registerAuth } from "../../../actions/authActions";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+
 class Register extends Component {
   constructor(props) {
     super(props);

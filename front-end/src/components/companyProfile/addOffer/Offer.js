@@ -1,11 +1,14 @@
 import React, { Component } from "react";
 import "./offer.css";
 import axios from "axios";
+import { connect } from "react-redux";
+
 class Offer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      companyName: "5e317ff8059a3a57a4d3639d"
+      companyName: "5e317ff8059a3a57a4d3639d",
+      token: this.props.authInfo.token
     };
     this.change = this.change.bind(this);
   }
@@ -23,19 +26,22 @@ class Offer extends Component {
       this.state.jobType
     ) {
       let data = this.state;
+      let token = this.props.authInfo.token;
+
       console.log(data);
       axios
-        .post(
-          "http://localhost:8080/api/post/addPost/5e317ff8059a3a57a4d3639d",
-          { data }
-        )
+        .post("http://localhost:8080/api/users/generateID", { token: token })
         .then(res => {
-          console.log(res);
-          window.location.reload();
-        })
-        .catch(err => console.log(err));
-    } else {
-      alert("req not sended");
+          axios
+            .post(`http://localhost:8080/api/post/addPost/${res.data.id}`, {
+              data
+            })
+            .then(res => {
+              console.log(res);
+              window.location.reload();
+            })
+            .catch(err => console.log(err));
+        });
     }
   }
 
@@ -89,4 +95,7 @@ class Offer extends Component {
   }
 }
 
-export default Offer;
+const mapStateToProps = state => ({
+  authInfo: state.auth
+});
+export default connect(mapStateToProps, null)(Offer);

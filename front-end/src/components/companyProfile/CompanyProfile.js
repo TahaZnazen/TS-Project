@@ -7,6 +7,7 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Offer from "./addOffer/Offer";
 import ReactGoogleMaps from "../../views/GoogleMaps/GoogleMaps";
+import axios from "axios";
 class CompanyProfile extends Component {
   state = {
     addPost: false
@@ -17,8 +18,15 @@ class CompanyProfile extends Component {
     });
   }
   componentDidMount() {
-    this.props.filterByCompany();
-    this.props.findCompany();
+    let data = this.props.authInfo.token;
+    console.log(data);
+    axios
+      .post("http://localhost:8080/api/users/generateID", { token: data })
+      .then(res => {
+        this.props.filterByCompany(res.data.id);
+        this.props.findCompany(res.data.id);
+      })
+      .catch(err => console.log(err));
   }
   // closefrombody() {
   //   if (this.state.addPost) {
@@ -63,10 +71,10 @@ class CompanyProfile extends Component {
             ></div>
             <div>
               <h1 className="card-title text-left">
-                {this.props.companyInfo.map(elm => elm.name)}
+                {this.props.companyInfo.map(elm => elm.data.name)}
               </h1>
               <h4 className="card-title text-left">
-                {this.props.companyInfo.map(elm => elm.email)}
+                {this.props.companyInfo.map(elm => elm.data.email)}
               </h4>
             </div>
           </div>
@@ -115,7 +123,7 @@ class CompanyProfile extends Component {
           <div id="mainPosts">
             <h1>About us</h1>
             <p style={{ fontSize: "18px", padding: "3vh" }}>
-              {this.props.companyInfo.map(elm => elm.description)}
+              {this.props.companyInfo.map(elm => elm.data.description)}
             </p>
             <h1>location</h1>
             <div style={{ paddingBottom: "20px" }}>
@@ -130,7 +138,8 @@ class CompanyProfile extends Component {
 }
 const mapStateToProps = state => ({
   companyOffers: state.posts.companyPosts,
-  companyInfo: state.posts.companyInfo
+  companyInfo: state.posts.companyInfo,
+  authInfo: state.auth
 });
 export default connect(mapStateToProps, { filterByCompany, findCompany })(
   CompanyProfile

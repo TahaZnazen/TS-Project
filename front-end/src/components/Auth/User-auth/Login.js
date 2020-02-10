@@ -69,6 +69,9 @@ class Login extends Component {
           <Link to={"/Employee/Register"}>
             <h5>register</h5>
           </Link>
+          <Link to={"/Employee/forgetpassword"}>
+            <h5>forget password</h5>
+          </Link>
         </div>
         <div className="loginFormPhoto"></div>
       </div>

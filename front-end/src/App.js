@@ -22,6 +22,7 @@ import Login from "./components/Auth/User-auth/Login";
 import Register from "./components/Auth/User-auth/Register";
 import CompanyLogin from "./components/Auth/Company-auth/CompLogin";
 import CompanyRegister from "./components/Auth/Company-auth/CompRegister";
+import ForgetPassword from "./components/Auth/ForgetPassword";
 
 class App extends Component {
   // componentDidMount() {
@@ -63,6 +64,9 @@ class App extends Component {
               </Route>
               <Route exact path="/Employee/Register">
                 <Register />
+              </Route>
+              <Route exact path="/Employee/forgetpassword">
+                <ForgetPassword />
               </Route>
             </Switch>
           </div>

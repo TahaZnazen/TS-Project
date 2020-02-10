@@ -3,7 +3,8 @@ import "./searchBar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { connect } from "react-redux";
-import { filterPosts } from "../../actions/offersAction";
+import { filterPosts, getPosts } from "../../actions/offersAction";
+import { Link } from "react-router-dom";
 
 class SearchBar extends Component {
   state = {
@@ -34,15 +35,23 @@ class SearchBar extends Component {
           id="location"
           type="text"
         />
-        <button
-          onClick={() =>
-            this.state.skills || this.state.location
-              ? this.props.filterPosts(this.state.skills, this.state.location)
-              : null
-          }
-        >
-          <FontAwesomeIcon icon={faSearch} />
-        </button>
+
+        <Link to="/Jobs">
+          <button
+            style={{ width: "4vw" }}
+            onClick={() =>
+              this.state.skills || this.state.location
+                ? this.props.filterPosts(
+                    this.state.skills,
+                    this.state.location,
+                    this.props
+                  )
+                : this.props.getPosts()
+            }
+          >
+            <FontAwesomeIcon icon={faSearch} />
+          </button>
+        </Link>
       </div>
     );
   }
@@ -51,4 +60,4 @@ class SearchBar extends Component {
 const mapStateToProps = state => ({
   posts: state.posts.posts
 });
-export default connect(mapStateToProps, { filterPosts })(SearchBar);
+export default connect(mapStateToProps, { filterPosts, getPosts })(SearchBar);

@@ -13,7 +13,9 @@ import axios from "axios";
 class JobOffers extends Component {
   state = {
     currentPage: 1,
-    currentPost: null
+    currentPost: null,
+    idUser: "",
+    idOffre: ""
   };
   changeCurrentPage = numPage => {
     this.setState({ currentPage: numPage });
@@ -22,16 +24,32 @@ class JobOffers extends Component {
   };
 
   componentDidMount() {
-    this.props.getPosts();
+    this.props.posts.length === 0 && this.props.getPosts();
+    let token = this.props.authInfo.token;
+    axios
+      .post("http://localhost:8080/api/users/generateID", { token: token })
+      .then(res => this.setState({ idUser: res.data.id }))
+      .catch(err => console.log(err));
   }
 
   //to get one post
   getID(e) {
+    this.setState({
+      idOffre: e.target.id
+    });
     axios
       .get(`http://localhost:8080/api/post/showPosts/${e.target.id}`)
       .then(res => this.setState({ currentPost: res.data.data }))
       .catch(err => console.log(err));
     console.log(this.state.currentPost);
+  }
+  applyNow() {
+    axios
+      .post(
+        `http://localhost:8080/api/post/${this.state.idOffre}/user/${this.state.idUser}`
+      )
+      .then(res => console.log(res.data))
+      .catch(err => console.log(err));
   }
   render() {
     return (
@@ -218,7 +236,9 @@ class JobOffers extends Component {
                         "undefined"}
                     </p>
                   </div>
-                  <button id="applyBtn">Apply Now</button>
+                  <button id="applyBtn" onClick={this.applyNow.bind(this)}>
+                    Apply Now
+                  </button>
                 </div>
                 <div id="jobDis">
                   <p>
@@ -238,6 +258,7 @@ JobOffers.propTypes = {
   posts: PropTypes.array
 };
 const mapStateToProps = state => ({
-  posts: state.posts.posts
+  posts: state.posts.posts,
+  authInfo: state.auth
 });
 export default connect(mapStateToProps, { getPosts })(JobOffers);
