@@ -14,52 +14,91 @@ import DashBoard from "./components/companyDashBoard/dashBoard";
 
 import Offer from "./components/companyProfile/addOffer/Offer";
 import MainAuth from "./components/Auth/MainAuth";
+
+import store from "./store";
+import { Provider } from "react-redux";
+// import { loadUser } from "./actions/authActions";
+import history from "./history";
+import Login from "./components/Auth/User-auth/Login";
+import Register from "./components/Auth/User-auth/Register";
+import CompanyLogin from "./components/Auth/Company-auth/CompLogin";
+import CompanyRegister from "./components/Auth/Company-auth/CompRegister";
+import ForgetPassword from "./components/Auth/ForgetPassword";
+import ForgetConfirmation from "./components/Auth/ForgetConfirmation";
 import Cv from "./components/CV/Cv";
 import TestBilel from "./components/TestBilel";
 import TestBilel2 from "./components/TestBilel2";
 import Template from "./views/Notifications/Modals";
 import ProfileUser from "./components/Profile/ProfileUser";
 import ProfileTest from "./components/Profile/ProfileElment/Profiletest";
-//import Test from "./views/index";
-function App() {
-  return (
-    <Router>
-      <div className="App">
-        <Switch>
-          <Route exact path="/">
-            <FirstPage />
-          </Route>
-          <Route exact path="/Jobs">
-            <JobOffers />
-          </Route>
-          <Route exact path="/company">
-            <CompanyProfile />
-          </Route>
-          <Route exact path="/addOffer">
-            <Offer />
-          </Route>
-          <Route exact path="/dashBoard">
-            <DashBoard />
-          </Route>
-          <Route exact path="/cv">
-            <Cv />
-          </Route>
-          <Route exact path="/test">
-            <TestBilel />
-          </Route>
-          <Route exact path="/test2">
-            <TestBilel2 />
-          </Route>
-          <Route exact path="/template"></Route>
-          <Route exact path="/profileUser">
-            <ProfileUser />
-          </Route>
-          <Route exact path="/profileTest">
-            <ProfileTest />
-          </Route>
-        </Switch>
-      </div>
-    </Router>
-  );
+class App extends Component {
+  // componentDidMount() {
+  //   store.dispatch(loadUser());
+  // }
+  render() {
+    return (
+      <Provider store={store}>
+        <Router>
+          <div className="App">
+            <Switch>
+              <Route exact path="/Jobs">
+                <JobOffers />
+              </Route>
+              <Route exact path="/">
+                <FirstPage />
+              </Route>
+
+              <Route exact path="/company">
+                <CompanyProfile />
+              </Route>
+              <Route exact path="/addOffer">
+                <Offer />
+              </Route>
+              <Route exact path="/dashBoard">
+                <DashBoard />
+              </Route>
+              <Route exact path="/Auth">
+                <MainAuth />
+              </Route>
+              <Route exact path="/Employers">
+                <CompanyLogin />
+              </Route>
+              <Route exact path="/Employers/Register">
+                <CompanyRegister />
+              </Route>
+              <Route exact path="/Employee">
+                <Login />
+              </Route>
+              <Route exact path="/Employee/Register">
+                <Register />
+              </Route>
+              <Route exact path="/Employee/forgetpassword">
+                <ForgetPassword />
+              </Route>
+              <Route exact path="/Employee/forgetpasswordConfirmation">
+                <ForgetConfirmation />
+              </Route>
+              <Route exact path="/cv">
+                <Cv />
+              </Route>
+              <Route exact path="/test">
+                <TestBilel />
+              </Route>
+              <Route exact path="/test2">
+                <TestBilel2 />
+              </Route>
+              <Route exact path="/template"></Route>
+              <Route exact path="/profileUser">
+                <ProfileUser />
+              </Route>
+              <Route exact path="/profileTest">
+                <ProfileTest />
+              </Route>
+            </Switch>
+          </div>
+        </Router>
+      </Provider>
+    );
+  }
 }
 export default App;

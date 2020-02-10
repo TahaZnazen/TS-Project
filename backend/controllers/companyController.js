@@ -3,6 +3,7 @@ const offers = require("../models/JobOfferModel");
 const User = require("../models/UserModel");
 const ObjectId = require("mongoose").Types.ObjectId;
 const multer = require("multer");
+const path = require("path");
 const nodemailer = require("nodemailer");
 exports.addCompany = async (req, res) => {
   try {
@@ -186,8 +187,13 @@ exports.getimg = (req, res) => {
 
 exports.updateCompany = async (req, res) => {
   try {
+    // if (req.body.photo) {
+    //   req.body.photo = `http://localhost:8080/api/users/image/${
+    //     req.body.photo.split("\\")[2]
+    //   }`;
+    // }
     if (req.file) {
-      req.body.photo = `http://localhost:8080/api/users/image/${req.file.filename}`;
+      req.body.photo = `http://localhost:8080/api/company/image/${req.file.filename}`;
     }
 
     const id = req.params.id;
@@ -200,34 +206,14 @@ exports.updateCompany = async (req, res) => {
   }
 };
 
-// exports.updatePassword = async (req, res) => {
-//   try {
-//     const User = await user.findById(req.params.id).select("+password");
-//     const iscorrect = await User.correctPassword(
-//       req.body.password,
-//       User.password
-//     );
-//     if (iscorrect) {
-//       User.password = req.body.newPassword;
-//       await User.save();
-//       res.json({ message: "password changed" });
-//     }
-
-//     res.status(200).json({ message: "wrong password" });
-//   } catch (err) {
-//     console.log(err);
-//     res.json({ message: "fail" });
-//   }
-// };
-
-// exports.forgetUpdatePassword = async (req, res) => {
-//   try {
-//     const User = await user.findOne({ email: req.body.email });
-//     User.password = req.body.password;
-//     await User.save({ validateBeforeSave: false });
-//     console.log("Password Updated");
-//     res.json({ password: "updated" });
-//   } catch (err) {
-//     res.json({ err });
-//   }
-// };
+exports.getImage = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const { photo } = await company.findById(id);
+    res.json({
+      img: photo
+    });
+  } catch (err) {
+    res.json({ err });
+  }
+};
