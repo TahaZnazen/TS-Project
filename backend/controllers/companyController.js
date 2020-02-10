@@ -77,7 +77,7 @@ exports.acceptUser = async (req, res) => {
     const message =
       req.body.message ||
       `You have been accepeted on a ${job.title} that you applied on the company "${Company.name}" and your interview date is ${date} get ready for the interview and good luck`;
-    // chnage status to true
+
     user.appliedJobs = user.appliedJobs.map(elm => {
       if (elm.job == req.body.jobId) {
         elm.status = "accepted";
@@ -114,7 +114,14 @@ exports.rejectUser = async (req, res) => {
     const message =
       req.body.message ||
       `Sorry for that but you have been rejected by ${Company.name}, on the job ${job.title}. better luck next time`;
-    // change status to false
+
+    user.appliedJobs = user.appliedJobs.map(elm => {
+      if (elm.job == req.body.jobId) {
+        elm.status = "rejected";
+      }
+      return elm;
+    });
+    await user.save({ validateBeforeSave: false });
     try {
       await sendEmail({
         email: user.email,
