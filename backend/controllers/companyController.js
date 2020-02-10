@@ -3,6 +3,7 @@ const offers = require("../models/JobOfferModel");
 const User = require("../models/UserModel");
 const ObjectId = require("mongoose").Types.ObjectId;
 const multer = require("multer");
+const path = require("path");
 const nodemailer = require("nodemailer");
 exports.addCompany = async (req, res) => {
   try {
@@ -186,8 +187,13 @@ exports.getimg = (req, res) => {
 
 exports.updateCompany = async (req, res) => {
   try {
+    // if (req.body.photo) {
+    //   req.body.photo = `http://localhost:8080/api/users/image/${
+    //     req.body.photo.split("\\")[2]
+    //   }`;
+    // }
     if (req.file) {
-      req.body.photo = `http://localhost:8080/api/users/image/${req.file.filename}`;
+      req.body.photo = `http://localhost:8080/api/company/image/${req.file.filename}`;
     }
 
     const id = req.params.id;

@@ -218,13 +218,13 @@ exports.loginCompany = async (req, res) => {
 
 exports.forgetPassword = async (req, res) => {
   try {
-    const user = await User.findOne({ email: req.body.email });
+    const user = await User.findOne({ email: req.body.data.email });
     if (!user) {
       res.status(404).json({ message: "User not found!" });
     }
 
     const verifeToken = signToken(user._id, "emailsecter"); // this toke is for verification
-    const url = `MUST REFACTOR THIS`;
+    const url = `http://localhost:3000/Employee/forgetpasswordConfirmation`;
     const message = "Submite to verife your company account";
     console.log(user.email);
     try {
