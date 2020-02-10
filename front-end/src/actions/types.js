@@ -14,6 +14,8 @@ export const DEL_SKILL = "DEL_SKILL";
 export const ADD_EDUCATION = "ADD_EDUCATION";
 export const DEL_EDUCATION = "DEL_EDUCATION";
 export const ADD_LANGUAGE = "ADD_LANGUAGE";
-export const DEL_LANGUAGE = "DEL_LANGUAGE";
-export const ADD_INFO = "ADD_INFO";
-export const DEL_EXPERIENCE = "DEL_EXPERIENCE";
+export const COMPANY_DASHBOARD = "COMPANY_DASHBOARD";
+
+//auth
+export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
+export const REGISTER_SUCCESS = "REGISTER_SUCCESS";

@@ -46,6 +46,7 @@ const sendEmail = option => {
 // const { createCv } = require("./cvController");
 exports.signup = async (req, res) => {
   try {
+    req.body = req.body.data;
     const newUser = await User.create(req.body);
     newCv = await Cv.create({ user_id: newUser._id });
     // Cv.create();
@@ -112,11 +113,13 @@ exports.login = async (req, res) => {
         err: "verife your email to log in"
       });
     }
+    user.password = undefined;
     //  If  everything ok , create token and send it to client
     const token = signToken(user._id, process.env.JWT_SECRET);
     res.status(200).json({
       status: "success",
-      token
+      token,
+      user
     });
   } catch (err) {
     // catch err if any
@@ -140,6 +143,7 @@ exports.protectUser = async (req, res, next) => {
 
 exports.signupCompany = async (req, res) => {
   try {
+    // console.log(req.body);
     const newCompany = await Company.create(req.body);
     const token = signToken(newCompany._id, process.env.JWT_SECRET);
     // res.json({ newCompany });

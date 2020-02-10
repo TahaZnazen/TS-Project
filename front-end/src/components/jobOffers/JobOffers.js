@@ -79,42 +79,90 @@ class JobOffers extends Component {
             </nav>
 
             <div id="miniOffers">
-              <div className="miniJobDesc" style={{ width: "30%" }}>
+              <div className="miniJobDesc  " style={{ width: "30%" }}>
                 {/* mini offer component */}
 
                 {this.props.posts !== [] &&
                   this.props.posts.map(elm =>
                     elm.map((job, i) => (
                       <div
-                        key={i}
-                        id={job._id}
-                        onClick={this.getID.bind(this)}
-                        className="companyCompo"
+                        className="card jobdiscription"
+                        style={{ padding: "0" }}
                       >
-                        <div className="companyPhoto"></div>
-                        <div className="jobMiniDescription">
-                          <h4 style={{ fontWeight: "lighter" }}>
-                            {job.companyName
-                              ? job.companyName.name
-                              : "undefined"}
-                          </h4>
-                          <h3
-                            style={{
-                              fontSize: "19px",
-                              width: "70%",
-                              wordWrap: "break-word"
-                            }}
+                        <div
+                          className="card-body"
+                          id={job._id}
+                          onClick={this.getID.bind(this)}
+                        >
+                          <div
+                            style={{ pointerEvents: "none" }}
+                            className="d-flex"
                           >
-                            {job.title}
-                          </h3>
-                          <h5 style={{ fontSize: "19px" }}>
-                            {job.tyle ? job.type : "no type defined"}
+                            <div
+                              className="companyPhoto"
+                              style={{
+                                pointerEvents: "none",
+                                marginRight: "1vw"
+                              }}
+                            ></div>
+                            <div
+                              style={{ pointerEvents: "none" }}
+                              className=".flex-column "
+                            >
+                              <h3 style={{ pointerEvents: "none" }}>
+                                {job.companyName && job.companyName.name}
+                              </h3>
+                              <h5
+                                style={{ pointerEvents: "none" }}
+                                className="text-left"
+                              >
+                                {job.title && job.title}
+                              </h5>
+                            </div>
+                          </div>
+                          <h5
+                            style={{ pointerEvents: "none" }}
+                            className="text-left mt-2"
+                          >
+                            {job.salaryMin && job.salaryMax
+                              ? job.salaryMin + " $ => " + job.salaryMax + " $"
+                              : ""}
                           </h5>
-                          <p>
-                            {job.salaryMin
-                              ? job.salaryMin
-                              : "no salary defined"}
-                          </p>
+                          <div
+                            style={{ pointerEvents: "none" }}
+                            className="d-flex justify-content-around"
+                          >
+                            <strong
+                              style={{ pointerEvents: "none" }}
+                              className="text-left "
+                            >
+                              {job.jobType && job.jobType}
+                            </strong>
+                            <strong
+                              style={{ pointerEvents: "none" }}
+                              className="text-left "
+                            >
+                              {job.location && job.location}
+                            </strong>
+                          </div>
+                        </div>
+                        <div
+                          className="card-footer text-right "
+                          style={{
+                            backgroundColor: "	#2eb85c",
+                            pointerEvents: "none"
+                          }}
+                        >
+                          <small
+                            style={{ color: "white", pointerEvents: "none" }}
+                          >
+                            {job.createdAt
+                              .split("T")
+                              .join("  ")
+                              .slice(0, 17)
+                              .split("  ")
+                              .join("--AT--")}
+                          </small>
                         </div>
                       </div>
                     ))

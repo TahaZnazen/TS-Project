@@ -34,7 +34,11 @@ exports.findOffers = async (req, res) => {
     const companyToShowOffers = await company
       .findById(id)
       .populate("jobOffers");
-    res.status(201).json(companyToShowOffers.jobOffers);
+
+    res
+      .status(201)
+      .json(companyToShowOffers.jobOffers)
+      .sort({ createdAt: -1 });
   } catch (err) {
     res.json({ err });
   }
@@ -51,10 +55,12 @@ exports.findCompany = async (req, res) => {
 exports.CompanyOffersCandidates = async (req, res) => {
   try {
     const companyId = req.params.id;
-    const OffersPostedByTheCompany = await offers
-      .find({ companyName: companyId })
-      .populate("candidates");
 
+    const OffersPostedByTheCompany = await offers
+      .find({
+        companyName: companyId
+      })
+      .populate("candidates");
     res.json({ OffersPostedByTheCompany });
   } catch (err) {
     res.json({ err });
