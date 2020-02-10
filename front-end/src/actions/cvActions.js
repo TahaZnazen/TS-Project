@@ -18,7 +18,12 @@ import {
 
 //function return function that return an actions
 export const fetchUserCv = () => async dispatch => {
-  const response = await API.get(`/cvs/5e32e9fe0e58762ad85f5089`);
+  let data = localStorage.getItem("token");
+  let responseTokenID = await API.post("/users/generateID", { token: data });
+
+  let userId = responseTokenID.data.id;
+  console.log(userId);
+  const response = await API.get(`/cvs/${userId}`);
   return dispatch({
     type: FETCH_CV,
     payload: response.data.data

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import UserJobs from "./UserJobs";
 import {
   Button,
   Modal,
@@ -58,6 +59,9 @@ class Info extends Component {
     return (
       <div>
         <div>
+          <img alt="user photo" src={photo} width="250px" height="250px" />
+        </div>
+        <div>
           <h3>{name}</h3>
           <h4>{phone}</h4>
           <h3>{gender}</h3>
@@ -66,9 +70,6 @@ class Info extends Component {
         </div>
         <div>
           <h3>{expertise}</h3>
-        </div>
-        <div>
-          <img alt="user photo" src={photo} width="250px" height="250px" />
         </div>
         <button onClick={this.toggle.bind(this)}>Edit</button>
         <Modal
@@ -204,7 +205,11 @@ class Info extends Component {
         <div>
           <strong> User Info component </strong>
         </div>
-        {this.renderInfo()}
+        <div>{this.renderInfo()}</div>
+
+        <div>
+          <UserJobs appliedJob={this.props.userInfo.appliedJobs} />
+        </div>
       </div>
     );
   }
