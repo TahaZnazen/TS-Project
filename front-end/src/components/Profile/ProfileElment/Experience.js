@@ -19,13 +19,15 @@ class Experience extends Component {
     this.state = {
       nbExperience: this.props.userExperience.length,
       experienceListDisplay: {},
-      modal: false
+      modal: false,
+      id: ""
     };
   }
 
-  toggle() {
+  toggle(e) {
     this.setState({
-      modal: !this.state.modal
+      modal: !this.state.modal,
+      id: e.target.id
     });
   }
 
@@ -36,9 +38,8 @@ class Experience extends Component {
   };
 
   updateExperience = el => {
-    this.toggle();
-
     el.preventDefault();
+    this.setState({ modal: !this.state.modal });
     let newExperience = {};
     newExperience.start = el.target.start.value;
     newExperience.end = el.target.end.value;
@@ -46,7 +47,7 @@ class Experience extends Component {
     newExperience.position = el.target.positionName.value;
     newExperience.task = el.target.task.value;
 
-    const experienceId = el.target.id;
+    const experienceId = this.state.id;
     console.log(experienceId);
     this.props.updateExperience(this.props.cvId, experienceId, newExperience);
   };
@@ -65,7 +66,9 @@ class Experience extends Component {
               <div>{el.companyName}</div>
               <div>{el.position}</div>
               <div>{el.task}</div>
-              <button onClick={this.toggle.bind(this)}>Edit</button>
+              <button id={el._id} onClick={this.toggle.bind(this)}>
+                Edit
+              </button>
               <Modal
                 isOpen={this.state.modal}
                 toggle={this.toggle}
@@ -85,7 +88,6 @@ class Experience extends Component {
                           type="text"
                           id="companyName"
                           name="companyName"
-                          defaultValue={el.companyName}
                           placeholder="company Name"
                         />
                       </Col>
@@ -99,7 +101,6 @@ class Experience extends Component {
                           type="text"
                           id="positionName"
                           name="positionName"
-                          defaultValue={el.position}
                           placeholder="your position name"
                         />
                       </Col>
@@ -114,7 +115,6 @@ class Experience extends Component {
                           name="task"
                           id="task"
                           rows="5"
-                          defaultValue={el.task}
                           placeholder="your tasks..."
                         />
                       </Col>
@@ -128,7 +128,6 @@ class Experience extends Component {
                           type="date"
                           id="start"
                           name="start"
-                          defaultValue={el.start}
                           placeholder="start at ..."
                         />
                       </Col>
@@ -142,7 +141,6 @@ class Experience extends Component {
                           type="date"
                           id="end"
                           name="end"
-                          defaultValue={el.end}
                           placeholder="date"
                         />
                       </Col>

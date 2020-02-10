@@ -16,11 +16,13 @@ class Education extends Component {
   state = {
     nbEducation: this.props.userEducation.length,
     educationistDisplay: {},
-    modal: false
+    modal: false,
+    id: ""
   };
-  toggle() {
+  toggle(e) {
     this.setState({
-      modal: !this.state.modal
+      modal: !this.state.modal,
+      id: e.target.id
     });
   }
   deleteEducation = el => {
@@ -30,7 +32,7 @@ class Education extends Component {
   };
   updateEducation = el => {
     el.preventDefault();
-    this.toggle();
+    this.setState({ modal: !this.state.modal });
     let newEducation = {};
     newEducation.start = el.target.start.value;
     newEducation.end = el.target.end.value;
@@ -38,8 +40,8 @@ class Education extends Component {
     newEducation.diploma = el.target.diploma.value;
     newEducation.establishment = el.target.establishment.value;
 
-    let elementToUpdate = el.target.id;
-    this.props.updateEducation(this.props.cvId, elementToUpdate, newEducation);
+    let elmentToUpdate = this.state.id;
+    this.props.updateEducation(this.props.cvId, elmentToUpdate, newEducation);
   };
 
   componentWillMount() {
@@ -57,7 +59,9 @@ class Education extends Component {
               <div>{el.diploma}</div>
               <div>{el.degree}</div>
               <div>{el.establishment}</div>
-              <button onClick={this.toggle.bind(this)}>Edit</button>
+              <button id={el._id} onClick={this.toggle.bind(this)}>
+                Edit
+              </button>
               <Modal
                 isOpen={this.state.modal}
                 toggle={this.toggle}

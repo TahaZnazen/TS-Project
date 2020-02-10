@@ -16,11 +16,13 @@ class Language extends Component {
   state = {
     nbLanguage: this.props.userLanguages.length,
     languageListDisplay: {},
-    modal: false
+    modal: false,
+    id: ""
   };
-  toggle() {
+  toggle(e) {
     this.setState({
-      modal: !this.state.modal
+      modal: !this.state.modal,
+      id: e.target.id
     });
   }
 
@@ -32,15 +34,15 @@ class Language extends Component {
   };
   updateLanguage = el => {
     el.preventDefault();
-    this.toggle();
+    this.setState({
+      modal: !this.state.modal
+    });
     let newLanguage = {};
     newLanguage.name = el.target.name.value;
     newLanguage.level = el.target.level.value;
-    console.log(newLanguage);
-    const languageId = el.target.id;
-    console.log(languageId);
+
+    const languageId = this.state.id;
     this.props.updateLanguage(this.props.cvId, languageId, newLanguage);
-    console.log("up language work");
   };
   componentWillMount() {
     this.state.languageListDisplay = this.renderLanguage();
@@ -55,7 +57,9 @@ class Language extends Component {
             <div id={el._id} key={i} ref={React.createRef}>
               <div>{el.name}</div>
               <div>{el.level}</div>
-              <button onClick={this.toggle.bind(this)}>Edit</button>
+              <button id={el._id} onClick={this.toggle.bind(this)}>
+                Edit
+              </button>
               <Modal
                 isOpen={this.state.modal}
                 toggle={this.toggle}
@@ -76,7 +80,6 @@ class Language extends Component {
                           id="name"
                           name="name"
                           placeholder="langauges .."
-                          defaultValue={el.name}
                         />
                       </Col>
                     </FormGroup>
@@ -90,7 +93,6 @@ class Language extends Component {
                           name="level"
                           id="degree"
                           bsSize="sm"
-                          defaultValue={el.level}
                         >
                           <option value="Basic">Basic level</option>
                           <option value="Intermidate">
@@ -119,7 +121,7 @@ class Language extends Component {
                   </Form>
                 </ModalBody>
               </Modal>
-              <button id={el._id} onClick={this.updateLanguage}>
+              <button id={el._id} onClick={this.deleteLanguage}>
                 delete
               </button>
             </div>

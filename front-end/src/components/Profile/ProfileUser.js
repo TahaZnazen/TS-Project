@@ -9,7 +9,8 @@ import {
   updateExperience,
   updateEducation,
   updateLanguage,
-  updateSkill
+  updateSkill,
+  addInfo
 } from "../../actions/cvActions";
 import Experience from "./ProfileElment/Experience";
 import Education from "./ProfileElment/Education";
@@ -26,7 +27,10 @@ class ProfileUser extends Component {
     if (this.props.cvUser[0]) {
       return (
         <div>
-          <Info userInfo={this.props.cvUser[0].user_id} />
+          <Info
+            userInfo={this.props.cvUser[0].user_id}
+            addInfo={this.props.addInfo}
+          />
           <hr />
           <Experience
             userExperience={this.props.cvUser[0].experience}
@@ -79,5 +83,6 @@ export default connect(mapStateToProps, {
   updateExperience,
   updateEducation,
   updateSkill,
-  updateLanguage
+  updateLanguage,
+  addInfo
 })(ProfileUser);
