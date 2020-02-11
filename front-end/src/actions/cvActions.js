@@ -9,12 +9,21 @@ import {
   DEL_SKILL,
   DEL_LANGUAGE,
   DEL_EDUCATION,
-  DEL_EXPERIENCE
+  DEL_EXPERIENCE,
+  UPDATE_EXPERIENCE,
+  UPDATE_SKILL,
+  UPDATE_LANGUAGE,
+  UPDATE_EDUCATION
 } from "./types";
 
 //function return function that return an actions
 export const fetchUserCv = () => async dispatch => {
-  const response = await API.get(`/cvs/5e32e9fe0e58762ad85f5089`);
+  let data = localStorage.getItem("token");
+  let responseTokenID = await API.post("/users/generateID", { token: data });
+
+  let userId = responseTokenID.data.id;
+  console.log(userId);
+  const response = await API.get(`/cvs/${userId}`);
   return dispatch({
     type: FETCH_CV,
     payload: response.data.data
@@ -53,9 +62,14 @@ export const deleteExperience = (idCv, idExperience) => async dispatch => {
 };
 
 //update one experience
-export const UpdateExperience = () => {
+export const updateExperience = (
+  idCv,
+  idExperience,
+  data
+) => async dispatch => {
+  API.patch(`/cvs/${idCv}/experience/${idExperience}`, data);
   return {
-    type: "UPDATE_EXPERIENCE"
+    type: UPDATE_EXPERIENCE
   };
 };
 
@@ -79,9 +93,10 @@ export const deleteSkill = (idCv, idSkill) => async dispatch => {
   });
 };
 //update  SKILL
-export const UpdateSKILL = () => {
+export const updateSkill = (idCv, idSkill, data) => async dispatch => {
+  API.patch(`/cvs/${idCv}/skill/${idSkill}`, data);
   return {
-    type: "UPDATE_EXPERIENCE"
+    type: UPDATE_SKILL
   };
 };
 
@@ -106,9 +121,12 @@ export const deleteLanguage = (idCv, languageId) => async dispatch => {
   });
 };
 //update  language
-export const UpdateLanguage = () => {
+export const updateLanguage = (idCv, idLanguage, data) => async dispatch => {
+  console.log(idLanguage);
+  console.log(data);
+  API.patch(`/cvs/${idCv}/language/${idLanguage}`, data);
   return {
-    type: "UPDATE_EXPERIENCE"
+    type: UPDATE_LANGUAGE
   };
 };
 
@@ -134,9 +152,13 @@ export const deleteEducation = (idCv, educationId) => async dispatch => {
 };
 
 //update education
-export const updateEducation = () => {
+export const updateEducation = (idCv, idEducation, data) => async dispatch => {
+  console.log(data);
+  console.log(idEducation);
+  console.log(idCv);
+  API.patch(`/cvs/${idCv}/education/${idEducation}`, data);
   return {
-    type: "UPDATE_EXPERIENCE"
+    type: UPDATE_EDUCATION
   };
 };
 

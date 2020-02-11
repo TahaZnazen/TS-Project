@@ -11,9 +11,16 @@ export const FETCH_CV = "FETCH_CV";
 export const ADD_EXPERIENCE = "ADD_EXPERIENCE";
 export const ADD_SKILL = "ADD_SKILL";
 export const DEL_SKILL = "DEL_SKILL";
+export const UPDATE_SKILL = "UPDATE_SKILL";
 export const ADD_EDUCATION = "ADD_EDUCATION";
 export const DEL_EDUCATION = "DEL_EDUCATION";
+export const UPDATE_EDUCATION = "UPDATE_EDUCATION";
+export const UPDATE_EXPERIENCE = "UPDATE_EXPERIENCE";
 export const ADD_LANGUAGE = "ADD_LANGUAGE";
+export const DEL_LANGUAGE = "DEL_LANGUAGE";
+export const UPDATE_LANGUAGE = "UPDATE_LANGUAGE";
+export const ADD_INFO = "ADD_INFO";
+export const DEL_EXPERIENCE = "DEL_EXPERIENCE";
 export const COMPANY_DASHBOARD = "COMPANY_DASHBOARD";
 
 //auth
