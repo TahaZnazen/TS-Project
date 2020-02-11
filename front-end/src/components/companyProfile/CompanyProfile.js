@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Offer from "./addOffer/Offer";
 import ReactGoogleMaps from "../../views/GoogleMaps/GoogleMaps";
 import axios, { patch } from "axios";
+import NavBar from "../navbar/NavBar";
 class CompanyProfile extends Component {
   constructor(props) {
     super(props);
@@ -91,6 +92,7 @@ class CompanyProfile extends Component {
     return (
       // onClick={this.closefrombody.bind(this)}
       <div className="all">
+        <NavBar />
         <button
           onClick={this.addPost.bind(this)}
           type="button"

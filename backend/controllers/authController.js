@@ -203,7 +203,7 @@ exports.loginCompany = async (req, res) => {
       company.password
     );
     if (!correctPass) {
-      res.json({ message: "wrong company Email or password" });
+      res.json({ err: "wrong company Email or password" });
     }
     const token = signToken(company._id, process.env.JWT_SECRET);
 

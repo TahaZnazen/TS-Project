@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import JobOfferNav from "./navbar/JobOfferNav";
+import NavBar from "../navbar/NavBar";
 import "./joboffer.css";
 import SearchBar from "../searchBar/SearchBar";
 import "react-perfect-scrollbar/dist/css/styles.css";
@@ -54,7 +54,7 @@ class JobOffers extends Component {
   render() {
     return (
       <div id="JobOffermain">
-        <JobOfferNav />
+        <NavBar />
         <div id="seachNav">
           <SearchBar />
         </div>

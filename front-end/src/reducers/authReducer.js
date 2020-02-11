@@ -3,7 +3,8 @@ import {
   REGISTER_SUCCESS,
   COMPANY_LOGIN_SUCCESS,
   COMPANY_REGISTER_SUCCESS,
-  LOGOUT
+  LOGOUT,
+  LOGIN_FAIL
 } from "../actions/types";
 
 const initialState = {
@@ -17,18 +18,28 @@ export default function(state = initialState, action) {
     case REGISTER_SUCCESS:
       return {
         ...state,
+        token: localStorage.getItem("token"),
+
         isAuthenticated: true
       };
     case COMPANY_LOGIN_SUCCESS:
     case COMPANY_REGISTER_SUCCESS:
       return {
         ...state,
+        token: localStorage.getItem("token"),
         isAuthenticated: true
       };
     case LOGOUT:
       return {
         ...state,
-        isAuthenticated: false
+
+        isAuthenticated: false,
+        token: null
+      };
+    case LOGIN_FAIL:
+      return {
+        ...state,
+        errMsg: action.payload
       };
     default:
       return state;
