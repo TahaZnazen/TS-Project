@@ -240,3 +240,25 @@ exports.forgetUpdatePassword = async (req, res) => {
     res.json({ err });
   }
 };
+
+exports.getJobs = async (req, res) => {
+  try {
+    const Company = await company.aggregate([
+      { $match: { _id: ObjectId(req.params.id) } },
+      { $unwind: { path: "$jobOffers" } },
+      {
+        $lookup: {
+          from: "joboffers",
+          localField: "jobOffers",
+          foreignField: "_id",
+          as: "JOB"
+        }
+      }
+    ]);
+
+    res.json({ Company });
+  } catch (err) {
+    console.log(err);
+    res.json({ err });
+  }
+};
