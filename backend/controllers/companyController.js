@@ -262,3 +262,43 @@ exports.getJobs = async (req, res) => {
     res.json({ err });
   }
 };
+
+exports.startConversation = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.userId);
+    const Company = await company.findById(req.params.companyId);
+    const UserMessage = `You have now an interview with ${Company.name} and this is the interview link: -------`;
+    const companyMessage = `you just requisted for interview with ${user.name} and this is the interview link: ------`;
+    try {
+      await sendEmail({
+        email: user.email,
+        subject: "Company interview",
+        UserMessage,
+        html: `
+         <h1>Hello, ${user.name}</h1>
+         <p>${UserMessage}</p>
+         
+         `
+      });
+    } catch (err) {
+      console.log(err);
+    }
+    try {
+      await sendEmail({
+        email: Company.email,
+        subject: "interview",
+        companyMessage,
+        html: `
+         <h1>Hello, ${user.name}</h1>
+         <p>${companyMessage}</p>
+         
+         `
+      });
+    } catch (err) {
+      console.log(err);
+    }
+    res.json({ message: "sent" });
+  } catch (err) {
+    res.json({ err });
+  }
+};
