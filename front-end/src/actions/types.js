@@ -22,6 +22,7 @@ export const UPDATE_LANGUAGE = "UPDATE_LANGUAGE";
 export const ADD_INFO = "ADD_INFO";
 export const DEL_EXPERIENCE = "DEL_EXPERIENCE";
 export const COMPANY_DASHBOARD = "COMPANY_DASHBOARD";
+export const GET_APPLIED_JOB = "GET_APPLIED_JOB";
 
 //auth
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";

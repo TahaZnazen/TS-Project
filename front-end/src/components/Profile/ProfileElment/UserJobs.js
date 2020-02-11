@@ -1,23 +1,31 @@
 import React, { Component } from "react";
 class UserJobs extends Component {
-  state = {
-    appliedJobs: []
-  };
-  componentWilllMount() {
-    this.setState({ appliedJobs: this.props.appliedJobs });
-  }
+  state = {};
+
   renderJobs = () => {
-    return this.props.appliedJob.map(el => {
+    return this.props.appliedJobs.map(el => {
       return (
         <div>
-          <div>{el.status}</div>
-          <div>{el._id}</div>
+          <div>
+            <strong>Company name</strong> {el.job.companyName.name}
+          </div>
+          <div>
+            <strong>job title</strong> {el.job.title}
+          </div>
+          <div>
+            <strong>job Type </strong>
+            {el.job.jobType}
+          </div>
+          <div>
+            <strong>Location </strong>
+            {el.job.location}
+          </div>
+          <hr />
         </div>
       );
     });
   };
   render() {
-    console.log("jobs prop ", this.props);
     return (
       <div>
         user Job Component

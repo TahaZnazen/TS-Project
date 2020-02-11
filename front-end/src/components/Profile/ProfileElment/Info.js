@@ -14,7 +14,8 @@ import {
 } from "reactstrap";
 class Info extends Component {
   state = {
-    modal: false
+    modal: false,
+    jobsDetails: []
   };
   toggle(e) {
     this.setState({ modal: !this.state.modal });
@@ -196,9 +197,19 @@ class Info extends Component {
       </div>
     );
   };
+  componentDidMount() {
+    console.log("info props", this.props);
+    let id = this.props.userInfo._id;
+    let jobs = this.props.jobs(id);
+    jobs.then(data => {
+      this.setState({ jobsDetails: data.payload });
+    });
+    //console.log(this.state);
+  }
 
   render() {
-    console.log("info props :", this.props);
+    //console.log("info props :", this.props);
+    //console.log(this.state);
 
     return (
       <div>
@@ -208,7 +219,7 @@ class Info extends Component {
         <div>{this.renderInfo()}</div>
 
         <div>
-          <UserJobs appliedJob={this.props.userInfo.appliedJobs} />
+          <UserJobs appliedJobs={this.state.jobsDetails} />
         </div>
       </div>
     );
