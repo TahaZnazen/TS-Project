@@ -13,7 +13,8 @@ import {
   UPDATE_EXPERIENCE,
   UPDATE_SKILL,
   UPDATE_LANGUAGE,
-  UPDATE_EDUCATION
+  UPDATE_EDUCATION,
+  GET_APPLIED_JOB
 } from "./types";
 
 //function return function that return an actions
@@ -170,5 +171,18 @@ export const addInfo = (id, data) => async dispatch => {
   API.patch(`/users/update/${id}`, data);
   return (dispatch = {
     type: ADD_INFO
+  });
+};
+
+// get jobs by userCv
+
+export const getAppliedJobs = id => async dispatch => {
+  let response = await API.get(`/users/gotJobdetailAndCompanydetail/${id}`);
+  let data = await response.data.User.appliedJobs;
+
+  /*   let payload = response.data.User.appliedJobs; */
+  return dispatch({
+    type: GET_APPLIED_JOB,
+    payload: data
   });
 };
