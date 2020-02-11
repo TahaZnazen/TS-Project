@@ -22,5 +22,6 @@ router.route("/candidates/:id").get(companyCotroller.CompanyOffersCandidates);
 router.route("/image/:id").get(companyCotroller.getimg);
 router.route("/forgetPassword").post(authController.forgetPassword);
 router.route("/getImage/:id").get(companyCotroller.getImage);
+router.route("/forgetPassword").patch(companyCotroller.forgetUpdatePassword);
 
 module.exports = router;

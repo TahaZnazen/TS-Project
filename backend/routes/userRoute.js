@@ -19,5 +19,8 @@ router.route("/forgetPassword").post(authController.forgetPassword);
 router.route("/forgetPassword").patch(userController.forgetUpdatePassword);
 
 router.route("/generateID").post(authController.generateID);
+router
+  .route("/gotJobdetailAndCompanydetail/:id")
+  .get(userController.getJobsBydetailsAndCompanyDetails);
 
 module.exports = router;

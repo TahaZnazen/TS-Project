@@ -141,6 +141,19 @@ exports.protectUser = async (req, res, next) => {
   }
 };
 
+exports.protectCompany = async (req, res, next) => {
+  try {
+    const decoded = await promisify(jwt.verify)(
+      req.headers.token,
+      process.env.JWT_SECRET
+    );
+    req.companyData = decoded;
+    next();
+  } catch (err) {
+    return res.status(401).json({ message: "Auth failed" });
+  }
+};
+
 exports.signupCompany = async (req, res) => {
   try {
     // console.log(req.body);
@@ -223,7 +236,6 @@ exports.forgetPassword = async (req, res) => {
       res.status(404).json({ message: "User not found!" });
     }
 
-    const verifeToken = signToken(user._id, "emailsecter"); // this toke is for verification
     const url = `http://localhost:3000/Employee/forgetpasswordConfirmation`;
     const message = "Submite to verife your company account";
     console.log(user.email);
