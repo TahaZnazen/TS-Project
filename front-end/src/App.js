@@ -11,6 +11,7 @@ import {
 } from "react-router-dom";
 import CompanyProfile from "./components/companyProfile/CompanyProfile";
 import DashBoard from "./components/companyDashBoard/dashBoard";
+import CompanySetting from "./components/companyDashBoard/setting";
 
 import Offer from "./components/companyProfile/addOffer/Offer";
 import MainAuth from "./components/Auth/MainAuth";
@@ -30,7 +31,7 @@ import CompanyPublic from "./components/companyPublicProfile/profile/CompanyPubl
 import Cv from "./components/CV/Cv";
 import TestBilel from "./components/TestBilel";
 import TestBilel2 from "./components/TestBilel2";
-import Template from "./views/Notifications/Modals";
+import Template from "./views/Forms/ValidationForms/ValidationForms";
 import ProfileUser from "./components/Profile/ProfileUser";
 import ProfileView from "./components/Profile/ProfileView";
 //import ProfileTest from "./components/Profile/ProfileElment/Profiletest";
@@ -84,12 +85,13 @@ class App extends Component {
               <Route exact path="/company/jobsDashBoard">
                 <CompanyJobsDashBord />
               </Route>
+              <Route exact path="/companySetting" component={CompanySetting} />
               <Route exact path="/company/:id" component={CompanyPublic} />
               <Route exact path="/cv">
                 <Cv />
               </Route>
               <Route exact path="/test">
-                <TestBilel />
+                <Template />
               </Route>
               <Route exact path="/test2">
                 <TestBilel2 />
