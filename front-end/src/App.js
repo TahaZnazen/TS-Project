@@ -30,6 +30,7 @@ import TestBilel from "./components/TestBilel";
 import TestBilel2 from "./components/TestBilel2";
 import Template from "./views/Notifications/Modals";
 import ProfileUser from "./components/Profile/ProfileUser";
+import ProfileView from "./components/Profile/ProfileView";
 //import ProfileTest from "./components/Profile/ProfileElment/Profiletest";
 class App extends Component {
   // componentDidMount() {
@@ -87,7 +88,8 @@ class App extends Component {
               <Route exact path="/test2">
                 <TestBilel2 />
               </Route>
-              <Route exact path="/template"></Route>
+              <Route exact path="/user/:id" component={ProfileView} />
+
               <Route exact path="/profileUser">
                 <ProfileUser />
               </Route>

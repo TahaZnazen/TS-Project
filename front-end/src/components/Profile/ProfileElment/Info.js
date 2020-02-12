@@ -204,13 +204,9 @@ class Info extends Component {
     jobs.then(data => {
       this.setState({ jobsDetails: data.payload });
     });
-    //console.log(this.state);
   }
 
   render() {
-    //console.log("info props :", this.props);
-    //console.log(this.state);
-
     return (
       <div>
         <div>

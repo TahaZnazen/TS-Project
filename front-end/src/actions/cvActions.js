@@ -14,7 +14,8 @@ import {
   UPDATE_SKILL,
   UPDATE_LANGUAGE,
   UPDATE_EDUCATION,
-  GET_APPLIED_JOB
+  GET_APPLIED_JOB,
+  FETCH_USER
 } from "./types";
 
 //function return function that return an actions
@@ -27,6 +28,16 @@ export const fetchUserCv = () => async dispatch => {
   const response = await API.get(`/cvs/${userId}`);
   return dispatch({
     type: FETCH_CV,
+    payload: response.data.data
+  });
+};
+
+//fetch profile user
+export const fetchUserProfile = userId => async dispatch => {
+  //console.log(userId.id);
+  const response = await API.get(`/cvs/${userId.id}`);
+  return dispatch({
+    type: FETCH_USER,
     payload: response.data.data
   });
 };
