@@ -4,6 +4,8 @@ const userCvReducer = (cv = [], action) => {
       return [...action.payload];
     case "ADD_EXPERIENCE":
       return cv;
+    case "FETCH_USER":
+      return [...action.payload];
     default:
       return cv;
   }

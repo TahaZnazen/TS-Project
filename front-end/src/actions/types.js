@@ -8,6 +8,7 @@ export const SEARCH = "SEARCH";
 export const COMPANY_OFFERS = "COMPANY_OFFERS";
 export const COMPANY_INFO = "COMPANY_INFO";
 export const FETCH_CV = "FETCH_CV";
+export const FETCH_USER = "FETCH_USER";
 export const ADD_EXPERIENCE = "ADD_EXPERIENCE";
 export const ADD_SKILL = "ADD_SKILL";
 export const DEL_SKILL = "DEL_SKILL";
