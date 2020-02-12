@@ -8,13 +8,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Offer from "./addOffer/Offer";
 import ReactGoogleMaps from "../../views/GoogleMaps/GoogleMaps";
 import axios, { patch } from "axios";
+import NavBar from "../navbar/NavBar";
 class CompanyProfile extends Component {
   constructor(props) {
     super(props);
     this.state = {
       addPost: false,
       selectedFile: null,
-      companyID: ""
+      companyID: "",
+      companyCover: null
     };
   }
 
@@ -34,13 +36,14 @@ class CompanyProfile extends Component {
         });
         this.props.filterByCompany(res.data.id);
         this.props.findCompany(res.data.id);
+
+        axios
+          .get(
+            `http://localhost:8080/api/company/getImage/${this.state.companyID}`
+          )
+          .then(res => this.setState({ companyCover: res.data.img }))
+          .catch(err => console.log(err));
       })
-      .catch(err => console.log(err));
-  }
-  componentWillUnmount() {
-    axios
-      .get(`http://localhost:8080/api/company/image/${this.state.companyID}`)
-      .then(res => console.log(res), "/////")
       .catch(err => console.log(err));
   }
 
@@ -83,11 +86,13 @@ class CompanyProfile extends Component {
         console.log(res);
       })
       .catch(err => console.log(err));
+    window.location.reload();
   };
   render() {
     return (
       // onClick={this.closefrombody.bind(this)}
       <div className="all">
+        <NavBar />
         <button
           onClick={this.addPost.bind(this)}
           type="button"
@@ -100,8 +105,7 @@ class CompanyProfile extends Component {
             style={{
               width: "100wh",
               height: "300px",
-              backgroundImage:
-                "url(http://localhost:8080/api/company/image/company-5e4080c855dc233d88e5e307-1581301937764.jpeg)",
+              backgroundImage: `url(${this.state.companyCover})`,
               backgroundSize: "100% 100%"
             }}
           >

@@ -14,6 +14,7 @@ import DashBoard from "./components/companyDashBoard/dashBoard";
 
 import Offer from "./components/companyProfile/addOffer/Offer";
 import MainAuth from "./components/Auth/MainAuth";
+
 import store from "./store";
 import { Provider } from "react-redux";
 // import { loadUser } from "./actions/authActions";
@@ -24,6 +25,12 @@ import CompanyLogin from "./components/Auth/Company-auth/CompLogin";
 import CompanyRegister from "./components/Auth/Company-auth/CompRegister";
 import ForgetPassword from "./components/Auth/ForgetPassword";
 import ForgetConfirmation from "./components/Auth/ForgetConfirmation";
+import Cv from "./components/CV/Cv";
+import TestBilel from "./components/TestBilel";
+import TestBilel2 from "./components/TestBilel2";
+import Template from "./views/Notifications/Modals";
+import ProfileUser from "./components/Profile/ProfileUser";
+//import ProfileTest from "./components/Profile/ProfileElment/Profiletest";
 class App extends Component {
   // componentDidMount() {
   //   store.dispatch(loadUser());
@@ -71,6 +78,19 @@ class App extends Component {
               <Route exact path="/Employee/forgetpasswordConfirmation">
                 <ForgetConfirmation />
               </Route>
+              <Route exact path="/cv">
+                <Cv />
+              </Route>
+              <Route exact path="/test">
+                <TestBilel />
+              </Route>
+              <Route exact path="/test2">
+                <TestBilel2 />
+              </Route>
+              <Route exact path="/template"></Route>
+              <Route exact path="/profileUser">
+                <ProfileUser />
+              </Route>
             </Switch>
           </div>
         </Router>
@@ -78,5 +98,4 @@ class App extends Component {
     );
   }
 }
-
 export default App;

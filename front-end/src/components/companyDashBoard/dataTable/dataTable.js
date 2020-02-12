@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import { CardBody } from "reactstrap";
+import { CardBody, Button } from "reactstrap";
 import { BootstrapTable, TableHeaderColumn } from "react-bootstrap-table";
 import { companyDashboard } from "../../../actions/offersAction";
 import { connect } from "react-redux";
+import { NavLink } from "react-router-dom";
 
 class DataTable extends Component {
   constructor(props) {
@@ -19,6 +20,16 @@ class DataTable extends Component {
       withFirstAndLast: false
     };
   }
+  nameFormat(cell, row) {
+    const id = `/users/${row.id}`;
+
+    return (
+      <div>
+        <button> accept</button>
+        <button> reject</button>
+      </div>
+    );
+  }
   componentDidMount() {
     this.props.companyDashboard();
   }
@@ -28,6 +39,7 @@ class DataTable extends Component {
       this.props.companyDashBoard.map(
         elm => elm.OffersPostedByTheCompany[0].candidates
       );
+
     console.log(information);
     return (
       <CardBody style={{ height: "50vh", position: "absolute", bottom: "0" }}>
@@ -40,11 +52,7 @@ class DataTable extends Component {
           search
           options={this.options}
         >
-          <TableHeaderColumn
-            dataField="name"
-            dataSort
-            dataFormat={this.nameFormat}
-          >
+          <TableHeaderColumn dataField="name" dataSort>
             Name
           </TableHeaderColumn>
           <TableHeaderColumn isKey dataField="email">
@@ -56,8 +64,12 @@ class DataTable extends Component {
           <TableHeaderColumn dataField="location" dataSort>
             Location
           </TableHeaderColumn>
-          <TableHeaderColumn dataField="location" dataSort>
-            Location
+          <TableHeaderColumn
+            dataFormat={this.nameFormat}
+            dataField="status"
+            dataSort
+          >
+            status
           </TableHeaderColumn>
         </BootstrapTable>
       </CardBody>

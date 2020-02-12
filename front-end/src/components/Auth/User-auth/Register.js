@@ -5,6 +5,7 @@ import axios from "axios";
 import { registerAuth } from "../../../actions/authActions";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import { Alert } from "reactstrap";
 
 class Register extends Component {
   constructor(props) {
@@ -44,6 +45,15 @@ class Register extends Component {
           <h1>user register</h1>
 
           <form className="AuthForm">
+            {this.props.authInfo.errMsg && (
+              <div
+                style={{ height: "40px", width: "90%" }}
+                className="alert alert-danger"
+                role="alert"
+              >
+                {this.props.authInfo.errMsg}
+              </div>
+            )}
             <input
               name="name"
               placeholder="user name ... "

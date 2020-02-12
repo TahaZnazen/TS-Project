@@ -1,0 +1,41 @@
+#forgetDiv {
+  border: 2px solid #4dbd74;
+  border-radius: 10px 10px 10px 10px;
+  background: #c8ced3;
+}
+#forgetDiv button {
+  background: none;
+  border: 1px solid #c8ced3;
+  background-color: #4dbd74;
+  font-size: 25px;
+  color: white;
+}
+#allForget {
+  background-color: rgba(47, 53, 58, 0.829);
+}
+.confirmation input {
+  width: 90%;
+  height: 40px;
+  margin: 5px 0;
+}
+.confirmation button {
+  width: 90%;
+  height: 40px;
+}
+.confirmation {
+  width: 50vw;
+  height: 50vh;
+}
+
+#forgetDivconfirmation {
+  border: 2px solid #4dbd74;
+  border-radius: 10px 10px 10px 10px;
+  background: #c8ced3;
+}
+#forgetDivconfirmation button {
+  background: none;
+  border: 1px solid #c8ced3;
+  background-color: #4dbd74;
+  font-size: 25px;
+  color: white;
+}

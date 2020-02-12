@@ -10,7 +10,11 @@ import Widget01 from "../../views/Widgets/Widget01";
 import { CardGroup, Col, Row } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStream, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 import axios from "axios";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+import { logout } from "../../actions/authActions";
 class DashBoard extends Component {
   state = {
     sideNav: false
@@ -19,7 +23,9 @@ class DashBoard extends Component {
     this.setState({ sideNav: !this.state.sideNav });
   }
   // just an example
-
+  onLogout() {
+    this.props.logout(this.props);
+  }
   render() {
     return (
       <div>
@@ -35,6 +41,7 @@ class DashBoard extends Component {
             >
               <FontAwesomeIcon icon={faStream} />
             </button>
+
             <h1
               id="navTitle"
               className={this.state.sideNav ? "showed" : "hidden"}
@@ -42,15 +49,25 @@ class DashBoard extends Component {
               Dash Board
             </h1>
             <div id="sideMenu">
-              <h1 className={this.state.sideNav ? "showed" : "hidden"}>
-                Profile
-              </h1>
-              <h1 className={this.state.sideNav ? "showed" : "hidden"}>Jobs</h1>
-              <h1 className={this.state.sideNav ? "showed" : "hidden"}>
-                Setting
-              </h1>
+              <Link to="/company">
+                <h1 className={this.state.sideNav ? "showed" : "hidden"}>
+                  Profile
+                </h1>
+              </Link>
+
+              <Link to="/Jobs">
+                <h1 className={this.state.sideNav ? "showed" : "hidden"}>
+                  Jobs
+                </h1>
+              </Link>
+              <Link to="companySetting">
+                <h1 className={this.state.sideNav ? "showed" : "hidden"}>
+                  Setting
+                </h1>
+              </Link>
             </div>
             <h1
+              onClick={this.onLogout.bind(this)}
               style={{
                 position: "absolute",
                 bottom: "2vh",
@@ -133,4 +150,7 @@ class DashBoard extends Component {
   }
 }
 
-export default DashBoard;
+const mapStateToProps = state => ({
+  authInfo: state.auth
+});
+export default withRouter(connect(mapStateToProps, { logout })(DashBoard));

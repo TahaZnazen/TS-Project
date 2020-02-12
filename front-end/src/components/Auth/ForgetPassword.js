@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-
+import { faAlignCenter } from "@fortawesome/free-solid-svg-icons";
+import "./fogetPass.css";
 class ForgetPassword extends Component {
   state = {
     email: ""
@@ -21,12 +22,67 @@ class ForgetPassword extends Component {
   }
   render() {
     return (
-      <form>
-        <input type="email" name="email" onChange={this.Change.bind(this)} />
-        <Link to="forgetpasswordConfirmation">
-          <button onClick={this.submit.bind(this)}> send</button>
-        </Link>
-      </form>
+      <div
+        id="allForget"
+        style={{
+          width: "100vw",
+          height: "100vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center"
+        }}
+      >
+        <div
+          id="forgetDiv"
+          style={{
+            width: "20vw",
+            height: "20vh",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center"
+          }}
+        >
+          <form
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              width: "100%",
+              alignItems: "center"
+            }}
+          >
+            <input
+              type="email"
+              name="email"
+              onChange={this.Change.bind(this)}
+              placeholder="please enter your email adress"
+              style={{
+                width: "90%",
+                height: "40px"
+              }}
+            />
+            <Link
+              style={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "center"
+              }}
+              to="forgetpasswordConfirmation"
+            >
+              <button
+                style={{
+                  marginTop: "2vh",
+                  width: "90%",
+                  height: "40px"
+                }}
+                onClick={this.submit.bind(this)}
+              >
+                {" "}
+                send
+              </button>
+            </Link>
+          </form>
+        </div>
+      </div>
     );
   }
 }
