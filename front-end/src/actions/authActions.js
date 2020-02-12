@@ -5,7 +5,9 @@ import {
   COMPANY_LOGIN_SUCCESS,
   COMPANY_REGISTER_SUCCESS,
   LOGOUT,
-  LOGIN_FAIL
+  LOGIN_FAIL,
+  UPDATE_COMAPY_INFO,
+  UPDATE_COMAPY_PASSWORD
 } from "./types";
 
 export const loginAuth = (data, props) => dispatch => {
@@ -108,4 +110,23 @@ export const logout = props => dispatch => {
   });
   props.history.push("/");
   // props.history.push("/");
+};
+
+export const changePassword = (id, data) => dispatch => {
+  console.log(id, data);
+  //axios.post(`http://localhost:8080/api/users/updatePassword/${id}`, data);
+
+  return dispatch({
+    type: UPDATE_COMAPY_PASSWORD,
+    payload: ""
+  });
+};
+
+export const UpdateComapanyInfo = (data, id) => dispatch => {
+  console.log(id, data);
+  //axios.patch(`http://localhost:8080/api/users/update/${id}`, data);
+  return dispatch({
+    type: UPDATE_COMAPY_INFO,
+    payload: ""
+  });
 };
