@@ -53,7 +53,6 @@ class ProfileView extends Component {
     console.log(this.state);
     return (
       <div>
-        profile view
         <div>{this.renderInfo()}</div>
       </div>
     );
