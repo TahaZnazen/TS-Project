@@ -2,7 +2,7 @@ const user = require("../models/UserModel");
 const offer = require("../models/JobOfferModel");
 const cv = require("../models/CVModel");
 const path = require("path");
-
+const Company = require("./../models/CompanyModel");
 const multer = require("multer");
 
 const multerStorage = multer.diskStorage({
@@ -28,6 +28,8 @@ const upload = multer({ storage: multerStorage, fileFilter: multerFilter });
 exports.uploadUserPhoto = upload.single("photo");
 
 exports.updateUser = async (req, res) => {
+  console.log(req.params.id);
+  console.log("hello", req.body);
   try {
     if (req.file) {
       req.body.photo = `http://localhost:8080/api/users/image/${req.file.filename}`;
@@ -62,6 +64,7 @@ exports.findOneUser = async (req, res) => {
     res.json(err);
   }
 };
+
 exports.matchingRate = async (req, res) => {
   try {
     const id = req.params.id;
@@ -110,6 +113,27 @@ exports.forgetUpdatePassword = async (req, res) => {
     console.log("Password Updated");
     res.json({ password: "updated" });
   } catch (err) {
+    res.json({ err });
+  }
+};
+// api to fetch user applied job by details of job and comapnay
+exports.getJobsBydetailsAndCompanyDetails = async (req, res) => {
+  try {
+    const User = await user.findById(req.params.id).populate([
+      {
+        path: "appliedJobs.job",
+        model: "JobOffer",
+
+        populate: {
+          path: "companyName",
+          model: "Company"
+        }
+      }
+    ]);
+
+    res.json({ User });
+  } catch (err) {
+    console.log(err);
     res.json({ err });
   }
 };
