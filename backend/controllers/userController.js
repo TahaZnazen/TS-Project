@@ -116,9 +116,7 @@ exports.forgetUpdatePassword = async (req, res) => {
     res.json({ err });
   }
 };
-
 // api to fetch user applied job by details of job and comapnay
-
 exports.getJobsBydetailsAndCompanyDetails = async (req, res) => {
   try {
     const User = await user.findById(req.params.id).populate([

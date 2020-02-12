@@ -31,7 +31,6 @@ exports.topCompanies = async (req, res) => {
 };
 exports.findOffers = async (req, res) => {
   try {
-    console.log(req.body, "z");
     const id = req.params.id;
     const companyToShowOffers = await company
       .findById(id)
@@ -71,14 +70,21 @@ exports.CompanyOffersCandidates = async (req, res) => {
 
 exports.acceptUser = async (req, res) => {
   try {
-    const user = await User.findById(req.body.userId);
+    let user = await User.findById(req.body.userId);
     const Company = await company.findById(req.body.companyId);
     const job = await offers.findById(req.body.jobId);
     const date = req.body.date;
     const message =
       req.body.message ||
       `You have been accepeted on a ${job.title} that you applied on the company "${Company.name}" and your interview date is ${date} get ready for the interview and good luck`;
-    // chnage status to true
+
+    user.appliedJobs = user.appliedJobs.map(elm => {
+      if (elm.job == req.body.jobId) {
+        elm.status = "accepted";
+      }
+      return elm;
+    });
+    await user.save({ validateBeforeSave: false });
     try {
       await sendEmail({
         email: user.email,
@@ -108,7 +114,14 @@ exports.rejectUser = async (req, res) => {
     const message =
       req.body.message ||
       `Sorry for that but you have been rejected by ${Company.name}, on the job ${job.title}. better luck next time`;
-    // change status to false
+
+    user.appliedJobs = user.appliedJobs.map(elm => {
+      if (elm.job == req.body.jobId) {
+        elm.status = "rejected";
+      }
+      return elm;
+    });
+    await user.save({ validateBeforeSave: false });
     try {
       await sendEmail({
         email: user.email,
@@ -223,6 +236,65 @@ exports.forgetUpdatePassword = async (req, res) => {
     await Company.save({ validateBeforeSave: false });
 
     res.json({ password: "updated" });
+  } catch (err) {
+    res.json({ err });
+  }
+};
+
+exports.getJobsAndCandidates = async (req, res) => {
+  try {
+    let response;
+    const Offers = await offers
+      .find({ companyName: req.params.id })
+      .populate("candidates");
+    try {
+      const Company = await company.findById(req.params.id);
+      response = { Company, Offers };
+    } catch (err) {
+      res.json(err);
+    }
+    res.json(response);
+  } catch (err) {
+    console.log(err);
+    res.json({ err });
+  }
+};
+
+exports.startConversation = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.userId);
+    const Company = await company.findById(req.params.companyId);
+    const UserMessage = `You have now an interview with ${Company.name} and this is the interview link: -------`;
+    const companyMessage = `you just requisted for interview with ${user.name} and this is the interview link: ------`;
+    try {
+      await sendEmail({
+        email: user.email,
+        subject: "Company interview",
+        UserMessage,
+        html: `
+         <h1>Hello, ${user.name}</h1>
+         <p>${UserMessage}</p>
+         
+         `
+      });
+    } catch (err) {
+      console.log(err);
+    }
+    try {
+      await sendEmail({
+        email: Company.email,
+        subject: "interview",
+        companyMessage,
+        html: `
+         <h1>Hello, ${user.name}</h1>
+         <p>${companyMessage}</p>
+         
+         `
+      });
+    } catch (err) {
+      console.log(err);
+    }
+    res.json({ message: "sent" });
   } catch (err) {
     res.json({ err });
   }
