@@ -3,14 +3,16 @@ import {
   SEARCH,
   COMPANY_OFFERS,
   COMPANY_INFO,
-  COMPANY_DASHBOARD
+  COMPANY_DASHBOARD,
+  GET_COMPANY_OFFERS
 } from "../actions/types";
 
 const initialState = {
   posts: [],
   companyPosts: [],
   companyInfo: [],
-  companyDashBoard: []
+  companyDashBoard: [],
+  companyPostsAndCondidates: []
 };
 
 export default (state = initialState, action) => {
@@ -39,6 +41,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         companyDashBoard: [action.payload]
+      };
+    case GET_COMPANY_OFFERS:
+      return {
+        ...state,
+        companyPostsAndCondidates: [action.payload]
       };
     default:
       return state;

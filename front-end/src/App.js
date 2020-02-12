@@ -24,6 +24,8 @@ import CompanyLogin from "./components/Auth/Company-auth/CompLogin";
 import CompanyRegister from "./components/Auth/Company-auth/CompRegister";
 import ForgetPassword from "./components/Auth/ForgetPassword";
 import ForgetConfirmation from "./components/Auth/ForgetConfirmation";
+import CompanyJobsDashBord from "./components/companyPublicProfile/CompanyJobsDashBord";
+import CompanyPublic from "./components/companyPublicProfile/profile/CompanyPublic";
 class App extends Component {
   // componentDidMount() {
   //   store.dispatch(loadUser());
@@ -71,6 +73,10 @@ class App extends Component {
               <Route exact path="/Employee/forgetpasswordConfirmation">
                 <ForgetConfirmation />
               </Route>
+              <Route exact path="/company/jobsDashBoard">
+                <CompanyJobsDashBord />
+              </Route>
+              <Route exact path="/company/:id" component={CompanyPublic} />
             </Switch>
           </div>
         </Router>

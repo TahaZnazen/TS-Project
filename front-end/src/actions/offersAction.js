@@ -3,7 +3,9 @@ import {
   SEARCH,
   COMPANY_OFFERS,
   COMPANY_INFO,
-  COMPANY_DASHBOARD
+  COMPANY_DASHBOARD,
+  GET_COMPANY_OFFERS,
+  GET_COMPANY_BY_ID
 } from "./types";
 import axios from "axios";
 export const getPosts = () => async dispatch => {
@@ -78,6 +80,22 @@ export const companyDashboard = () => dispatch => {
       console.log(fetchedData);
       dispatch({
         type: COMPANY_DASHBOARD,
+        payload: fetchedData
+      });
+    })
+    .catch(err => console.log(err));
+};
+
+export const getCompanyJobs = id => dispatch => {
+  let fetchedData = [];
+  axios
+    .get(`http://localhost:8080/api/company/getJobsAndCandidates/${id}`)
+    .then(res => {
+      console.log(res.data);
+      fetchedData = res.data;
+
+      dispatch({
+        type: GET_COMPANY_OFFERS,
         payload: fetchedData
       });
     })

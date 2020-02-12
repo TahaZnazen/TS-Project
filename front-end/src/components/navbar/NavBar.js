@@ -28,8 +28,12 @@ class NavBar extends Component {
         <h1>LogoPlace</h1>
         <div id="mainNav">
           <div>
-            <h4>dashBoard</h4>
-            <h4>jobs</h4>
+            <Link to="/dashboard">
+              <h4>dashBoard</h4>
+            </Link>
+            <Link to="/company/jobsDashBoard">
+              <h4>jobs</h4>
+            </Link>
           </div>
           {this.props.authInfo.token ? (
             <div id="navDiv">
