@@ -94,6 +94,8 @@ exports.updatePassword = async (req, res) => {
     );
     if (iscorrect) {
       User.password = req.body.newPassword;
+      User.passwordConfirmation = req.body.passwordConfirmation;
+
       await User.save();
       res.json({ message: "password changed" });
     }
@@ -101,7 +103,6 @@ exports.updatePassword = async (req, res) => {
     res.status(200).json({ message: "wrong password" });
   } catch (err) {
     console.log(err);
-    res.json({ message: "fail" });
   }
 };
 
@@ -109,7 +110,8 @@ exports.forgetUpdatePassword = async (req, res) => {
   try {
     const User = await user.findOne({ email: req.body.data.email });
     User.password = req.body.data.password;
-    await User.save({ validateBeforeSave: false });
+    User.passwordConfirmation = req.body.data.passwordConfirmation;
+    await User.save();
     console.log("Password Updated");
     res.json({ password: "updated" });
   } catch (err) {

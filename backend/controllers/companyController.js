@@ -233,7 +233,9 @@ exports.forgetUpdatePassword = async (req, res) => {
   try {
     const Company = await company.findOne({ email: req.body.data.email });
     Company.password = req.body.data.password;
-    await Company.save({ validateBeforeSave: false });
+    Company.passwordConfirmation = req.body.data.passwordConfirmation;
+
+    await Company.save();
 
     res.json({ password: "updated" });
   } catch (err) {
@@ -297,5 +299,27 @@ exports.startConversation = async (req, res) => {
     res.json({ message: "sent" });
   } catch (err) {
     res.json({ err });
+  }
+};
+
+exports.updatePassword = async (req, res) => {
+  try {
+    const User = await user.findById(req.params.id).select("+password");
+    const iscorrect = await User.correctPassword(
+      req.body.password,
+      User.password
+    );
+    if (iscorrect) {
+      User.password = req.body.newPassword;
+      User.passwordConfirmation = req.body.passwordConfirmation;
+
+      await User.save();
+      res.json({ message: "password changed" });
+    }
+
+    res.status(200).json({ message: "wrong password" });
+  } catch (err) {
+    console.log(err);
+    res.json({ message: "fail" });
   }
 };

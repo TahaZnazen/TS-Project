@@ -29,4 +29,7 @@ router
 router
   .route("/startConversation/:userId/:companyId")
   .get(companyCotroller.startConversation);
+
+router.route("/updatePassword/:id").patch(companyCotroller.updatePassword);
+
 module.exports = router;
