@@ -38,12 +38,16 @@ class CompanySetting extends Component {
     e.preventDefault();
 
     let newInformation = new FormData();
-    newInformation.name = e.target.name.value;
-    newInformation.email = e.target.email.value;
+    /*newInformation.name = e.target.name.value;
+    newInformation.email = e.target.email.value;*/
     newInformation.append("photo", document.getElementById("photo").files[0]);
-    console.log(newInformation);
+    newInformation.append("name", document.getElementById("name").value);
+    newInformation.append("email", document.getElementById("email").value);
+
+    console.log("test data", newInformation);
 
     this.toggleModalUpdateInfo();
+    console.log(this.state.id);
     this.props.UpdateComapanyInfo(this.state.id, newInformation);
   };
   updatePassword = e => {
@@ -55,6 +59,8 @@ class CompanySetting extends Component {
       this.props.changePassword(this.state.id, newPassword);
       this.toggleModalPassword();
       //redirect to login page page
+      //delete the token
+      // this.props.history.push("/")
     }
   };
   toggleModalPassword = e => {
@@ -109,7 +115,7 @@ class CompanySetting extends Component {
                   <Label htmlFor="photo">photo</Label>
                 </Col>
                 <Col xs="12" md="9">
-                  <Input type="file" id="photo" name="photo" />
+                  <Input type="file" id="photo" name="photo" accept="image/*" />
                 </Col>
               </FormGroup>
               <ModalFooter>
