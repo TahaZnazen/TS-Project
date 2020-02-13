@@ -53,7 +53,7 @@ class CompanySetting extends Component {
   updatePassword = e => {
     e.preventDefault();
     if (e.target.password.value !== e.target.confirmPassword.value) {
-      alert("password does't match");
+      alert("password doesn't match");
     } else {
       const newPassword = e.target.password.value;
       this.props.changePassword(this.state.id, newPassword);
@@ -77,7 +77,7 @@ class CompanySetting extends Component {
           className={this.props.className}
         >
           <ModalHeader toggle={this.toggleModalUpdateInfo.bind(this)}>
-            Edit Education
+            Update Company Profile
           </ModalHeader>
           <ModalBody>
             <Form id={this.state.id} onSubmit={this.updateInfo}>
@@ -153,7 +153,7 @@ class CompanySetting extends Component {
           className={this.props.className}
         >
           <ModalHeader toggle={this.toggleModalPassword.bind(this)}>
-            Edit Education
+            Change Password
           </ModalHeader>
           <ModalBody>
             <Form id={this.state.id} onSubmit={this.updatePassword}>
