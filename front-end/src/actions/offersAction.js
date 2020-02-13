@@ -148,7 +148,7 @@ export const rejectCondidate = (
   data.jobId = jobId;
   data.message = message;
   console.log(data);
-  API.post(`/company/acceptUser/`, data);
+  API.post(`/company/rejectUser/`, data);
 
   return (dispatch = {
     type: REJECT_CONDIDATE
