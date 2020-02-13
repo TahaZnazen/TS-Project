@@ -37,3 +37,8 @@ export const COMPANY_REGISTER_SUCCESS = "COMPANY_REGISTER_SUCCESS";
 export const LOGOUT = "LOGOUT";
 export const LOGIN_FAIL = "LOGIN_FAIL";
 export const UPDATE_COMAPY_PASSWORD = "UPDATE_COMAPY_PASSWORD";
+
+/// Accept or reject Condidate
+
+export const ACCEPT_CONDIDATE = "ACCEPT_CONDIDATE";
+export const REJECT_CONDIDATE = "ACCEPT_CONDIDATE";

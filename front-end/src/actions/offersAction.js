@@ -5,8 +5,11 @@ import {
   COMPANY_INFO,
   COMPANY_DASHBOARD,
   GET_COMPANY_OFFERS,
-  GET_COMPANY_BY_ID
+  GET_COMPANY_BY_ID,
+  ACCEPT_CONDIDATE,
+  REJECT_CONDIDATE
 } from "./types";
+import API from "../API/API";
 import axios from "axios";
 export const getPosts = () => async dispatch => {
   try {
@@ -109,4 +112,45 @@ export const getCompanyJobs = id => dispatch => {
       });
     })
     .catch(err => console.log(err));
+};
+
+export const acceptCondidate = (
+  userId,
+  companyId,
+  jobId,
+  date,
+  message
+) => async dispatch => {
+  let data = {};
+  data.userId = userId;
+  data.companyId = companyId;
+  data.jobId = jobId;
+  data.date = date;
+  data.message = message;
+
+  console.log(data);
+  API.post(`/company/acceptUser/`, data);
+
+  return (dispatch = {
+    type: ACCEPT_CONDIDATE
+  });
+};
+
+export const rejectCondidate = (
+  userId,
+  companyId,
+  jobId,
+  message
+) => async dispatch => {
+  let data = {};
+  data.userId = userId;
+  data.companyId = companyId;
+  data.jobId = jobId;
+  data.message = message;
+  console.log(data);
+  API.post(`/company/acceptUser/`, data);
+
+  return (dispatch = {
+    type: REJECT_CONDIDATE
+  });
 };
