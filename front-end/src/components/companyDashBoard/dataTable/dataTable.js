@@ -1,82 +1,101 @@
 import React, { Component } from "react";
-import { CardBody, Button } from "reactstrap";
-import { BootstrapTable, TableHeaderColumn } from "react-bootstrap-table";
 import { companyDashboard } from "../../../actions/offersAction";
 import { connect } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { Table } from "reactstrap";
+import axios from "axios";
+import { withRouter } from "react-router-dom";
 
 class DataTable extends Component {
   constructor(props) {
     super(props);
-
-    this.table = [];
-    this.options = {
-      sortIndicator: true,
-      hideSizePerPage: true,
-      paginationSize: 4,
-      hidePageListOnlyOnePage: true,
-      clearSearch: true,
-      alwaysShowAllBtns: false,
-      withFirstAndLast: false
+    this.state = {
+      jobOffers: [],
+      userID: ""
     };
   }
-  nameFormat(cell, row) {
-    const id = `/users/${row.id}`;
 
-    return (
-      <div>
-        <button> accept</button>
-        <button> reject</button>
-      </div>
-    );
-  }
   componentDidMount() {
-    this.props.companyDashboard();
+    let token = this.props.authInfo.token;
+    axios
+      .post("http://localhost:8080/api/users/generateID", { token: token })
+      //invoke he function that will get the posts for this company
+      .then(res => {
+        this.props.companyDashboard(res.data.id);
+      })
+
+      .catch(err => console.log(err));
+  }
+  // let data = this.props.companyDashBoard[0].OffersPostedByTheCompany;
+  // let newData = [];
+  // data.map(elm => {
+  //   newData.push({
+  //     name: elm.title,
+  //     location: elm.location,
+  //     candidates: elm.candidates
+  //   });
+  // });
+
+  // this.setState({ jobOffers: newData });
+
+  goProfile(e) {
+    this.props.history.push(`/user/${e.target.attributes.candidateId.value}`);
   }
   render() {
-    let information =
-      this.props.companyDashBoard &&
-      this.props.companyDashBoard.map(
-        elm => elm.OffersPostedByTheCompany[0].candidates
-      );
-
-    console.log(information);
     return (
-      <CardBody style={{ height: "50vh", position: "absolute", bottom: "0" }}>
-        <BootstrapTable
-          data={information[0]}
-          version="4"
-          striped
-          hover
-          pagination
-          search
-          options={this.options}
-        >
-          <TableHeaderColumn dataField="name" dataSort>
-            Name
-          </TableHeaderColumn>
-          <TableHeaderColumn isKey dataField="email">
-            Email
-          </TableHeaderColumn>
-          <TableHeaderColumn dataField="gender" dataSort>
-            Gender
-          </TableHeaderColumn>
-          <TableHeaderColumn dataField="location" dataSort>
-            Location
-          </TableHeaderColumn>
-          <TableHeaderColumn
-            dataFormat={this.nameFormat}
-            dataField="status"
-            dataSort
-          >
-            status
-          </TableHeaderColumn>
-        </BootstrapTable>
-      </CardBody>
+      <Table bordered>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th> Name</th>
+            <th> Email</th>
+            <th>Phone</th>
+            <th>Location</th>
+            <th>order</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {this.props.companyDashBoard[0] &&
+            this.props.companyDashBoard[0].map((elm, i) => (
+              <tr>
+                <th scope="row">{i}</th>
+                <td onClick={this.goProfile.bind(this)} candidateId={elm._id}>
+                  {elm.name}
+                </td>
+
+                <td>{elm.email}</td>
+                <td>{elm.phone || "anonymous phone number"}</td>
+                <td>{elm.location || "unknown"}</td>
+                <td>{elm.offerName}</td>
+                <td>
+                  <button
+                    onClick={this.getId}
+                    jobId={elm.offerId}
+                    candidateId={elm._id}
+                    companyId={elm.companyId}
+                  >
+                    Accept
+                  </button>
+                  <button
+                    onClick={this.getId}
+                    jobId={elm.offerId}
+                    candidateId={elm._id}
+                    companyId={elm.companyId}
+                  >
+                    Reject
+                  </button>
+                </td>
+              </tr>
+            ))}
+        </tbody>
+      </Table>
     );
   }
 }
 const mapStateToProps = state => ({
-  companyDashBoard: state.posts.companyDashBoard
+  companyDashBoard: state.posts.companyDashBoard,
+  authInfo: state.auth
 });
-export default connect(mapStateToProps, { companyDashboard })(DataTable);
+export default withRouter(
+  connect(mapStateToProps, { companyDashboard })(DataTable)
+);
