@@ -45,8 +45,7 @@ const CompanySchema = new mongoose.Schema({
   },
   verifeEmail: String,
   verife: { type: Boolean, default: false },
-  verifyToken: String,
-  profilePhoto: String
+  verifyToken: String
 });
 
 CompanySchema.pre("save", async function(req, res, next) {
