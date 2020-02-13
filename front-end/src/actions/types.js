@@ -8,6 +8,7 @@ export const SEARCH = "SEARCH";
 export const COMPANY_OFFERS = "COMPANY_OFFERS";
 export const COMPANY_INFO = "COMPANY_INFO";
 export const FETCH_CV = "FETCH_CV";
+export const FETCH_USER = "FETCH_USER";
 export const ADD_EXPERIENCE = "ADD_EXPERIENCE";
 export const ADD_SKILL = "ADD_SKILL";
 export const DEL_SKILL = "DEL_SKILL";
@@ -22,7 +23,11 @@ export const UPDATE_LANGUAGE = "UPDATE_LANGUAGE";
 export const ADD_INFO = "ADD_INFO";
 export const DEL_EXPERIENCE = "DEL_EXPERIENCE";
 export const COMPANY_DASHBOARD = "COMPANY_DASHBOARD";
+export const GET_COMPANY_OFFERS = "GET_COMPANY_OFFERS";
+
+export const GET_COMPANY_BY_ID = "GET_COMPANY_BY_ID";
 export const GET_APPLIED_JOB = "GET_APPLIED_JOB";
+export const UPDATE_COMAPY_INFO = "UPDATE_COMAPY_INFO";
 
 //auth
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
@@ -31,3 +36,4 @@ export const COMPANY_LOGIN_SUCCESS = "COMPANY_LOGIN_SUCCESS";
 export const COMPANY_REGISTER_SUCCESS = "COMPANY_REGISTER_SUCCESS";
 export const LOGOUT = "LOGOUT";
 export const LOGIN_FAIL = "LOGIN_FAIL";
+export const UPDATE_COMAPY_PASSWORD = "UPDATE_COMAPY_PASSWORD";

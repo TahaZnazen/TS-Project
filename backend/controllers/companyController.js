@@ -205,11 +205,12 @@ exports.getimg = (req, res) => {
 };
 
 exports.updateCompany = async (req, res) => {
+  console.log(req.body);
+  console.log(req.file);
   try {
     if (req.file) {
       req.body.photo = `http://localhost:8080/api/company/image/${req.file.filename}`;
     }
-
     const id = req.params.id;
     const updateCompany = await company.findByIdAndUpdate(id, req.body);
     res.json({
