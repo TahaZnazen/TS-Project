@@ -5,29 +5,31 @@ class Educations extends Component {
   renderEducation = () => {
     if (this.props.data) {
       return (
-        <div>
+        <div className="insideInfo">
           {this.props.data.map((el, i) => {
             return (
-              <div id={el._id} key={i}>
-                <div>
-                  <strong>Start Date: </strong>
-                  {el.start}
-                </div>
-                <div>
-                  <strong>End Date: </strong>
-                  {el.end}
-                </div>
-                <div>
-                  <strong>Diploma: </strong>
+              <div className="dataFlow" id={el._id} key={i}>
+                <div className="innerInfo">
+                  <span>Diploma : </span>
                   {el.diploma}
                 </div>
-                <div>
-                  <strong>Degree: </strong>
+                <div className="innerInfo">
+                  <span>Degree : </span>
                   {el.degree}
                 </div>
-                <div>
-                  <strong>Establishment: </strong>
+                <div className="innerInfo">
+                  <span>Establishment : </span>
                   {el.establishment}
+                </div>
+                <div className="time">
+                  <div>
+                    <span>Start Date : </span>
+                    {el.start}
+                  </div>
+                  <div>
+                    <span>End Date : </span>
+                    {el.end}
+                  </div>
                 </div>
               </div>
             );
@@ -40,8 +42,8 @@ class Educations extends Component {
   };
   render() {
     return (
-      <div>
-        <div> {this.renderEducation()}</div>;
+      <div style={{ width: "100%", height: "100%" }}>
+        <div> {this.renderEducation()}</div>
       </div>
     );
   }
