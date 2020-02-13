@@ -30,7 +30,10 @@ class CompanyJobsDashBord extends Component {
     });
     axios
       .get(`http://localhost:8080/api/post/showPosts/${e.target.id}`)
-      .then(res => this.setState({ currentPost: res.data.data }))
+      .then(res => {
+        console.log(res.data, "/////");
+        this.setState({ currentPost: res.data.data });
+      })
       .catch(err => console.log(err));
     console.log(this.state.currentPost);
   }
@@ -124,8 +127,7 @@ class CompanyJobsDashBord extends Component {
               {/* this one need to be populated with the condidates */}
               <CandidatesModal
                 candidates={
-                  this.props.posts[0] &&
-                  this.props.posts[0]["Offers"][0].candidates
+                  this.state.currentPost && this.state.currentPost.candidates
                 }
                 style={{ position: "absolute" }}
               />
