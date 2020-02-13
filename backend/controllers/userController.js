@@ -28,8 +28,7 @@ const upload = multer({ storage: multerStorage, fileFilter: multerFilter });
 exports.uploadUserPhoto = upload.single("photo");
 
 exports.updateUser = async (req, res) => {
-  console.log(req.params.id);
-  console.log("hello", req.body);
+  console.log(req.params.id)
   try {
     if (req.file) {
       req.body.photo = `http://localhost:8080/api/users/image/${req.file.filename}`;

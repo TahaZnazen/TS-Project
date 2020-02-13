@@ -2,16 +2,13 @@ const express = require("express");
 const router = express.Router();
 const authController = require("./../controllers/authController");
 const userController = require("./../controllers/userController");
+const companyCotroller = require("../controllers/companyController");
 
 router.post("/signup-company", authController.signupCompany);
 router.post("/login-company", authController.loginCompany);
 
-const companyCotroller = require("../controllers/companyController");
-
 router.route("/addCompanyInformation").post(companyCotroller.addCompany);
-router
-  .route("/updateCompany/:id")
-  .patch(companyCotroller.uploadUserPhoto, companyCotroller.updateCompany);
+
 router.route("/top5").get(companyCotroller.topCompanies);
 router.route("/showPosts/:id").get(companyCotroller.findOffers);
 router.route("/companyInfo/:id").get(companyCotroller.findCompany);
@@ -29,7 +26,9 @@ router
 router
   .route("/startConversation/:userId/:companyId")
   .get(companyCotroller.startConversation);
-
 router.route("/updatePassword/:id").patch(companyCotroller.updatePassword);
+router
+  .route("/updateCompany/:id")
+  .patch(companyCotroller.uploadUserPhoto, companyCotroller.updateCompany);
 
 module.exports = router;

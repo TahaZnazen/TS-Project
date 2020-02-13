@@ -192,7 +192,10 @@ const multerFilter = (req, file, cb) => {
     cb(new Error("Not an image! Please upload only images."), false);
   }
 };
-const upload = multer({ storage: multerStorage, fileFilter: multerFilter });
+const upload = multer({
+  storage: multerStorage,
+  fileFilter: multerFilter
+});
 exports.uploadUserPhoto = upload.single("photo");
 
 exports.getimg = (req, res) => {
@@ -304,16 +307,16 @@ exports.startConversation = async (req, res) => {
 
 exports.updatePassword = async (req, res) => {
   try {
-    const User = await user.findById(req.params.id).select("+password");
-    const iscorrect = await User.correctPassword(
+    const Company = await company.findById(req.params.id).select("+password");
+    const iscorrect = await Company.correctPassword(
       req.body.password,
-      User.password
+      Company.password
     );
     if (iscorrect) {
-      User.password = req.body.newPassword;
-      User.passwordConfirmation = req.body.passwordConfirmation;
+      Company.password = req.body.newPassword;
+      Company.passwordConfirmation = req.body.passwordConfirmation;
 
-      await User.save();
+      await Company.save();
       res.json({ message: "password changed" });
     }
 
