@@ -201,14 +201,8 @@ export const getAppliedJobs = id => async dispatch => {
 
 // web RTC
 export const connectWebRTC = (userId, companyId) => async dispatch => {
-  let data = {};
-  data.userId = userId;
-  data.companyId = companyId;
-  console.log(data);
-  //let response = await API.get(`/users/gotJobdetailAndCompanydetail/${id}`);
-  //let data = await response.data.User.appliedJobs;
+  API.post(`/company/startConversation/${userId}/${companyId}`);
 
-  /*   let payload = response.data.User.appliedJobs; */
   return dispatch({
     type: CONNECT_WEB_RTC,
     payload: ""
