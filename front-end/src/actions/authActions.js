@@ -1,4 +1,5 @@
 import axios from "axios";
+import API from "../API/API";
 import {
   LOGIN_SUCCESS,
   REGISTER_SUCCESS,
@@ -113,8 +114,10 @@ export const logout = props => dispatch => {
 };
 
 export const changePassword = (id, data) => dispatch => {
-  console.log(id, data);
-  //axios.post(`http://localhost:8080/api/users/updatePassword/${id}`, data);
+  console.log(id);
+  console.log(data);
+
+  API.post(`company/updatePassword/${id}`, data);
 
   return dispatch({
     type: UPDATE_COMAPY_PASSWORD,
@@ -122,9 +125,9 @@ export const changePassword = (id, data) => dispatch => {
   });
 };
 
-export const UpdateComapanyInfo = (data, id) => dispatch => {
-  console.log(id, data);
-  //axios.patch(`http://localhost:8080/api/users/update/${id}`, data);
+export const UpdateComapanyInfo = (id, data) => dispatch => {
+  console.log("update action", id, data);
+  API.patch(`company/updateCompany/${id}`, data);
   return dispatch({
     type: UPDATE_COMAPY_INFO,
     payload: ""
