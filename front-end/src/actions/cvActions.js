@@ -15,7 +15,8 @@ import {
   UPDATE_LANGUAGE,
   UPDATE_EDUCATION,
   GET_APPLIED_JOB,
-  FETCH_USER
+  FETCH_USER,
+  CONNECT_WEB_RTC
 } from "./types";
 
 //function return function that return an actions
@@ -195,5 +196,15 @@ export const getAppliedJobs = id => async dispatch => {
   return dispatch({
     type: GET_APPLIED_JOB,
     payload: data
+  });
+};
+
+// web RTC
+export const connectWebRTC = (userId, companyId) => async dispatch => {
+  API.post(`/company/startConversation/${userId}/${companyId}`);
+
+  return dispatch({
+    type: CONNECT_WEB_RTC,
+    payload: ""
   });
 };

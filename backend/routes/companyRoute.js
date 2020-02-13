@@ -25,7 +25,7 @@ router
   .get(companyCotroller.getJobsAndCandidates);
 router
   .route("/startConversation/:userId/:companyId")
-  .get(companyCotroller.startConversation);
+  .post(companyCotroller.startConversation);
 router.route("/updatePassword/:id").patch(companyCotroller.updatePassword);
 router
   .route("/updateCompany/:id")
