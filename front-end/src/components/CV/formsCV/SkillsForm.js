@@ -19,8 +19,8 @@ class SkillsForm extends Component {
     newSkill.name = e.target.name.value;
     newSkill.level = e.target.level.value;
 
-    //const id = this.props.cvUser[0]._id;
-    //this.props.addSkill(id, newSkill);
+    const id = this.props.cvUser[0]._id;
+    this.props.addSkill(id, newSkill);
 
     let elementToDelete = e.target.id;
 
