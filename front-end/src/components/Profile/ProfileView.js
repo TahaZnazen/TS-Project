@@ -37,10 +37,9 @@ class ProfileView extends Component {
       const { education, skills, language, experience } = this.props.cvUser[0];
       return (
         <div style={{ width: "99vw", height: "100vh" }}>
-          <button onClick={this.startWebRtc}>web RTC</button>
-          <div>
-            <div>user Info </div>
-            <Info data={this.props.cvUser[0].user_id} />
+          {/* <button onClick={this.startWebRtc}>web RTC</button> */}
+          <div style={{ width: "99vw", height: "100vh" }}>
+            <Info call={this.startWebRtc} data={this.props.cvUser[0].user_id} />
           </div>
           <hr />
           <div className="fullCv">

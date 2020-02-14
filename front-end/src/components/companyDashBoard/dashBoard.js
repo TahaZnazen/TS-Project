@@ -55,7 +55,7 @@ class DashBoard extends Component {
                 </h1>
               </Link>
 
-              <Link to="/Jobs">
+              <Link to="/company/jobsDashBoard">
                 <h1 className={this.state.sideNav ? "showed" : "hidden"}>
                   Jobs
                 </h1>

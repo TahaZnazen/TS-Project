@@ -54,7 +54,7 @@ export const registerAuth = (data, props) => dispatch => {
           type: REGISTER_SUCCESS,
           payload: fetchedData
         });
-        res.data.status === "success" && this.props.history.push("/Employee");
+        res.data.status === "success" && props.history.push("/cv");
       }
     })
     .catch(err => console.log(err));

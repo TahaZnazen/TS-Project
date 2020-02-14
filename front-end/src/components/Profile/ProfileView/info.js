@@ -41,7 +41,7 @@ class info extends Component {
                   <br />
                   {name.toUpperCase()}
                 </h3>
-                <button>
+                <button onClick={this.props.call}>
                   <FontAwesomeIcon icon={faPhone} />
                 </button>
               </div>
