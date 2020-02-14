@@ -7,6 +7,7 @@ import { Form, FormGroup, Col, Label, Button, Input } from "reactstrap";
 class ExperienceForm extends Component {
   state = {
     displayExperience: {},
+    displayInfo: [],
     key: 0
   };
 
@@ -20,14 +21,51 @@ class ExperienceForm extends Component {
     newExperience.position = e.target.positionName.value;
     newExperience.task = e.target.task.value;
 
-    const id = this.props.cvUser[0]._id;
-    this.props.addExperience(id, newExperience);
-    let elementToDelete = e.target.id;
-    let newDisplay = this.state.displayExperience;
-    delete newDisplay[elementToDelete];
-    this.setState({ displayExperience: newDisplay });
-  };
+    if (e.target.end.value > e.target.start.value) {
+      //const id = this.props.cvUser[0]._id;
+      //this.props.addExperience(id, newExperience);
+      let elementToDelete = e.target.id;
+      let newDisplay = this.state.displayExperience;
+      delete newDisplay[elementToDelete];
+      this.setState({ displayExperience: newDisplay });
 
+      //render info
+      let newRenderInfo = this.state.displayInfo;
+      newRenderInfo.unshift(this.renderInfo(newExperience));
+      this.setState({ displayInfo: newRenderInfo });
+    } else {
+      alert("please verfie you experience date");
+    }
+  };
+  renderInfo = obj => {
+    return (
+      <div>
+        <div>
+          <div>
+            <strong>Start: </strong>
+            {obj.start}
+          </div>
+          <div>
+            <strong>End: </strong>
+            {obj.end}
+          </div>
+          <div>
+            <strong>Company Name: </strong>
+            {obj.companyName}
+          </div>
+          <div>
+            <strong>Position: </strong>
+            {obj.position}
+          </div>
+          <div>
+            <strong>Task: </strong>
+            {obj.task}
+          </div>
+        </div>
+        <hr />
+      </div>
+    );
+  };
   renderForm = () => {
     return (
       <Form id={this.state.key} onSubmit={this.handleSubmit}>
@@ -70,6 +108,7 @@ class ExperienceForm extends Component {
               id="task"
               rows="5"
               placeholder="your tasks..."
+              invalid
             />
           </Col>
         </FormGroup>
@@ -83,6 +122,7 @@ class ExperienceForm extends Component {
               id="start"
               name="start"
               placeholder="start at ..."
+              invalid
             />
           </Col>
         </FormGroup>
@@ -91,7 +131,7 @@ class ExperienceForm extends Component {
             <Label htmlFor="end">End Date</Label>
           </Col>
           <Col xs="12" md="9">
-            <Input type="date" id="end" name="end" placeholder="date" />
+            <Input type="date" id="end" name="end" placeholder="date" invalid />
           </Col>
         </FormGroup>
         <Button
@@ -136,6 +176,7 @@ class ExperienceForm extends Component {
         </div>
 
         <div>{Object.values(this.state.displayExperience)}</div>
+        <div>{this.state.displayInfo}</div>
       </div>
     );
   }
