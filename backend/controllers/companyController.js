@@ -280,7 +280,7 @@ exports.startConversation = async (req, res) => {
         email: user.email,
         subject: "Company interview",
         UserMessage,
-        html: `
+        html: ` 
          <h1>Hello, ${user.name}</h1>
          <p>${UserMessage}</p>
          <a href= "https://thesis-chat.herokuapp.com/">CLICK HERE TO START CONVERSATION</a>
