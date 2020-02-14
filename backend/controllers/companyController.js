@@ -116,7 +116,9 @@ exports.rejectUser = async (req, res) => {
       `Sorry for that but you have been rejected by ${Company.name}, on the job ${job.title}. better luck next time`;
 
     user.appliedJobs = user.appliedJobs.map(elm => {
+      console.log("here");
       if (elm.job == req.body.jobId) {
+        console.log(elm.job);
         elm.status = "rejected";
       }
       return elm;
@@ -130,7 +132,7 @@ exports.rejectUser = async (req, res) => {
         html: `
          <h1>Hello, ${user.name}</h1>
          <p>${message}</p>
-         
+
          `
       });
     } catch (err) {
@@ -270,8 +272,8 @@ exports.startConversation = async (req, res) => {
   try {
     const user = await User.findById(req.params.userId);
     const Company = await company.findById(req.params.companyId);
-    const UserMessage = `You have now an interview with ${Company.name} and this is the interview link: -------`;
-    const companyMessage = `you just requisted for interview with ${user.name} and this is the interview link: ------`;
+    const UserMessage = `You have now an interview with ${Company.name} and this is the interview link:`;
+    const companyMessage = `you just requisted for interview with ${user.name} and this is the interview link:`;
     try {
       await sendEmail({
         email: user.email,
@@ -280,6 +282,7 @@ exports.startConversation = async (req, res) => {
         html: `
          <h1>Hello, ${user.name}</h1>
          <p>${UserMessage}</p>
+         <a href= "https://thesis-chat.herokuapp.com/">CLICK HERE TO START CONVERSATION</a>
          
          `
       });
