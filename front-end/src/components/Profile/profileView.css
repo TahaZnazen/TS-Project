@@ -1,0 +1,142 @@
+.profileInfo {
+  background-color: sienna;
+  width: 99vw;
+  height: 60vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  position: relative;
+  background-image: url("https://images.unsplash.com/photo-1497215842964-222b430dc094?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80");
+  background-size: 100% 100%;
+}
+.nestedProfileInfo {
+  width: 40vw;
+  height: 50vh;
+  background-color: white;
+  position: absolute;
+  bottom: -20vh;
+  box-shadow: 0px 28px 24px #c8ced3;
+}
+.profileViewImg {
+  height: 10vw;
+  width: 10vw;
+  background-size: 100% 100%;
+  position: relative;
+  top: -10vh;
+  border-radius: 50%;
+}
+
+.profilePhotoContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  height: 15vh;
+}
+.ProfileText {
+  padding: 0 3vw;
+}
+.textTitle {
+  font-weight: bolder;
+  font-size: 25px;
+  color: #5c6b73;
+}
+.ProfileText h3 {
+  font-weight: lighter;
+  text-align: center;
+  color: #acb4bc;
+}
+
+.fullCv {
+  display: flex;
+  height: 60vh;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding-top: 10vh;
+}
+.infoContainer {
+  width: 40vw;
+  height: 80%;
+  box-shadow: 5px 8px 13px #c8ced3;
+  border: 1px solid #c8ced3;
+  margin: 1vw;
+  transition: 0.5s;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background-color: white;
+}
+.infoContainer:hover {
+  transform: scale(1.1);
+  margin: 4vh;
+  transition: 0.5s;
+  z-index: 3;
+}
+.insideInfo {
+  height: 32vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  overflow-y: scroll;
+}
+.cvTitle {
+  font-size: 40px;
+  color: #20a8d8;
+}
+.dataFlow {
+  border: 1px solid #e4e7ea;
+  height: 15vh;
+  background-color: rgb(255, 255, 255);
+  width: 100%;
+  margin-top: 2vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.time {
+  display: flex;
+  justify-content: space-around;
+  height: 25%;
+  background-color: #23282c;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  align-items: center;
+  color: #ffc107;
+  font-family: monospace;
+  font-size: 15px;
+}
+.innerInfo {
+  font-size: 22px;
+  display: flex;
+}
+.contInfo {
+  display: flex;
+  justify-content: space-around;
+  width: 80%;
+  border: 1px solid #e4e7ea;
+  width: 100%;
+}
+.innerInfo span {
+  font-weight: bolder;
+}
+.calls {
+  width: 100%;
+  justify-content: center;
+}
+.calls button {
+  width: 3vw;
+  height: 2vw;
+  background: none;
+  border: none;
+  margin: 2vh;
+  font-size: 50px;
+  outline: none;
+  transition: 0.2s;
+  color: #20a8d8;
+}
+.calls button:hover {
+  transform: scale(1.09);
+  transition: 0.2s;
+}

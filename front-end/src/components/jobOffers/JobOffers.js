@@ -9,6 +9,9 @@ import { connect } from "react-redux";
 import { getPosts } from "../../actions/offersAction";
 import PropTypes from "prop-types";
 import axios from "axios";
+import UserNav from "../navbar/UserNav";
+import { withRouter } from "react-router-dom";
+import swal from "sweetalert";
 
 class JobOffers extends Component {
   state = {
@@ -22,7 +25,11 @@ class JobOffers extends Component {
     //fetch a data
     //or update a query to get data
   };
-
+  visitCompany(e) {
+    this.props.history.push(
+      `/company/${this.state.currentPost.companyName._id}`
+    );
+  }
   componentDidMount() {
     this.props.posts.length === 0 && this.props.getPosts();
     let token = this.props.authInfo.token;
@@ -48,13 +55,21 @@ class JobOffers extends Component {
       .post(
         `http://localhost:8080/api/post/${this.state.idOffre}/user/${this.state.idUser}`
       )
-      .then(res => console.log(res.data))
+      .then(res => {
+        res.data &&
+          swal(
+            "Request Sended with succes!",
+            "you will recieve and email once the company see you request!",
+            "success"
+          );
+      })
       .catch(err => console.log(err));
   }
+
   render() {
     return (
       <div id="JobOffermain">
-        <NavBar />
+        <UserNav />
         <div id="seachNav">
           <SearchBar />
         </div>
@@ -127,7 +142,10 @@ class JobOffers extends Component {
                               style={{ pointerEvents: "none" }}
                               className=".flex-column "
                             >
-                              <h3 style={{ pointerEvents: "none" }}>
+                              <h3
+                                id={job.companyName._id}
+                                style={{ pointerEvents: "none" }}
+                              >
                                 {job.companyName && job.companyName.name}
                               </h3>
                               <h5
@@ -217,7 +235,10 @@ class JobOffers extends Component {
                   style={{ display: "flex", padding: "20px 50px" }}
                 >
                   <div className="jobBigDescription">
-                    <h4 style={{ fontWeight: "lighter" }}>
+                    <h4
+                      onClick={this.visitCompany.bind(this)}
+                      style={{ fontWeight: "lighter" }}
+                    >
                       {this.state.currentPost &&
                         this.state.currentPost.companyName.name}
                     </h4>
@@ -261,4 +282,4 @@ const mapStateToProps = state => ({
   posts: state.posts.posts,
   authInfo: state.auth
 });
-export default connect(mapStateToProps, { getPosts })(JobOffers);
+export default withRouter(connect(mapStateToProps, { getPosts })(JobOffers));

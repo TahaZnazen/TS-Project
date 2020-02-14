@@ -4,16 +4,16 @@ class Skills extends Component {
   renderSkills = () => {
     if (this.props.data) {
       return (
-        <div>
+        <div className="insideInfo">
           {this.props.data.map((el, i) => {
             return (
-              <div id={el._id} key={i}>
-                <div>
-                  <strong>Tech skill: </strong>
+              <div className="contInfo" id={el._id} key={i}>
+                <div className="innerInfo">
+                  <span>Tech skill : </span>
                   {el.name}
                 </div>
-                <div>
-                  <strong>level: </strong>
+                <div className="innerInfo">
+                  <span>level : </span>
                   {el.level}
                 </div>
               </div>
@@ -27,11 +27,11 @@ class Skills extends Component {
   };
   render() {
     return (
-      <div>
-        <div>
+      <div style={{ width: "100%", height: "100%" }}>
+        {/* <div>
           <strong>Skills View component</strong>
         </div>
-        <hr />
+        <hr /> */}
         <div>{this.renderSkills()}</div>
       </div>
     );

@@ -29,7 +29,7 @@ class PersonalInfoForm extends Component {
       document.getElementById("locationUser").value
     );
     newInformation.append("phone", document.getElementById("phone").value);
-    console.log(this.props);
+    console.log(this.props, "//");
     const id = this.props.cvUser[0].user_id._id;
     console.log(id);
     this.props.addInfo(id, newInformation);

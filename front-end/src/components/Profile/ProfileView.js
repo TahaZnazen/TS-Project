@@ -6,6 +6,7 @@ import Educations from "./ProfileView/Educations";
 import Experiences from "./ProfileView/Experiences";
 import Languages from "./ProfileView/Languages";
 import Skills from "./ProfileView/Skills";
+import "./profileView.css";
 import axios from "axios";
 
 class ProfileView extends Component {
@@ -35,31 +36,32 @@ class ProfileView extends Component {
     if (this.props.cvUser[0]) {
       const { education, skills, language, experience } = this.props.cvUser[0];
       return (
-        <div>
-          <button onClick={this.startWebRtc}>web RTC</button>
-          <div>
-            <div>user Info </div>
-            <Info data={this.props.cvUser[0].user_id} />
+        <div style={{ width: "99vw", height: "100vh" }}>
+          {/* <button onClick={this.startWebRtc}>web RTC</button> */}
+          <div style={{ width: "99vw", height: "100vh" }}>
+            <Info call={this.startWebRtc} data={this.props.cvUser[0].user_id} />
           </div>
           <hr />
-          <div>
-            <div> User education</div>
-            <Educations data={education} />
-          </div>
-          <hr />
-          <div>
-            <div> User Experiences</div>
-            <Experiences data={experience} />
-          </div>
-          <hr />
-          <div>
-            <div> User Langauge</div>
-            <Languages data={language} />
-          </div>
-          <hr />
-          <div>
-            <div> User Skills</div>
-            <Skills data={skills} />
+          <div className="fullCv">
+            <div className="infoContainer">
+              <div className="cvTitle"> User education</div>
+              <Educations data={education} />
+            </div>
+            <hr />
+            <div className="infoContainer">
+              <div className="cvTitle"> User Experiences</div>
+              <Experiences data={experience} />
+            </div>
+            <hr />
+            <div className="infoContainer">
+              <div className="cvTitle"> User Langauge</div>
+              <Languages data={language} />
+            </div>
+            <hr />
+            <div className="infoContainer">
+              <div className="cvTitle"> User Skills</div>
+              <Skills data={skills} />
+            </div>
           </div>
         </div>
       );

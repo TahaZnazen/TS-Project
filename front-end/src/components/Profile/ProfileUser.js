@@ -18,7 +18,7 @@ import Education from "./ProfileElment/Education";
 import Language from "./ProfileElment/Language";
 import Skill from "./ProfileElment/Skill";
 import Info from "./ProfileElment/Info";
-
+import UserNav from "../navbar/UserNav";
 class ProfileUser extends Component {
   state = {};
   componentDidMount() {
@@ -28,6 +28,7 @@ class ProfileUser extends Component {
     if (this.props.cvUser[0]) {
       return (
         <div className="container">
+          <UserNav />
           <Info
             userInfo={this.props.cvUser[0].user_id}
             addInfo={this.props.addInfo}

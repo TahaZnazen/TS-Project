@@ -4,29 +4,31 @@ class Experiences extends Component {
   renderExperience = () => {
     if (this.props.data) {
       return (
-        <div>
+        <div className="insideInfo">
           {this.props.data.map((el, i) => {
             return (
-              <div id={el._id} key={i}>
-                <div>
-                  <strong>start Date: </strong>
-                  {el.start}
-                </div>
-                <div>
-                  <strong>end Date: </strong>
-                  {el.end}
-                </div>
-                <div>
-                  <strong>Company Name: </strong>
+              <div className="dataFlow" id={el._id} key={i}>
+                <div className="innerInfo">
+                  <span>Company Name : </span>
                   {el.companyName}
                 </div>
-                <div>
-                  <strong>Position: </strong>
+                <div className="innerInfo">
+                  <span>Position : </span>
                   {el.position}
                 </div>
-                <div>
-                  <strong>Task: </strong>
+                <div className="innerInfo">
+                  <span>Task : </span>
                   {el.task}
+                </div>
+                <div className="time">
+                  <div>
+                    <span>Start Date : </span>
+                    {el.start}
+                  </div>
+                  <div>
+                    <span>End Date : </span>
+                    {el.end}
+                  </div>
                 </div>
               </div>
             );
@@ -39,7 +41,7 @@ class Experiences extends Component {
   };
   render() {
     return (
-      <div>
+      <div style={{ width: "100%", height: "100%" }}>
         <div>{this.renderExperience()}</div>
       </div>
     );
