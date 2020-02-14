@@ -41,7 +41,8 @@ exports.findOne = async (req, res) => {
     const id = req.params.id;
     const result = await jobOffer
       .findById(id)
-      .populate("companyName", ["name", "description"]); // add ,"photo" when database is correctly filled
+      .populate("companyName", ["name", "description"])
+      .populate("candidates"); // add ,"photo" when database is correctly filled
     res.status(201).json({
       data: result
     });

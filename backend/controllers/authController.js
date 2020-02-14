@@ -98,19 +98,20 @@ exports.login = async (req, res) => {
     const user = await User.findOne({ email: req.body.data.email }).select(
       "+password"
     );
+
     if (!user.active) {
       res.json({
         err: "verife your email to log in"
       });
     }
-
+    console.log(user);
     // check if user exist and for the password correct or not
     if (
       !user ||
       !(await user.correctPassword(req.body.data.password, user.password))
     ) {
       res.json({
-        err: "verife your email to log in"
+        err: "7eja tasle7"
       });
     }
     user.password = undefined;

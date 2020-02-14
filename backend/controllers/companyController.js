@@ -69,6 +69,7 @@ exports.CompanyOffersCandidates = async (req, res) => {
 };
 
 exports.acceptUser = async (req, res) => {
+  console.log(req.body);
   try {
     let user = await User.findById(req.body.userId);
     const Company = await company.findById(req.body.companyId);
@@ -107,6 +108,7 @@ exports.acceptUser = async (req, res) => {
 };
 
 exports.rejectUser = async (req, res) => {
+  console.log(req.body);
   try {
     const user = await User.findById(req.body.userId);
     const Company = await company.findById(req.body.companyId);
@@ -118,7 +120,6 @@ exports.rejectUser = async (req, res) => {
     user.appliedJobs = user.appliedJobs.map(elm => {
       console.log("here");
       if (elm.job == req.body.jobId) {
-        console.log(elm.job);
         elm.status = "rejected";
       }
       return elm;

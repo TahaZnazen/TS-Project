@@ -5,8 +5,11 @@ import {
   COMPANY_INFO,
   COMPANY_DASHBOARD,
   GET_COMPANY_OFFERS,
-  GET_COMPANY_BY_ID
+  GET_COMPANY_BY_ID,
+  ACCEPT_CONDIDATE,
+  REJECT_CONDIDATE
 } from "./types";
+import API from "../API/API";
 import axios from "axios";
 export const getPosts = () => async dispatch => {
   try {
@@ -69,18 +72,27 @@ export const findCompany = id => dispatch => {
     })
     .catch(err => console.log(err));
 };
-export const companyDashboard = () => dispatch => {
+export const companyDashboard = id => dispatch => {
   let fetchedData = [];
+  let arr = [];
   axios
-    .get(
-      "http://localhost:8080/api/company/candidates/5e317ff8059a3a57a4d3639d"
-    )
+    .get(`http://localhost:8080/api/company/candidates/${id}`)
     .then(data => {
-      fetchedData = data.data;
+      fetchedData = data.data.OffersPostedByTheCompany;
       console.log(fetchedData);
+      fetchedData.map(elm => {
+        elm.candidates.map(candidates => {
+          candidates.offerName = elm.title;
+          candidates.offerId = elm._id;
+          candidates.companyId = elm.companyName;
+          arr.push(candidates);
+        });
+      });
+      console.log(arr);
+
       dispatch({
         type: COMPANY_DASHBOARD,
-        payload: fetchedData
+        payload: arr
       });
     })
     .catch(err => console.log(err));
@@ -100,4 +112,45 @@ export const getCompanyJobs = id => dispatch => {
       });
     })
     .catch(err => console.log(err));
+};
+
+export const acceptCondidate = (
+  userId,
+  companyId,
+  jobId,
+  date,
+  message
+) => async dispatch => {
+  let data = {};
+  data.userId = userId;
+  data.companyId = companyId;
+  data.jobId = jobId;
+  data.date = date;
+  data.message = message;
+
+  console.log(data);
+  API.post(`/company/acceptUser/`, data);
+
+  return (dispatch = {
+    type: ACCEPT_CONDIDATE
+  });
+};
+
+export const rejectCondidate = (
+  userId,
+  companyId,
+  jobId,
+  message
+) => async dispatch => {
+  let data = {};
+  data.userId = userId;
+  data.companyId = companyId;
+  data.jobId = jobId;
+  data.message = message;
+  console.log(data);
+  API.post(`/company/rejectUser/`, data);
+
+  return (dispatch = {
+    type: REJECT_CONDIDATE
+  });
 };
