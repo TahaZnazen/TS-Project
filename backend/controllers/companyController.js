@@ -331,3 +331,12 @@ exports.updatePassword = async (req, res) => {
     res.json({ message: "fail" });
   }
 };
+
+exports.addDescription = async (req, res) => {
+  try {
+    await company.findByIdAndUpdate(req.params.id, req.body);
+    res.json({ message: "description updated" });
+  } catch (err) {
+    res.json({ err });
+  }
+};
