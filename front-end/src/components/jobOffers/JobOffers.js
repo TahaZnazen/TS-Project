@@ -143,7 +143,7 @@ class JobOffers extends Component {
                               className=".flex-column "
                             >
                               <h3
-                                id={job.companyName._id}
+                                id={job.companyName && job.companyName._id}
                                 style={{ pointerEvents: "none" }}
                               >
                                 {job.companyName && job.companyName.name}
