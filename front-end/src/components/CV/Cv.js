@@ -6,6 +6,7 @@ import EducationForm from "../CV/formsCV/EducationForm";
 import LanguageForm from "../CV/formsCV/LanguageForm";
 import SkillsForm from "../CV/formsCV/SkillsForm";
 import PersonalInformation from "../CV/formsCV/PersonalInformation";
+import { Link } from "react-router-dom";
 
 import {
   Badge,
@@ -113,6 +114,18 @@ class Cv extends Component {
             </Card>
           </Col>
         </Row>
+        <Link to="/profileUser" style={{ position: "absolute", right: "3vw" }}>
+          <button
+            style={{
+              height: "3vw",
+              width: "5vw",
+              backgroundColor: "#20a8d8",
+              border: "none"
+            }}
+          >
+            Done
+          </button>
+        </Link>
       </div>
     );
   }

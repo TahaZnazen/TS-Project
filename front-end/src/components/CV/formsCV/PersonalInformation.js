@@ -7,6 +7,7 @@ import { Form, FormGroup, Col, Label, Button, Input, Alert } from "reactstrap";
 class PersonalInfoForm extends Component {
   state = {
     displayInformation: {},
+    displayInfo: [],
     key: 1
   };
 
@@ -28,13 +29,47 @@ class PersonalInfoForm extends Component {
       document.getElementById("locationUser").value
     );
     newInformation.append("phone", document.getElementById("phone").value);
-    console.log(this.props);
+    console.log(this.props, "//");
     const id = this.props.cvUser[0].user_id._id;
     console.log(id);
     this.props.addInfo(id, newInformation);
     this.setState({ displayInformation: [] });
-  };
 
+    //
+    let newRenderInfo = this.state.displayInfo;
+    newRenderInfo.unshift(this.renderInfo(newInformation));
+    this.setState({ displayInfo: newRenderInfo });
+  };
+  renderInfo = obj => {
+    console.log(obj.get("photo"));
+    return (
+      <div>
+        <div>
+          <div>
+            <strong>Phone: </strong>
+            {obj.get("phone")}
+          </div>
+          <div>
+            <strong>Gender: </strong>
+            {obj.get("gender")}
+          </div>
+          <div>
+            <strong>Nationality: </strong>
+            {obj.get("nationality")}
+          </div>
+          <div>
+            <strong>Location: </strong>
+            {obj.get("location")}
+          </div>
+          <div>
+            <strong>Experience Level: </strong>
+            {obj.get("expertise")}
+          </div>
+        </div>
+        <hr />
+      </div>
+    );
+  };
   renderForm = () => {
     return (
       <Form
@@ -116,7 +151,8 @@ class PersonalInfoForm extends Component {
     const informationForms = this.state.displayInformation;
     informationForms[this.state.key] = this.renderForm();
     this.setState({
-      displayInformation: informationForms
+      displayInformation: informationForms,
+      displayInfo: []
     });
   }
   render() {
@@ -138,6 +174,7 @@ class PersonalInfoForm extends Component {
         </div>
 
         <div>{Object.values(this.state.displayInformation)}</div>
+        <div>{this.state.displayInfo}</div>
       </div>
     );
   }

@@ -7,6 +7,7 @@ import { Form, FormGroup, Col, Label, Button, Input } from "reactstrap";
 class EducationForm extends Component {
   state = {
     displayEducation: {},
+    displayInfo: [],
     key: 0
   };
 
@@ -19,13 +20,52 @@ class EducationForm extends Component {
     newEducation.diploma = e.target.diploma.value;
     newEducation.establishment = e.target.establishment.value;
 
-    const id = this.props.cvUser[0]._id;
-    this.props.addEducation(id, newEducation);
+    if (e.target.end.value > e.target.start.value) {
+      const id = this.props.cvUser[0]._id;
+      this.props.addEducation(id, newEducation);
 
-    let elementToDelete = e.target.id;
-    let newDisplay = this.state.displayEducation;
-    delete newDisplay[elementToDelete];
-    this.setState({ displayEducation: newDisplay });
+      let elementToDelete = e.target.id;
+      let newDisplay = this.state.displayEducation;
+      delete newDisplay[elementToDelete];
+      this.setState({ displayEducation: newDisplay });
+
+      //render the new value
+      let newRenderInfo = this.state.displayInfo;
+      newRenderInfo.unshift(this.renderInfo(newEducation));
+      this.setState({ displayInfo: newRenderInfo });
+    } else {
+      alert("please verfie date of your education");
+    }
+  };
+
+  renderInfo = obj => {
+    return (
+      <div>
+        <div>
+          <div>
+            <strong>Diploma: </strong>
+            {obj.diploma}
+          </div>
+          <div>
+            <strong>Degree: </strong>
+            {obj.degree}
+          </div>
+          <div>
+            <strong>establishment: </strong>
+            {obj.establishment}
+          </div>
+          <div>
+            <strong>Start: </strong>
+            {obj.start}
+          </div>
+          <div>
+            <strong>End: </strong>
+            {obj.end}
+          </div>
+        </div>
+        <hr />
+      </div>
+    );
   };
 
   renderForm = () => {
@@ -102,7 +142,7 @@ class EducationForm extends Component {
           color="primary"
           onSubmit={this.handleSubmit}
         >
-          Add to my profil
+          Add to my profile
         </Button>
       </Form>
     );
@@ -138,6 +178,8 @@ class EducationForm extends Component {
         </div>
 
         <div>{Object.values(this.state.displayEducation)}</div>
+        <hr />
+        <div>{this.state.displayInfo}</div>
       </div>
     );
   }

@@ -4,16 +4,16 @@ class Languages extends Component {
   renderLanguages = () => {
     if (this.props.data) {
       return (
-        <div>
+        <div className="insideInfo">
           {this.props.data.map((el, i) => {
             return (
-              <div id={el._id} key={i}>
-                <div>
-                  <strong>Language: </strong>
+              <div className="contInfo" id={el._id} key={i}>
+                <div className="innerInfo">
+                  <span>Language : </span>
                   {el.name}
                 </div>
-                <div>
-                  <strong>Level: </strong>
+                <div className="innerInfo">
+                  <span>Level : </span>
                   {el.level}
                 </div>
               </div>
@@ -28,7 +28,7 @@ class Languages extends Component {
   render() {
     console.log("educaton view component ", this.props);
     return (
-      <div>
+      <div style={{ width: "100%", height: "100%" }}>
         <div>{this.renderLanguages()}</div>
       </div>
     );

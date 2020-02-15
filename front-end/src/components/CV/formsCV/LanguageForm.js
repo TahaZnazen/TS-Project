@@ -7,6 +7,7 @@ import { Form, FormGroup, Col, Label, Button, Input } from "reactstrap";
 class LanguageForm extends Component {
   state = {
     displayLanguage: {},
+    displayInfo: [],
     key: 0
   };
 
@@ -16,14 +17,35 @@ class LanguageForm extends Component {
     newLanguage.name = e.target.name.value;
     newLanguage.level = e.target.level.value;
 
-    const id = this.props.cvUser[0]._id;
-    this.props.addLanguage(id, newLanguage);
+    //const id = this.props.cvUser[0]._id;
+    //this.props.addLanguage(id, newLanguage);
 
     let elementToDelete = e.target.id;
 
     let newDisplay = this.state.displayLanguage;
     delete newDisplay[elementToDelete];
     this.setState({ displayLanguage: newDisplay });
+    //
+    let newRenderInfo = this.state.displayInfo;
+    newRenderInfo.unshift(this.renderInfo(newLanguage));
+    this.setState({ displayInfo: newRenderInfo });
+  };
+  renderInfo = obj => {
+    return (
+      <div>
+        <div>
+          <div>
+            <strong>Language: </strong>
+            {obj.name}
+          </div>
+          <div>
+            <strong>Level: </strong>
+            {obj.level}
+          </div>
+        </div>
+        <hr />
+      </div>
+    );
   };
 
   renderForm = () => {
@@ -102,6 +124,7 @@ class LanguageForm extends Component {
         </div>
 
         <div>{Object.values(this.state.displayLanguage)}</div>
+        <div>{this.state.displayInfo}</div>
       </div>
     );
   }
