@@ -9,6 +9,7 @@ import { Form, FormGroup, Col, Label, Button, Input } from "reactstrap";
 class SkillsForm extends Component {
   state = {
     displaySkills: {},
+    displayInfo: [],
     key: 0
   };
 
@@ -26,6 +27,29 @@ class SkillsForm extends Component {
     let newDisplay = this.state.displaySkills;
     delete newDisplay[elementToDelete];
     this.setState({ displaySkills: newDisplay });
+
+    //
+    let newRenderInfo = this.state.displayInfo;
+    newRenderInfo.unshift(this.renderInfo(newSkill));
+    this.setState({ displayInfo: newRenderInfo });
+  };
+
+  renderInfo = obj => {
+    return (
+      <div>
+        <div>
+          <div>
+            <strong>Skill: </strong>
+            {obj.name}
+          </div>
+          <div>
+            <strong>Level: </strong>
+            {obj.level}
+          </div>
+        </div>
+        <hr />
+      </div>
+    );
   };
   renderForm = () => {
     return (
@@ -101,6 +125,7 @@ class SkillsForm extends Component {
         </div>
 
         <div>{Object.values(this.state.displaySkills)}</div>
+        <div>{this.state.displayInfo}</div>
       </div>
     );
   }
