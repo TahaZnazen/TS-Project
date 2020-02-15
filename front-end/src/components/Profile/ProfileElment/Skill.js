@@ -11,6 +11,8 @@ import {
   Label,
   Input
 } from "reactstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 class Skill extends Component {
   state = {
@@ -52,67 +54,75 @@ class Skill extends Component {
   renderSkill = () => {
     return this.props.userSkill.map((el, i) => {
       return (
-        <div id={el._id} key={i}>
-          <div>{el.name}</div>
-          <div>{el.level}</div>
-          <button id={el._id} onClick={this.toggle.bind(this)}>
-            Edit
-          </button>
-          <button id={el._id} onClick={this.deleteSkill}>
-            Delete
-          </button>
-          <Modal
-            isOpen={this.state.modal}
-            toggle={this.toggle}
-            className={this.props.className}
-          >
-            <ModalHeader toggle={this.toggle.bind(this)}>
-              Edit Experience
-            </ModalHeader>
-            <ModalBody>
-              <Form onSubmit={this.updateSkill}>
-                <FormGroup row>
-                  <Col md="3">
-                    <Label htmlFor="language">skills </Label>
-                  </Col>
-                  <Col xs="12" md="9">
-                    <Input
-                      type="text"
-                      id="name"
-                      name="name"
-                      placeholder="skill name  .."
-                    />
-                  </Col>
-                </FormGroup>
-                <FormGroup row>
-                  <Col md="3">
-                    <Label htmlFor="level">Level</Label>
-                  </Col>
-                  <Col xs="12" md="9">
-                    <Input type="select" name="level" id="degree" bsSize="sm">
-                      <option value="Basic">Basic level</option>
-                      <option value="Intermidate">Intermediate level</option>
-                      <option value="Advanced">Advanced level</option>
-                    </Input>
-                  </Col>
-                </FormGroup>
-                <ModalFooter>
-                  <Button
-                    name="tes"
-                    type="submit"
-                    color="primary"
-                    type="submit"
-                    onSubmit={this.updateSkill}
-                  >
-                    Update my skill
-                  </Button>
-                  <Button color="secondary" onClick={this.toggle.bind(this)}>
-                    Cancel
-                  </Button>
-                </ModalFooter>
-              </Form>
-            </ModalBody>
-          </Modal>
+        <div className="contInfo" id={el._id} key={i}>
+          <div className="innerInfo">
+            <span>Tech skill : </span>
+            {el.name}
+          </div>
+          <div className="innerInfo">
+            <span>level : </span>
+            {el.level}
+          </div>
+          <div className="helpBtn">
+            <button id={el._id} onClick={this.toggle.bind(this)}>
+              <FontAwesomeIcon icon={faEdit} />
+            </button>
+            <button id={el._id} onClick={this.deleteSkill}>
+              <FontAwesomeIcon icon={faTrash} />
+            </button>
+            <Modal
+              isOpen={this.state.modal}
+              toggle={this.toggle}
+              className={this.props.className}
+            >
+              <ModalHeader toggle={this.toggle.bind(this)}>
+                Edit Experience
+              </ModalHeader>
+              <ModalBody>
+                <Form onSubmit={this.updateSkill}>
+                  <FormGroup row>
+                    <Col md="3">
+                      <Label htmlFor="language">skills </Label>
+                    </Col>
+                    <Col xs="12" md="9">
+                      <Input
+                        type="text"
+                        id="name"
+                        name="name"
+                        placeholder="skill name  .."
+                      />
+                    </Col>
+                  </FormGroup>
+                  <FormGroup row>
+                    <Col md="3">
+                      <Label htmlFor="level">Level</Label>
+                    </Col>
+                    <Col xs="12" md="9">
+                      <Input type="select" name="level" id="degree" bsSize="sm">
+                        <option value="Basic">Basic level</option>
+                        <option value="Intermidate">Intermediate level</option>
+                        <option value="Advanced">Advanced level</option>
+                      </Input>
+                    </Col>
+                  </FormGroup>
+                  <ModalFooter>
+                    <Button
+                      name="tes"
+                      type="submit"
+                      color="primary"
+                      type="submit"
+                      onSubmit={this.updateSkill}
+                    >
+                      Update my skill
+                    </Button>
+                    <Button color="secondary" onClick={this.toggle.bind(this)}>
+                      Cancel
+                    </Button>
+                  </ModalFooter>
+                </Form>
+              </ModalBody>
+            </Modal>
+          </div>
         </div>
       );
     });
@@ -123,11 +133,7 @@ class Skill extends Component {
     console.log(this.state);
 
     return (
-      <div>
-        <strong>Skill component {this.state.nbSkill}</strong>
-
-        {this.renderSkill()}
-      </div>
+      <div style={{ width: "100%", height: "100%" }}>{this.renderSkill()}</div>
     );
   }
 }

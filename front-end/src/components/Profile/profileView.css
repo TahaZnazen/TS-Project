@@ -85,7 +85,7 @@
 }
 .dataFlow {
   border: 1px solid #e4e7ea;
-  height: 15vh;
+  height: 50vh;
   background-color: rgb(255, 255, 255);
   width: 100%;
   margin-top: 2vh;
@@ -103,7 +103,7 @@
   bottom: 0;
   width: 100%;
   align-items: center;
-  color: #ffc107;
+  color: #20a8d8;
   font-family: monospace;
   font-size: 15px;
 }
@@ -117,6 +117,7 @@
   width: 80%;
   border: 1px solid #e4e7ea;
   width: 100%;
+  position: relative;
 }
 .innerInfo span {
   font-weight: bolder;
@@ -139,4 +140,33 @@
 .calls button:hover {
   transform: scale(1.09);
   transition: 0.2s;
+}
+.editButton {
+  background: none;
+  border: none;
+  font-size: 30px;
+  color: #ffc107;
+  transition: 0.2s;
+  cursor: pointer;
+}
+.editButton:hover {
+  transform: scale(1.4);
+  transition: 0.2s;
+}
+.helpBtn {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.helpBtn button {
+  width: 2vw;
+  height: 100%;
+  border: none;
+  margin: 0 2px;
+}
+.helpBtn button:nth-child(1) {
+  background-color: #4dbd74;
+}
+.helpBtn button:nth-child(2) {
+  background-color: #f86c6b;
 }

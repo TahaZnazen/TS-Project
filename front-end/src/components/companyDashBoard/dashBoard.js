@@ -15,17 +15,23 @@ import axios from "axios";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { logout } from "../../actions/authActions";
+import Setting from "./setting";
 class DashBoard extends Component {
   state = {
-    sideNav: false
+    sideNav: false,
+    setting: false
   };
   hideNav() {
     this.setState({ sideNav: !this.state.sideNav });
+  }
+  togglesetting() {
+    this.setState({ setting: !this.state.setting });
   }
   // just an example
   onLogout() {
     this.props.logout(this.props);
   }
+  // Setting
   render() {
     return (
       <div>
@@ -60,8 +66,11 @@ class DashBoard extends Component {
                   Jobs
                 </h1>
               </Link>
-              <Link to="companySetting">
-                <h1 className={this.state.sideNav ? "showed" : "hidden"}>
+              <Link>
+                <h1
+                  onClick={this.togglesetting.bind(this)}
+                  className={this.state.sideNav ? "showed" : "hidden"}
+                >
                   Setting
                 </h1>
               </Link>
@@ -81,6 +90,9 @@ class DashBoard extends Component {
           </div>
           {/*  */}
           <div className="dashBoard">
+            {this.state.setting && (
+              <Setting toggle={this.togglesetting.bind(this)} />
+            )}
             <div style={{ display: "flex" }}>
               <div>
                 <PieChart />

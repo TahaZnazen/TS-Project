@@ -19,6 +19,8 @@ import Language from "./ProfileElment/Language";
 import Skill from "./ProfileElment/Skill";
 import Info from "./ProfileElment/Info";
 import UserNav from "../navbar/UserNav";
+import "./profileView.css";
+
 class ProfileUser extends Component {
   state = {};
   componentDidMount() {
@@ -27,41 +29,59 @@ class ProfileUser extends Component {
   renderProfile = () => {
     if (this.props.cvUser[0]) {
       return (
-        <div className="container">
+        <div style={{ width: "99vw", height: "100vh" }}>
           <UserNav />
-          <Info
-            userInfo={this.props.cvUser[0].user_id}
-            addInfo={this.props.addInfo}
-            jobs={this.props.getAppliedJobs}
-          />
+
+          <div style={{ width: "99vw", height: "100vh" }}>
+            <Info
+              userInfo={this.props.cvUser[0].user_id}
+              addInfo={this.props.addInfo}
+              jobs={this.props.getAppliedJobs}
+            />
+          </div>
           <hr />
-          <Experience
-            userExperience={this.props.cvUser[0].experience}
-            cvId={this.props.cvUser[0]._id}
-            deleteExperience={this.props.deleteExperience}
-            updateExperience={this.props.updateExperience}
-          />
-          <hr />
-          <Education
-            userEducation={this.props.cvUser[0].education}
-            cvId={this.props.cvUser[0]._id}
-            deleteEducation={this.props.deleteEducation}
-            updateEducation={this.props.updateEducation}
-          />
-          <hr />
-          <Language
-            userLanguages={this.props.cvUser[0].language}
-            cvId={this.props.cvUser[0]._id}
-            deleteLanguage={this.props.deleteLanguage}
-            updateLanguage={this.props.updateLanguage}
-          />
-          <hr />
-          <Skill
-            userSkill={this.props.cvUser[0].skills}
-            cvId={this.props.cvUser[0]._id}
-            deleteSkill={this.props.deleteSkill}
-            updateSkill={this.props.updateSkill}
-          />
+          {/*  */}
+          <div className="fullCv">
+            <div className="infoContainer">
+              <div className="cvTitle"> User education</div>
+              <Education
+                userEducation={this.props.cvUser[0].education}
+                cvId={this.props.cvUser[0]._id}
+                deleteEducation={this.props.deleteEducation}
+                updateEducation={this.props.updateEducation}
+              />
+            </div>
+            <hr />
+            <div className="infoContainer">
+              <div className="cvTitle"> User Experiences</div>
+              <Experience
+                userExperience={this.props.cvUser[0].experience}
+                cvId={this.props.cvUser[0]._id}
+                deleteExperience={this.props.deleteExperience}
+                updateExperience={this.props.updateExperience}
+              />
+            </div>
+            <hr />
+            <div className="infoContainer">
+              <div className="cvTitle"> User Langauge</div>
+              <Language
+                userLanguages={this.props.cvUser[0].language}
+                cvId={this.props.cvUser[0]._id}
+                deleteLanguage={this.props.deleteLanguage}
+                updateLanguage={this.props.updateLanguage}
+              />
+            </div>
+            <hr />
+            <div className="infoContainer">
+              <div className="cvTitle"> User Skills</div>
+              <Skill
+                userSkill={this.props.cvUser[0].skills}
+                cvId={this.props.cvUser[0]._id}
+                deleteSkill={this.props.deleteSkill}
+                updateSkill={this.props.updateSkill}
+              />
+            </div>
+          </div>
         </div>
       );
     }

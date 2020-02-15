@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import UserJobs from "./UserJobs";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCogs } from "@fortawesome/free-solid-svg-icons";
 import {
   Button,
   Modal,
@@ -58,142 +60,193 @@ class Info extends Component {
     } = this.props.userInfo;
 
     return (
-      <div>
-        <div>
-          <img alt="user photo" src={photo} width="250px" height="250px" />
-        </div>
-        <div>
-          <h3>{name}</h3>
-          <h4>{phone}</h4>
-          <h3>{gender}</h3>
-          <h4>{nationality}</h4>
-          <h4>{location}</h4>
-        </div>
-        <div>
-          <h3>{expertise}</h3>
-        </div>
-        <button onClick={this.toggle.bind(this)}>Edit</button>
-        <Modal
-          isOpen={this.state.modal}
-          toggle={this.toggle}
-          className={this.props.className}
-        >
-          <ModalHeader toggle={this.toggle.bind(this)}>
-            Edit Information
-          </ModalHeader>
-          <ModalBody>
-            <Form id="user" onSubmit={this.updateInfo}>
-              <FormGroup row>
-                <Col md="3">
-                  <Label htmlFor="name">Full Name</Label>
-                </Col>
-                <Col xs="12" md="9">
-                  <Input
-                    type="text"
-                    id="name"
-                    name="name"
-                    defaultValue={name}
-                  />
-                </Col>
-              </FormGroup>
-              <FormGroup row>
-                <Col md="3">
-                  <Label htmlFor="diploma">Photo</Label>
-                </Col>
-                <Col xs="12" md="9">
-                  <Input type="file" id="photo" name="photo" accept="image/*" />
-                </Col>
-              </FormGroup>
-              <FormGroup row>
-                <Col md="3">
-                  <Label htmlFor="phone">Phone Number</Label>
-                </Col>
-                <Col xs="12" md="9">
-                  <Input
-                    type="phone"
-                    id="phone"
-                    name="phone"
-                    defaultValue={phone}
-                  />
-                </Col>
-              </FormGroup>
-              <FormGroup row>
-                <Col md="3">
-                  <Label htmlFor="gender">Gender</Label>
-                </Col>
-                <Col xs="12" md="9">
-                  <Input
-                    type="select"
-                    name="gender"
-                    id="gender"
-                    bsSize="sm"
-                    defaultValue={gender}
-                  >
-                    <option value="Male">Male </option>
-                    <option value="Female">Female</option>
-                  </Input>
-                </Col>
-              </FormGroup>
-              <FormGroup row>
-                <Col md="3">
-                  <Label htmlFor="nationality">Nationality</Label>
-                </Col>
-                <Col xs="12" md="9">
-                  <Input
-                    type="text"
-                    id="nationality"
-                    name="nationality"
-                    defaultValue={nationality}
-                  />
-                </Col>
-              </FormGroup>
-              <FormGroup row>
-                <Col md="3">
-                  <Label htmlFor="location">Location</Label>
-                </Col>
-                <Col xs="12" md="9">
-                  <Input
-                    type="text"
-                    id="locationUser"
-                    name="location"
-                    defaultValue={location}
-                  />
-                </Col>
-              </FormGroup>
+      <div className="profileInfo">
+        <div className="nestedProfileInfo">
+          <div className="profilePhotoContainer">
+            <div
+              className="profileViewImg"
+              style={{ backgroundImage: `url(${photo})` }}
+            ></div>
+          </div>
 
-              <FormGroup row>
-                <Col md="3">
-                  <Label htmlFor="start">Experience Level </Label>
-                </Col>
-                <Col xs="12" md="9">
-                  <Input
-                    type="select"
-                    name="expertise"
-                    id="expertise"
-                    bsSize="sm"
-                    defaultValue={expertise}
-                  >
-                    <option value="Junior">Junior </option>
-                    <option value="Senior">Senior</option>
-                    <option value="Expert">Expert</option>
-                  </Input>
-                </Col>
-              </FormGroup>
-              <ModalFooter>
-                <Button
-                  type="submit"
-                  color="primary"
-                  onSubmit={this.updateInfo}
+          <div className="ProfileText">
+            <div className="d-flex calls">
+              <h3 className="text-center mb-5">
+                <span
+                  style={{
+                    fontSize: "40px",
+                    fontWeight: "bolder",
+                    color: "#ffc107"
+                  }}
                 >
-                  Update my Information
-                </Button>
-                <Button color="secondary" onClick={this.toggle.bind(this)}>
-                  Cancel
-                </Button>
-              </ModalFooter>
-            </Form>
-          </ModalBody>
-        </Modal>
+                  FULL NAME
+                </span>
+                <br />
+                {name.toUpperCase()}
+              </h3>
+            </div>
+
+            <h3>
+              <span className="mr-2 textTitle">PHONE NUMBER : </span>
+              {phone}
+            </h3>
+            <h3>
+              <span className="mr-2 textTitle">GENDER : </span>
+              {gender}
+            </h3>
+            <h3>
+              <span className="mr-2 textTitle">NATIONALITY : </span>
+              {nationality}
+            </h3>
+            <h3>
+              <span className="mr-2 textTitle">LOCATION : </span>
+              {location}
+            </h3>
+            <h3>
+              <span className="mr-2 textTitle">EXPERTISE : </span>
+              {expertise}
+            </h3>
+            <button
+              style={{
+                position: "absolute",
+                top: "35%",
+                right: "28%",
+                width: "5vh",
+                height: "5vh"
+              }}
+              className="editButton"
+              onClick={this.toggle.bind(this)}
+            >
+              <FontAwesomeIcon icon={faCogs} />
+            </button>
+            <Modal
+              isOpen={this.state.modal}
+              toggle={this.toggle}
+              className={this.props.className}
+            >
+              <ModalHeader toggle={this.toggle.bind(this)}>
+                Edit Information
+              </ModalHeader>
+              <ModalBody>
+                <Form id="user" onSubmit={this.updateInfo}>
+                  <FormGroup row>
+                    <Col md="3">
+                      <Label htmlFor="name">Full Name</Label>
+                    </Col>
+                    <Col xs="12" md="9">
+                      <Input
+                        type="text"
+                        id="name"
+                        name="name"
+                        defaultValue={name}
+                      />
+                    </Col>
+                  </FormGroup>
+                  <FormGroup row>
+                    <Col md="3">
+                      <Label htmlFor="diploma">Photo</Label>
+                    </Col>
+                    <Col xs="12" md="9">
+                      <Input
+                        type="file"
+                        id="photo"
+                        name="photo"
+                        accept="image/*"
+                      />
+                    </Col>
+                  </FormGroup>
+                  <FormGroup row>
+                    <Col md="3">
+                      <Label htmlFor="phone">Phone Number</Label>
+                    </Col>
+                    <Col xs="12" md="9">
+                      <Input
+                        type="phone"
+                        id="phone"
+                        name="phone"
+                        defaultValue={phone}
+                      />
+                    </Col>
+                  </FormGroup>
+                  <FormGroup row>
+                    <Col md="3">
+                      <Label htmlFor="gender">Gender</Label>
+                    </Col>
+                    <Col xs="12" md="9">
+                      <Input
+                        type="select"
+                        name="gender"
+                        id="gender"
+                        bsSize="sm"
+                        defaultValue={gender}
+                      >
+                        <option value="Male">Male </option>
+                        <option value="Female">Female</option>
+                      </Input>
+                    </Col>
+                  </FormGroup>
+                  <FormGroup row>
+                    <Col md="3">
+                      <Label htmlFor="nationality">Nationality</Label>
+                    </Col>
+                    <Col xs="12" md="9">
+                      <Input
+                        type="text"
+                        id="nationality"
+                        name="nationality"
+                        defaultValue={nationality}
+                      />
+                    </Col>
+                  </FormGroup>
+                  <FormGroup row>
+                    <Col md="3">
+                      <Label htmlFor="location">Location</Label>
+                    </Col>
+                    <Col xs="12" md="9">
+                      <Input
+                        type="text"
+                        id="locationUser"
+                        name="location"
+                        defaultValue={location}
+                      />
+                    </Col>
+                  </FormGroup>
+
+                  <FormGroup row>
+                    <Col md="3">
+                      <Label htmlFor="start">Experience Level </Label>
+                    </Col>
+                    <Col xs="12" md="9">
+                      <Input
+                        type="select"
+                        name="expertise"
+                        id="expertise"
+                        bsSize="sm"
+                        defaultValue={expertise}
+                      >
+                        <option value="Junior">Junior </option>
+                        <option value="Senior">Senior</option>
+                        <option value="Expert">Expert</option>
+                      </Input>
+                    </Col>
+                  </FormGroup>
+                  <ModalFooter>
+                    <Button
+                      type="submit"
+                      color="primary"
+                      onSubmit={this.updateInfo}
+                    >
+                      Update my Information
+                    </Button>
+                    <Button color="secondary" onClick={this.toggle.bind(this)}>
+                      Cancel
+                    </Button>
+                  </ModalFooter>
+                </Form>
+              </ModalBody>
+            </Modal>
+          </div>
+        </div>
       </div>
     );
   };
@@ -209,9 +262,6 @@ class Info extends Component {
   render() {
     return (
       <div>
-        <div>
-          <strong> User Info component </strong>
-        </div>
         <div>{this.renderInfo()}</div>
 
         <div>

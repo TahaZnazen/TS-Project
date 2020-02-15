@@ -12,6 +12,8 @@ import {
   Label,
   Input
 } from "reactstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 class Experience extends Component {
   constructor(props) {
@@ -57,115 +59,134 @@ class Experience extends Component {
   }
   renderExperience = () => {
     return (
-      <div>
+      <div className="insideInfo">
         {this.props.userExperience.map((el, i) => {
           return (
-            <div id={el._id} key={i}>
-              <div>{el.start}</div>
-              <div>{el.end}</div>
-              <div>{el.companyName}</div>
-              <div>{el.position}</div>
-              <div>{el.task}</div>
-              <button id={el._id} onClick={this.toggle.bind(this)}>
-                Edit
-              </button>
-              <Modal
-                isOpen={this.state.modal}
-                toggle={this.toggle}
-                className={this.props.className}
-              >
-                <ModalHeader toggle={this.toggle.bind(this)}>
-                  Edit Experience
-                </ModalHeader>
-                <ModalBody>
-                  <Form id={el._id} onSubmit={this.updateExperience}>
-                    <FormGroup row>
-                      <Col md="3">
-                        <Label htmlFor="companyName">Company Name</Label>
-                      </Col>
-                      <Col xs="12" md="9">
-                        <Input
-                          type="text"
-                          id="companyName"
-                          name="companyName"
-                          placeholder="company Name"
-                        />
-                      </Col>
-                    </FormGroup>
-                    <FormGroup row>
-                      <Col md="3">
-                        <Label htmlFor="Position">Position </Label>
-                      </Col>
-                      <Col xs="12" md="9">
-                        <Input
-                          type="text"
-                          id="positionName"
-                          name="positionName"
-                          placeholder="your position name"
-                        />
-                      </Col>
-                    </FormGroup>
-                    <FormGroup row>
-                      <Col md="3">
-                        <Label htmlFor="textarea-input">Tasks</Label>
-                      </Col>
-                      <Col xs="12" md="9">
-                        <Input
-                          type="textarea"
-                          name="task"
-                          id="task"
-                          rows="5"
-                          placeholder="your tasks..."
-                        />
-                      </Col>
-                    </FormGroup>
-                    <FormGroup row>
-                      <Col md="3">
-                        <Label htmlFor="start">Start Date</Label>
-                      </Col>
-                      <Col xs="12" md="9">
-                        <Input
-                          type="date"
-                          id="start"
-                          name="start"
-                          placeholder="start at ..."
-                        />
-                      </Col>
-                    </FormGroup>
-                    <FormGroup row>
-                      <Col md="3">
-                        <Label htmlFor="end">End Date</Label>
-                      </Col>
-                      <Col xs="12" md="9">
-                        <Input
-                          type="date"
-                          id="end"
-                          name="end"
-                          placeholder="date"
-                        />
-                      </Col>
-                    </FormGroup>
-                    <ModalFooter>
-                      <Button
-                        type="submit"
-                        color="primary"
-                        onSubmit={this.updateExperience}
-                      >
-                        Update my experience
-                      </Button>
-                      <Button
-                        color="secondary"
-                        onClick={this.toggle.bind(this)}
-                      >
-                        Cancel
-                      </Button>
-                    </ModalFooter>
-                  </Form>
-                </ModalBody>
-              </Modal>
-              <button id={el._id} onClick={this.deleteExperience}>
-                delete
-              </button>
+            <div className="dataFlow" id={el._id} key={i}>
+              <div className="innerInfo">
+                <span>Company Name : </span>
+                {el.companyName}
+              </div>
+              <div className="innerInfo">
+                <span>Position : </span>
+                {el.position}
+              </div>
+              <div className="innerInfo">
+                <span>Task : </span>
+                {el.task}
+              </div>
+              <div className="time">
+                <div>
+                  <span>Start Date : </span>
+                  {el.start}
+                </div>
+                <div>
+                  <span>End Date : </span>
+                  {el.end}
+                </div>
+              </div>
+              <div className="helpBtn">
+                <button id={el._id} onClick={this.toggle.bind(this)}>
+                  <FontAwesomeIcon icon={faEdit} />
+                </button>
+                <Modal
+                  isOpen={this.state.modal}
+                  toggle={this.toggle}
+                  className={this.props.className}
+                >
+                  <ModalHeader toggle={this.toggle.bind(this)}>
+                    Edit Experience
+                  </ModalHeader>
+                  <ModalBody>
+                    <Form id={el._id} onSubmit={this.updateExperience}>
+                      <FormGroup row>
+                        <Col md="3">
+                          <Label htmlFor="companyName">Company Name</Label>
+                        </Col>
+                        <Col xs="12" md="9">
+                          <Input
+                            type="text"
+                            id="companyName"
+                            name="companyName"
+                            placeholder="company Name"
+                          />
+                        </Col>
+                      </FormGroup>
+                      <FormGroup row>
+                        <Col md="3">
+                          <Label htmlFor="Position">Position </Label>
+                        </Col>
+                        <Col xs="12" md="9">
+                          <Input
+                            type="text"
+                            id="positionName"
+                            name="positionName"
+                            placeholder="your position name"
+                          />
+                        </Col>
+                      </FormGroup>
+                      <FormGroup row>
+                        <Col md="3">
+                          <Label htmlFor="textarea-input">Tasks</Label>
+                        </Col>
+                        <Col xs="12" md="9">
+                          <Input
+                            type="textarea"
+                            name="task"
+                            id="task"
+                            rows="5"
+                            placeholder="your tasks..."
+                          />
+                        </Col>
+                      </FormGroup>
+                      <FormGroup row>
+                        <Col md="3">
+                          <Label htmlFor="start">Start Date</Label>
+                        </Col>
+                        <Col xs="12" md="9">
+                          <Input
+                            type="date"
+                            id="start"
+                            name="start"
+                            placeholder="start at ..."
+                          />
+                        </Col>
+                      </FormGroup>
+                      <FormGroup row>
+                        <Col md="3">
+                          <Label htmlFor="end">End Date</Label>
+                        </Col>
+                        <Col xs="12" md="9">
+                          <Input
+                            type="date"
+                            id="end"
+                            name="end"
+                            placeholder="date"
+                          />
+                        </Col>
+                      </FormGroup>
+                      <ModalFooter>
+                        <Button
+                          type="submit"
+                          color="primary"
+                          onSubmit={this.updateExperience}
+                        >
+                          Update my experience
+                        </Button>
+                        <Button
+                          color="secondary"
+                          onClick={this.toggle.bind(this)}
+                        >
+                          Cancel
+                        </Button>
+                      </ModalFooter>
+                    </Form>
+                  </ModalBody>
+                </Modal>
+                <button id={el._id} onClick={this.deleteExperience}>
+                  <FontAwesomeIcon icon={faTrash} />
+                </button>
+              </div>
             </div>
           );
         })}
@@ -176,10 +197,7 @@ class Experience extends Component {
   render() {
     console.log("experience", this.props);
     return (
-      <div>
-        <div>
-          <strong>Experience component {this.state.nbExperience}</strong>
-        </div>
+      <div style={{ width: "100%", height: "100%" }}>
         {this.renderExperience()}
       </div>
     );

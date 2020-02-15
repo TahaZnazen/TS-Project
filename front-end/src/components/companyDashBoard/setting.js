@@ -237,16 +237,72 @@ class CompanySetting extends Component {
     console.log(this.state);
 
     return (
-      <div>
-        <div>CompanySetting component</div>
-        <div>
-          <button onClick={this.ChangePwd}>change password</button>
-        </div>
-        <div>
-          <button onClick={this.ChangeInfo}>Update profile</button>
+      <div
+        style={{
+          backgroundColor: "#5c6873",
+          height: "20vh",
+          width: "50vh",
+          position: "fixed",
+          left: "40vw",
+          top: "10vh",
+          zIndex: "20",
+          padding: "30px"
+        }}
+      >
+        <span
+          style={{
+            fontSize: "20px",
+            position: "absolute",
+            top: "5px",
+            right: "5px",
+            color: "	#ffc107",
+            cursor: " pointer"
+          }}
+          onClick={this.props.toggle}
+        >
+          x
+        </span>
+        <h1 style={{ color: "	#ffc107" }}>CompanySetting component</h1>
+        <div
+          style={{
+            width: "100%",
+            justifyContent: "center"
+          }}
+          className="d-flex"
+        >
+          <div>
+            <button
+              style={{
+                height: "5vh",
+                width: "20vh",
+                backgroundColor: "	#63c2de",
+                border: "none",
+                fontSize: "20px"
+              }}
+              className="mr-2"
+              onClick={this.ChangePwd}
+            >
+              change password
+            </button>
+          </div>
+          <div>
+            <button
+              className="ml-2"
+              style={{
+                height: "5vh",
+                width: "20vh",
+                backgroundColor: "	#63c2de",
+                border: "none",
+                fontSize: "20px"
+              }}
+              onClick={this.ChangeInfo}
+            >
+              Update profile
+            </button>
 
-          <div>{this.renderUpdateInfo()}</div>
-          <div>{this.renderChangePassword()}</div>
+            <div>{this.renderUpdateInfo()}</div>
+            <div>{this.renderChangePassword()}</div>
+          </div>
         </div>
       </div>
     );

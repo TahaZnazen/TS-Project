@@ -29,7 +29,7 @@ exports.findAll = async (req, res) => {
       .sort({
         createdAt: -1
       })
-      .populate("companyName", ["name"]);
+      .populate("companyName");
     res.status(201).json(result);
   } catch (err) {
     res.json({ err });

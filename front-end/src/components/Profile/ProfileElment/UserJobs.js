@@ -29,12 +29,7 @@ class UserJobs extends Component {
     });
   };
   render() {
-    return (
-      <div>
-        user Job Component
-        {this.renderJobs()}
-      </div>
-    );
+    return <div>{this.renderJobs()}</div>;
   }
 }
 

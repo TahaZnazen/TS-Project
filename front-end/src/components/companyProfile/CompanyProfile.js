@@ -3,7 +3,7 @@ import "./companyProfile.css";
 import Stat from "./stat/Stat";
 import { filterByCompany, findCompany } from "../../actions/offersAction";
 import { connect } from "react-redux";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faCamera } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Offer from "./addOffer/Offer";
 import ReactGoogleMaps from "../../views/GoogleMaps/GoogleMaps";
@@ -100,56 +100,92 @@ class CompanyProfile extends Component {
         >
           <FontAwesomeIcon icon={faPlus} />
         </button>
-        <div className="card mb-3">
+        <div className="card mb-3 firstProfile">
           <div
             style={{
-              width: "100wh",
-              height: "300px",
-              backgroundImage: `url(${this.state.companyCover})`,
+              width: "90wh",
+              height: "60vh",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "flex-end",
+              position: "relative",
+              backgroundImage: `url(https://coverfiles.alphacoders.com/115/115027.jpg)`,
               backgroundSize: "100% 100%"
             }}
           >
-            {/* multe */}
-            <form
-              encType="multipart/form-data"
-              onSubmit={this.onClickHandler.bind(this)}
-            >
-              <input
-                type="file"
-                name="selectedFile"
-                onChange={this.onChangeHandler.bind(this)}
-              />
-              <button
-                type="button"
-                className="btn btn-success btn-block"
-                onClick={this.onClickHandler.bind(this)}
-              >
-                Upload
-              </button>
-            </form>
-          </div>
-
-          <div
-            className="card-body d-flex "
-            style={{ backgroundColor: "#ebedef" }}
-          >
             <div
               style={{
-                width: "7vh",
-                height: "7vh",
-                backgroundColor: "pink",
-                marginRight: "3vh",
-                marginTop: "1vh"
+                height: "50vh",
+                width: "40vw",
+                position: "absolute",
+                bottom: "-25vh",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                backgroundColor: "white",
+                boxShadow: "0px 28px 24px #c8ced3"
               }}
-            ></div>
-            <div>
-              <h1 className="card-title text-left">
-                {this.props.companyInfo.map(elm => elm.data.name)}
-              </h1>
-              <h4 className="card-title text-left">
-                {this.props.companyInfo.map(elm => elm.data.email)}
-              </h4>
+            >
+              <div
+                style={{
+                  width: "20vh",
+                  height: "20vh",
+                  backgroundColor: "pink",
+                  marginRight: "3vh",
+                  position: "relative",
+                  top: "-7vh",
+                  backgroundImage: `url(${this.state.companyCover})`,
+                  backgroundSize: "100% 100%",
+                  borderRadius: "50%",
+                  display: "flex",
+                  justifyContent: "center"
+                }}
+              >
+                <form
+                  encType="multipart/form-data"
+                  onSubmit={this.onClickHandler.bind(this)}
+                >
+                  <input
+                    type="file"
+                    name="selectedFile"
+                    style={{ width: "40px", backgroundColor: "transparent" }}
+                    onChange={this.onChangeHandler.bind(this)}
+                  />
+                  <FontAwesomeIcon
+                    icon={faCamera}
+                    style={{
+                      fontSize: "30px",
+                      position: "absolute",
+                      left: "8.5vh",
+                      top: "0",
+                      pointerEvents: "none"
+                    }}
+                  />
+
+                  {this.state.selectedFile && (
+                    <button
+                      type="button"
+                      className="btn btn-success btn-block"
+                      onClick={this.onClickHandler.bind(this)}
+                    >
+                      Upload
+                    </button>
+                  )}
+                </form>
+              </div>
+              <div>
+                <h1 className="card-title text-left mb-5">
+                  COMPANY NAME <br />
+                  {this.props.companyInfo.map(elm => elm.data.name)}
+                </h1>
+
+                <h4 className="card-title text-left">
+                  Email <br />
+                  {this.props.companyInfo.map(elm => elm.data.email)}
+                </h4>
+              </div>
             </div>
+            {/* multe */}
           </div>
         </div>
         {/* profile pic and name end here  */}

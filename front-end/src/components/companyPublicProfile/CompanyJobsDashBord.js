@@ -44,7 +44,7 @@ class CompanyJobsDashBord extends Component {
         <NavBar />
         <div
           className="d-flex justify-content-center align-items-center mt-2"
-          style={{ width: "100vw", height: "95vh" }}
+          style={{ width: "99vw", height: "95vh" }}
         >
           <div
             className="d-flex fullCompanyProfile"
@@ -74,7 +74,10 @@ class CompanyJobsDashBord extends Component {
                     borderRadius: "50%",
                     position: "absolute",
                     left: "-30px",
-                    top: "-25px"
+                    top: "-25px",
+                    backgroundImage: `url(${this.props.posts[0] &&
+                      this.props.posts[0].Company.photo})`,
+                    backgroundSize: "100% 100%"
                   }}
                 ></div>
               </div>
@@ -122,19 +125,23 @@ class CompanyJobsDashBord extends Component {
             </div>
             <div
               className="jobDescriptionDashboard d-flex-column"
-              style={{ width: "70%", height: "90vh", padding: "10px" }}
+              style={{ width: "70%", height: "90vh" }}
             >
               {/* this one need to be populated with the condidates */}
-              <CandidatesModal
-                candidates={
-                  this.state.currentPost && this.state.currentPost.candidates
-                }
-                style={{ position: "absolute" }}
-              />
-              <h1>
-                {this.props.posts[0] &&
-                  "COMPANY : " + this.props.posts[0].Company.name.toUpperCase()}
-              </h1>
+              <div className="companyTitle">
+                <CandidatesModal
+                  candidates={
+                    this.state.currentPost && this.state.currentPost.candidates
+                  }
+                  style={{ position: "absolute" }}
+                />
+                <h1>
+                  {this.props.posts[0] &&
+                    "COMPANY : " +
+                      this.props.posts[0].Company.name.toUpperCase()}
+                </h1>
+              </div>
+
               <div className="jobInformation">
                 <h1 className="text-left ml-2 mt-3">
                   {this.state.currentPost.title &&

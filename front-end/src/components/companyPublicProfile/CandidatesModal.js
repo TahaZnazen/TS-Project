@@ -16,15 +16,18 @@ class CandidatesModal extends Component {
   render() {
     return (
       <div>
-        <Button color="danger" onClick={this.toggle.bind(this)}>
-          {this.buttonLabel}
+        <Button color="transparent" onClick={this.toggle.bind(this)}>
+          Show Candidates
         </Button>
 
         {this.state.setModal && (
           <div id="AllModal">
             <div id="modal">
-              <ModalHeader toggle={this.toggle.bind(this)}>
-                Modal title
+              <ModalHeader
+                style={{ color: "black" }}
+                toggle={this.toggle.bind(this)}
+              >
+                Candidates
               </ModalHeader>
               <ModalBody>
                 {this.props.candidates &&
