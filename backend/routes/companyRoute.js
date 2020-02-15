@@ -15,6 +15,7 @@ router.route("/companyInfo/:id").get(companyCotroller.findCompany);
 router.route("/confirmation-company/:id").get(authController.verifeCompany);
 router.route("/rejectUser").post(companyCotroller.rejectUser);
 router.route("/acceptUser").post(companyCotroller.acceptUser);
+router.route("/addDescription/:id").patch(companyCotroller.addDescription);
 router.route("/candidates/:id").get(companyCotroller.CompanyOffersCandidates);
 router.route("/image/:id").get(companyCotroller.getimg);
 router.route("/forgetPassword").post(authController.forgetPassword);

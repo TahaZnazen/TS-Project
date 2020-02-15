@@ -5,20 +5,20 @@ const _ = require("underscore");
 //
 exports.addPost = async (req, res) => {
   try {
-    Company.find({ _id: req.params.id, jobOffers: { $size: 5 } }).then(data => {
-      if (data.length && !data.premium)
-        return res.json("pass premium to post more offers");
-    });
-    req.body.companyName = req.params.id;
-    const newPost = await jobOffer.create(req.body.data);
-    res.status(201).json(newPost);
-    return Company.findByIdAndUpdate(
-      req.body.companyName,
-      { $push: { jobOffers: newPost._id } },
-      { new: true, useFindAndModify: false }
-    );
+    const company = await Company.findById(req.params.id);
+    if (!company) {
+      res.json
+        .status(404)
+        .json({ status: "fail", message: "company not found" });
+    }
+    req.body.companyName = company._id;
+    const newPost = await jobOffer.create(req.body);
+    company.jobOffers.push(newPost._id);
+    await company.save({ validateBeforeSave: false });
+    res.status(201).json({ status: "sucess", newPost });
   } catch (err) {
     console.log(err);
+    res.json({ err });
   }
 };
 
