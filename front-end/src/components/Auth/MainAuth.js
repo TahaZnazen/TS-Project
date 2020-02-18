@@ -9,8 +9,29 @@ class MainAuth extends Component {
   render() {
     return (
       <div id="auth">
-        <div className="employee"></div>
-        <div className="employers"></div>
+        <button onClick={this.props.authControl} className="authBtn">
+          x
+        </button>
+        <div className="employee">
+          <h1>
+            <Link
+              to="/Employee"
+              style={{ textDecoration: "none", color: "white" }}
+            >
+              For Employee
+            </Link>
+          </h1>
+        </div>
+        <div className="employers">
+          <h1>
+            <Link
+              to="/Employers"
+              style={{ textDecoration: "none", color: "white" }}
+            >
+              For Employers
+            </Link>
+          </h1>
+        </div>
       </div>
     );
   }
@@ -18,7 +39,8 @@ class MainAuth extends Component {
 
 export default MainAuth;
 {
-  /* <Link to="/Employers">
+  /*
+   <Link to="/Employers">
 <button className="authBtn">Employers</button>
 </Link>
 <Link to="/Employee">
@@ -28,5 +50,6 @@ export default MainAuth;
 <button onClick={this.props.authControl} className="authBtn">
   x
 </button>
-</Link> */
+</Link>
+ */
 }
