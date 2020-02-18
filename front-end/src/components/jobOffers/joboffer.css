@@ -107,14 +107,16 @@ div::-webkit-scrollbar-thumb:hover {
   transition: 0.2s;
 }
 .companyPhoto {
-  width: 70px;
-  height: 70px;
+  width: 100px;
+  height: 100px;
   background-color: thistle;
   position: relative;
   top: 0px;
   left: 0px;
   pointer-events: none;
   margin: 0;
+  border-radius: 50%;
+  background-size: 100% 100%;
 }
 
 #companyCover {
@@ -133,18 +135,20 @@ div::-webkit-scrollbar-thumb:hover {
 }
 #applyBtn {
   width: 30%;
-  height: 40px;
-  background-color: white;
-  border: 1px solid thistle;
+  height: 7vh;
+
   font-size: 25px;
-  color: thistle;
+  color: black;
   transition: 0.3s;
+  background-color: white;
+  border: 1px solid #3399ff;
+  color: #3399ff;
 }
 #applyBtn:hover {
-  background-color: thistle;
-  border: 1px solid white;
-  color: white;
+  background-color: #3399ff;
+  color: black;
   transition: 0.3s;
+  transform: scale(1.1);
 }
 .bordBtm {
   border-bottom: 1px solid #9b9b9b;

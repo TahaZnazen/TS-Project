@@ -18,12 +18,13 @@
 }
 #mainNav div h4 {
   margin: 0 5%;
-  color: black;
+  color: #3399ff;
   font-size: 22px;
   cursor: pointer;
   width: 150px;
+  font-family: monospace;
 }
 nav h1 {
-  color: #000000;
-  font-family: sans-serif;
+  color: #3399ff;
+  font-family: monospace;
 }

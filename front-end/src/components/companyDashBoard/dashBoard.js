@@ -33,7 +33,7 @@ class DashBoard extends Component {
   }
   // Setting
   render() {
-    return (
+    return this.props.authInfo.token ? (
       <div>
         <div className="d-flex">
           <div
@@ -158,6 +158,8 @@ class DashBoard extends Component {
           </div>
         </div>
       </div>
+    ) : (
+      <h1>you need to login as company first</h1>
     );
   }
 }

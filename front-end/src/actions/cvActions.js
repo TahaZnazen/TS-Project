@@ -80,6 +80,8 @@ export const updateExperience = (
   idExperience,
   data
 ) => async dispatch => {
+  console.log(idExperience);
+  console.log(idCv);
   API.patch(`/cvs/${idCv}/experience/${idExperience}`, data);
   return {
     type: UPDATE_EXPERIENCE

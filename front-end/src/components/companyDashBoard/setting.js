@@ -56,7 +56,7 @@ class CompanySetting extends Component {
       alert("password doesn't match");
     } else {
       const newPassword = e.target.password.value;
-      this.props.changePassword(this.state.id, newPassword);
+      this.state.id && this.props.changePassword(this.state.id, newPassword);
       this.toggleModalPassword();
       //redirect to login page page
       //delete the token

@@ -6,7 +6,7 @@ import "react-perfect-scrollbar/dist/css/styles.css";
 import Pagination from "react-pagination-library";
 import "react-pagination-library/build/css/index.css"; //for css
 import { connect } from "react-redux";
-import { getPosts } from "../../actions/offersAction";
+import { getPosts, advancedFilters } from "../../actions/offersAction";
 import PropTypes from "prop-types";
 import axios from "axios";
 import UserNav from "../navbar/UserNav";
@@ -18,7 +18,10 @@ class JobOffers extends Component {
     currentPage: 1,
     currentPost: null,
     idUser: "",
-    idOffre: ""
+    idOffre: "",
+    jobType: "",
+    MinSalary: "",
+    dateAgo: ""
   };
   changeCurrentPage = numPage => {
     this.setState({ currentPage: numPage });
@@ -65,9 +68,21 @@ class JobOffers extends Component {
       })
       .catch(err => console.log(err));
   }
-
+  getTypes = e => {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  };
+  advancedFilter = () => {
+    let data = {
+      jobType: this.state.jobType,
+      MinSalary: this.state.MinSalary,
+      dateAgo: this.state.dateAgo
+    };
+    this.props.advancedFilters(data);
+  };
   render() {
-    return (
+    return this.props.posts ? (
       <div id="JobOffermain">
         <UserNav />
         <div id="seachNav">
@@ -76,43 +91,30 @@ class JobOffers extends Component {
         <div id="MainOffer">
           <div id="MainOfferHolder">
             <nav id="jobOfferCompNav">
-              <select>
-                <option value="">All Job Types</option>
-                <option value="volvo">Volvo</option>
-                <option value="saab">Saab</option>
-                <option value="mercedes">Mercedes</option>
-                <option value="audi">Audi</option>
+              <select name="jobType" onChange={this.getTypes}>
+                <option value=""> Job Types</option>
+                <option value="remote">Remote</option>
+                <option value="full time Job">full time</option>
+                <option value="part time Job">part time</option>
               </select>
-              <select>
-                <option value="">Post Any Time</option>
-                <option value="volvo">Volvo</option>
-                <option value="saab">Saab</option>
-                <option value="mercedes">Mercedes</option>
-                <option value="audi">Audi</option>
+              <select name="MinSalary" onChange={this.getTypes}>
+                <option value="">MinSalary</option>
+                <option value="1000">1000 $</option>
+                <option value="2000">2000 $</option>
+                <option value="5000">5000 $</option>
               </select>
-              <select>
-                <option value="">Salary</option>
-                <option value="volvo">Volvo</option>
-                <option value="saab">Saab</option>
-                <option value="mercedes">Mercedes</option>
-                <option value="audi">Audi</option>
+              <select name="dateAgo" onChange={this.getTypes}>
+                <option value="">Posted Date</option>
+                <option value="Day ago">Day ago</option>
+                <option value="Week ago">Week ago</option>
+                <option value="Month ago">Month ago</option>
               </select>
-              <select>
-                <option value="">Location</option>
-                <option value="saab">Saab</option>
-                <option value="mercedes">Mercedes</option>
-                <option value="audi">Audi</option>
-              </select>
-              <select>
-                <option value="">More</option>
-                <option value="saab">Saab</option>
-                <option value="mercedes">Mercedes</option>
-                <option value="audi">Audi</option>
-              </select>
+
+              <button onClick={this.advancedFilter}>x</button>
             </nav>
 
             <div id="miniOffers">
-              <div className="miniJobDesc  " style={{ width: "30%" }}>
+              <div className="miniJobDesc  " style={{ width: "45%" }}>
                 {/* mini offer component */}
 
                 {this.props.posts !== [] &&
@@ -135,7 +137,9 @@ class JobOffers extends Component {
                               className="companyPhoto"
                               style={{
                                 pointerEvents: "none",
-                                marginRight: "1vw"
+                                marginRight: "1vw",
+                                backgroundImage: `url(${job.companyName &&
+                                  job.companyName.photo})`
                               }}
                             ></div>
                             <div
@@ -185,7 +189,7 @@ class JobOffers extends Component {
                         <div
                           className="card-footer text-right "
                           style={{
-                            backgroundColor: "	#2eb85c",
+                            backgroundColor: "#3399ff",
                             pointerEvents: "none"
                           }}
                         >
@@ -215,7 +219,7 @@ class JobOffers extends Component {
                     currentPage={this.state.currentPage}
                     totalPages={100}
                     changeCurrentPage={this.changeCurrentPage}
-                    theme="square-fill"
+                    theme="Bottom Border"
                   />
                 </div>
 
@@ -229,7 +233,6 @@ class JobOffers extends Component {
                   padding: "0"
                 }}
               >
-                <div id="companyCover"></div>
                 <div
                   className="bordBtm"
                   style={{ display: "flex", padding: "20px 50px" }}
@@ -247,15 +250,9 @@ class JobOffers extends Component {
                     </h3>
                     <h5 style={{ fontSize: "19px" }}>
                       {(this.state.currentPost &&
-                        this.state.currentPost.type) ||
+                        this.state.currentPost.jobType) ||
                         "undefined"}
                     </h5>
-                    <p>
-                      {" "}
-                      {(this.state.currentPost &&
-                        this.state.currentPost.salary) ||
-                        "undefined"}
-                    </p>
                   </div>
                   <button id="applyBtn" onClick={this.applyNow.bind(this)}>
                     Apply Now
@@ -272,6 +269,8 @@ class JobOffers extends Component {
           </div>
         </div>
       </div>
+    ) : (
+      "loading"
     );
   }
 }
@@ -282,4 +281,6 @@ const mapStateToProps = state => ({
   posts: state.posts.posts,
   authInfo: state.auth
 });
-export default withRouter(connect(mapStateToProps, { getPosts })(JobOffers));
+export default withRouter(
+  connect(mapStateToProps, { getPosts, advancedFilters })(JobOffers)
+);

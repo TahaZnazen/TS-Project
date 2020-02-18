@@ -10,6 +10,7 @@ import {
   UPDATE_COMAPY_INFO,
   UPDATE_COMAPY_PASSWORD
 } from "./types";
+import swal from "sweetalert";
 
 export const loginAuth = (data, props) => dispatch => {
   axios
@@ -99,7 +100,14 @@ export const companyRegisterAuth = (data, props) => dispatch => {
           type: COMPANY_REGISTER_SUCCESS,
           payload: fetchedData
         });
-        res.data.status === "success" && props.history.push("/Employers");
+        res.data.status === "sucess" &&
+          swal(
+            "Verification",
+            "check you email for verification then login",
+
+            "success"
+          );
+        props.history.push("/message");
       }
     })
     .catch(err => console.log(err));
@@ -114,10 +122,7 @@ export const logout = props => dispatch => {
 };
 
 export const changePassword = (id, data) => dispatch => {
-  console.log(id);
-  console.log(data);
-
-  API.post(`company/updatePassword/${id}`, data);
+  API.patch(`company/updatePassword/${id}`, { data });
 
   return dispatch({
     type: UPDATE_COMAPY_PASSWORD,

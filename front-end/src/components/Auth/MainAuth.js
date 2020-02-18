@@ -9,28 +9,24 @@ class MainAuth extends Component {
   render() {
     return (
       <div id="auth">
-        <div
-          style={{
-            display: "flex",
-            width: "100%",
-            justifyContent: "space-around"
-          }}
-        >
-          <Link to="/Employers">
-            <button className="authBtn">Employers</button>
-          </Link>
-          <Link to="/Employee">
-            <button className="authBtn">Employee</button>
-          </Link>
-          <Link to="/">
-            <button onClick={this.props.authControl} className="authBtn">
-              x
-            </button>
-          </Link>
-        </div>
+        <div className="employee"></div>
+        <div className="employers"></div>
       </div>
     );
   }
 }
 
 export default MainAuth;
+{
+  /* <Link to="/Employers">
+<button className="authBtn">Employers</button>
+</Link>
+<Link to="/Employee">
+<button className="authBtn">Employee</button>
+</Link>
+<Link to="/">
+<button onClick={this.props.authControl} className="authBtn">
+  x
+</button>
+</Link> */
+}

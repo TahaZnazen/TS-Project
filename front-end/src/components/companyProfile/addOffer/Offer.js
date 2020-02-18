@@ -7,8 +7,8 @@ class Offer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      companyName: "5e317ff8059a3a57a4d3639d",
-      token: this.props.authInfo.token
+      token: this.props.authInfo.token,
+      skillRequired: ""
     };
     this.change = this.change.bind(this);
   }
@@ -25,7 +25,19 @@ class Offer extends Component {
       this.state.skillRequired &&
       this.state.jobType
     ) {
-      let data = this.state;
+      let skills = this.state.skillRequired;
+      let newSkillsFormat = [];
+      skills = skills.split(" ").map(elm => {
+        newSkillsFormat.push({ name: elm });
+      });
+      this.setState({
+        skillRequired: newSkillsFormat
+      });
+      console.log(newSkillsFormat);
+      let data = {
+        ...this.state,
+        skillRequired: newSkillsFormat
+      };
       let token = this.props.authInfo.token;
 
       console.log(data);
@@ -47,49 +59,80 @@ class Offer extends Component {
 
   render() {
     return (
-      <div className="jobOffer">
-        <button
-          style={{
-            position: "absolute",
-            top: "0",
-            right: "0",
-            width: "40px",
-            background: "none",
-            color: "black",
-            fontSize: "19px"
-          }}
-          onClick={this.props.closeOffer}
-        >
-          x
-        </button>
-        <label>Job Title</label>
-        <input onChange={this.change} type="text" name="title" />
-        <label>Description</label>
-        <textarea name="description" onChange={this.change} />
-        <label>Location</label>
-        <input onChange={this.change} type="text" name="location" />
-        <label>Skills Required</label>
-        <input onChange={this.change} type="text" name="skillRequired" />
-        <div id="someInput">
+      <div className="addOfferBody">
+        <div className="jobOffer">
+          <button
+            style={{
+              position: "absolute",
+              top: "0",
+              right: "0",
+              width: "40px",
+              background: "none",
+              border: "none",
+              color: "black",
+              fontSize: "30px"
+            }}
+            onClick={this.props.closeOffer}
+          >
+            x
+          </button>
+          <label>Job Title</label>
           <input
+            className="bigInput"
             onChange={this.change}
             type="text"
-            name="salaryMin"
-            placeholder="Minimun salary"
+            name="title"
           />
+          <label>Job Description</label>
+          <textarea
+            className="bigInput"
+            name="description"
+            onChange={this.change}
+            style={{
+              height: "12vh"
+            }}
+          />
+          <label>Location</label>
           <input
+            className="bigInput"
             onChange={this.change}
             type="text"
-            name="salaryMax"
-            placeholder="Maximun salary"
+            name="location"
           />
-          <input onChange={this.change} type="date" name="expirationDate" />
-        </div>
-        <label>Job Type</label>
-        <input onChange={this.change} type="text" name="jobType" />
+          <label>Skills Required</label>
+          <input
+            className="bigInput"
+            onChange={this.change}
+            type="text"
+            name="skillRequired"
+          />
+          <div id="someInput">
+            <input
+              onChange={this.change}
+              type="text"
+              name="salaryMin"
+              placeholder="Minimun salary"
+            />
+            <input
+              onChange={this.change}
+              type="text"
+              name="salaryMax"
+              placeholder="Maximun salary"
+            />
+            <input onChange={this.change} type="date" name="expirationDate" />
+          </div>
+          <label>Job Type</label>
+          <input
+            className="bigInput"
+            onChange={this.change}
+            type="text"
+            name="jobType"
+            placeholder="remote / full time / part time"
+          />
 
-        <br />
-        <button onClick={this.addOffer.bind(this)}>save</button>
+          <br />
+          <button onClick={this.addOffer.bind(this)}>save</button>
+        </div>
       </div>
     );
   }

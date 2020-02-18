@@ -32,7 +32,11 @@ class CandidatesModal extends Component {
               <ModalBody>
                 {this.props.candidates &&
                   this.props.candidates.map(elm => (
-                    <h1 onClick={this.getID.bind(this)} id={elm._id}>
+                    <h1
+                      style={{ color: "black" }}
+                      onClick={this.getID.bind(this)}
+                      id={elm._id}
+                    >
                       {elm.name}
                     </h1>
                   ))}

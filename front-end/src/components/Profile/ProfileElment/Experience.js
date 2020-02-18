@@ -49,8 +49,7 @@ class Experience extends Component {
     newExperience.position = el.target.positionName.value;
     newExperience.task = el.target.task.value;
 
-    const experienceId = this.state.id;
-    console.log(experienceId);
+    const experienceId = el.target.id;
     this.props.updateExperience(this.props.cvId, experienceId, newExperience);
   };
 
@@ -185,7 +184,10 @@ class Experience extends Component {
                     </ModalBody>
                   </Modal>
                   <button id={el._id} onClick={this.deleteExperience}>
-                    <FontAwesomeIcon icon={faTrash} />
+                    <FontAwesomeIcon
+                      style={{ pointerEvents: "none" }}
+                      icon={faTrash}
+                    />
                   </button>
                 </div>
               </div>

@@ -131,7 +131,10 @@ class Language extends Component {
                   </ModalBody>
                 </Modal>
                 <button id={el._id} onClick={this.deleteLanguage}>
-                  <FontAwesomeIcon icon={faTrash} />
+                  <FontAwesomeIcon
+                    style={{ pointerEvents: "none" }}
+                    icon={faTrash}
+                  />
                 </button>
               </div>
             </div>

@@ -21,13 +21,20 @@ class CompanyPublic extends Component {
           <div
             className="companyProfileCover"
             style={{
-              backgroundImage: `url(${this.props.companyInfo.map(
-                elm => elm.data.photo
-              )})`
+              backgroundImage:
+                "url(https://coverfiles.alphacoders.com/115/115027.jpg)",
+              backgroundSize: "100% 100%"
             }}
           >
             <div className="compData">
-              <div className="companyImg"></div>
+              <div
+                className="companyImg"
+                style={{
+                  backgroundImage: `url(${this.props.companyInfo.map(
+                    elm => elm.data.photo
+                  )})`
+                }}
+              ></div>
               <div className="companyName">
                 <h1 style={{ color: "	#ffc107" }}>Company Name </h1>
                 {this.props.companyInfo.map(elm => (

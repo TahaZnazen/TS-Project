@@ -16,11 +16,10 @@ const JobOfferSchema = new mongoose.Schema({
     ref: "Company"
   },
   skillRequired: [
-    String
-    // {
-    //   name: String,
-    //   level: String
-    // }
+    {
+      name: String
+      //   level: String
+    }
   ],
   candidates: [
     {

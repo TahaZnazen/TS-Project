@@ -11,9 +11,9 @@ button {
   cursor: pointer;
 }
 section {
-  height: 67vh;
+  height: 90vh;
   background-color: pink;
-  background-image: url(https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80);
+  background-image: url(https://images.pexels.com/photos/450035/pexels-photo-450035.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260);
   background-size: 100% 100%;
   position: relative;
   display: flex;
@@ -28,7 +28,7 @@ section:after {
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: rgba(68, 68, 68, 0.247);
+  background-color: #00000052;
   z-index: -1;
 }
 
@@ -84,7 +84,7 @@ section:after {
 #purposeWork div h4 {
   text-align: center;
   font-size: 50px;
-  color: #2eb85c;
+  color: #3399ff;
 }
 #information {
   display: flex;
@@ -159,6 +159,6 @@ section:after {
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: #33cc66b9;
+  background-color: #3399ff8c;
   z-index: 1;
 }

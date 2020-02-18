@@ -24,7 +24,7 @@ export default class FirstPage extends Component {
             <SearchBar />
           </div>
         </section>
-        <div id="purpose">
+        <div id="purpose" className="pt-2">
           <h1>How Our Website Works for You</h1>
           <div id="purposeWork">
             <div>
@@ -54,7 +54,7 @@ export default class FirstPage extends Component {
           </div>
         </div>
 
-        <div id="information">
+        <div id="information" className="mt-5">
           <h1>Explore Our WebSite</h1>
           <h5>
             Millions of people are searching for jobs, salary information,

@@ -5,14 +5,15 @@ const _ = require("underscore");
 //
 exports.addPost = async (req, res) => {
   try {
+    console.log(req.body);
     const company = await Company.findById(req.params.id);
     if (!company) {
       res.json
         .status(404)
         .json({ status: "fail", message: "company not found" });
     }
-    req.body.companyName = company._id;
-    const newPost = await jobOffer.create(req.body);
+    req.body.data.companyName = company._id;
+    const newPost = await jobOffer.create(req.body.data);
     company.jobOffers.push(newPost._id);
     await company.save({ validateBeforeSave: false });
     res.status(201).json({ status: "sucess", newPost });
@@ -75,19 +76,20 @@ exports.findAndUpdate = async (req, res) => {
 
 exports.search = async (req, res) => {
   try {
+    console.log(req.body);
     const skills = req.body.skills.split(" ");
     const location = req.body.location;
     const offers = await jobOffer.find({
       $or: [
         { location },
         {
-          "skillRequired.name": {
+          skillRequired: {
             $in: skills
           }
         },
         {
           location,
-          "skillRequired.name": {
+          skillRequired: {
             $in: skills
           }
         }
@@ -102,28 +104,35 @@ exports.search = async (req, res) => {
 const convertDateToInt = dateString => {
   let result;
   const now = new Date();
-  if (dateString === "month ago") {
+  if (dateString === "Month ago") {
     result = now.setMonth(now.getMonth() - 1);
-  } else if (dateString === "week ago") {
+  } else if (dateString === "Week ago") {
     result = now.setDate(now.getDate() - 1 * 7);
-  } else if (dateString === "day ago") {
+  } else if (dateString === "Day ago") {
     result = now.setDate(now.getDate() - 1);
+  } else {
+    result = now.setMonth(now.getMilliseconds() - 1);
   }
   return result;
 };
 
 exports.searchBycategory = async (req, res) => {
   try {
-    const time = convertDateToInt(req.body.time);
-    // const test = await jobOffer.findOne();
-    // console.log(new Date() < test.createdAt);
-
-    req.body.salaryMin = req.body.salaryMin || 0;
-    const jobs = await jobOffer.find({
-      salaryMin: { $gte: req.body.salaryMin },
-      jobType: { $eq: req.body.jobType },
-      createdAt: { $gte: new Date(time) }
-    });
+    const time = convertDateToInt(req.body.dateAgo);
+    req.body.MinSalary = parseInt(req.body.MinSalary) || 0;
+    let jobs;
+    if (req.body.jobType) {
+      jobs = await jobOffer.find({
+        salaryMin: { $gt: req.body.MinSalary },
+        jobType: { $eq: req.body.jobType },
+        createdAt: { $lt: new Date(time) }
+      });
+    } else {
+      jobs = await jobOffer.find({
+        salaryMin: { $gt: req.body.MinSalary },
+        createdAt: { $lt: new Date(time) }
+      });
+    }
 
     res.json({ results: jobs.length, jobs });
   } catch (err) {

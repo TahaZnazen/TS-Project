@@ -68,7 +68,10 @@ class Skill extends Component {
               <FontAwesomeIcon icon={faEdit} />
             </button>
             <button id={el._id} onClick={this.deleteSkill}>
-              <FontAwesomeIcon icon={faTrash} />
+              <FontAwesomeIcon
+                style={{ pointerEvents: "none" }}
+                icon={faTrash}
+              />
             </button>
             <Modal
               isOpen={this.state.modal}

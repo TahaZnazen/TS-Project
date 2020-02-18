@@ -18,6 +18,7 @@ class Collapse extends React.Component {
           <div className="panel panel-default">
             <div className="panel-heading">
               <h6
+                style={{ width: "100vw", textAlign: "center" }}
                 className="panel-title"
                 onClick={function() {
                   this.setState({ open: !this.state.open });
@@ -35,18 +36,14 @@ class Collapse extends React.Component {
             >
               <div className="all">
                 <div className="coll">
-                  <div>
-                    <h4>Popular Searches</h4>
-                  </div>
-                  <div>
-                    <h4>Jobs</h4>
-                  </div>
-                  <div>
-                    <h4>Browse by City</h4>
-                  </div>
-                  <div>
-                    <h4>Salaries</h4>
-                  </div>
+                  <div
+                    style={{
+                      width: "100vw",
+                      height: "80vh",
+                      backgroundImage: "url(https://i.imgur.com/o3Umk1J.jpg)",
+                      backgroundSize: "100% 100%"
+                    }}
+                  ></div>
                 </div>
               </div>
             </div>
@@ -56,7 +53,9 @@ class Collapse extends React.Component {
                 this.setState({ open: !this.state.open });
               }.bind(this)}
               style={
-                !this.state.open ? { display: "none" } : { display: "block" }
+                !this.state.open
+                  ? { display: "none" }
+                  : { display: "block", width: "100vw", textAlign: "center" }
               }
             >
               <FontAwesomeIcon icon={faSortUp} />

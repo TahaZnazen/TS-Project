@@ -45,7 +45,7 @@ class Login extends Component {
   }
 
   render() {
-    return (
+    return !this.props.authInfo.token ? (
       <div className="login">
         <div className="loginInfo">
           <h1 onClick={() => console.log(this.props)}>user login</h1>
@@ -85,6 +85,8 @@ class Login extends Component {
         </div>
         <div className="loginFormPhoto"></div>
       </div>
+    ) : (
+      <h1>you are already logged ind</h1>
     );
   }
 }

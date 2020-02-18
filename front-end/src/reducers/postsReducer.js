@@ -4,7 +4,8 @@ import {
   COMPANY_OFFERS,
   COMPANY_INFO,
   COMPANY_DASHBOARD,
-  GET_COMPANY_OFFERS
+  GET_COMPANY_OFFERS,
+  ADVANCED_FILTER
 } from "../actions/types";
 
 const initialState = {
@@ -47,6 +48,12 @@ export default (state = initialState, action) => {
         ...state,
         companyPostsAndCondidates: [action.payload]
       };
+    case ADVANCED_FILTER:
+      return {
+        ...state,
+        posts: [action.payload]
+      };
+
     default:
       return state;
   }

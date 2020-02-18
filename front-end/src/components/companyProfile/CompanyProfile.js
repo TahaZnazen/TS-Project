@@ -174,14 +174,23 @@ class CompanyProfile extends Component {
                 </form>
               </div>
               <div>
-                <h1 className="card-title text-left mb-5">
+                <h1
+                  style={{ color: "#3399ff" }}
+                  className="card-title text-left mb-5"
+                >
                   COMPANY NAME <br />
-                  {this.props.companyInfo.map(elm => elm.data.name)}
+                  <span style={{ color: "black" }}>
+                    {this.props.companyInfo.map(elm =>
+                      elm.data.name.toUpperCase()
+                    )}
+                  </span>
                 </h1>
 
-                <h4 className="card-title text-left">
-                  Email <br />
-                  {this.props.companyInfo.map(elm => elm.data.email)}
+                <h4
+                  style={{ fontSize: "25px", fontWeight: "bolder" }}
+                  className="card-title text-left"
+                >
+                  Email :{this.props.companyInfo.map(elm => elm.data.email)}
                 </h4>
               </div>
             </div>
@@ -199,7 +208,7 @@ class CompanyProfile extends Component {
                     <div className="card-body">
                       <h3 className="card-title text-center">{offer.title}</h3>
                       <h5 className="card-title text-left">
-                        {offer.type ? offer.type : "no type defined"}
+                        {offer.jobType ? offer.jobType : "no type defined"}
                       </h5>
                       <strong className="card-title text-left">
                         {offer.salaryMin

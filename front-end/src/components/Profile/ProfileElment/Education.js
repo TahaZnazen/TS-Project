@@ -30,6 +30,7 @@ class Education extends Component {
   deleteEducation = el => {
     document.getElementById(el.target.id).style.display = "none";
     const educationId = el.target.id;
+    console.log(el.target);
     this.props.deleteEducation(this.props.cvId, educationId);
   };
   updateEducation = el => {
@@ -42,7 +43,9 @@ class Education extends Component {
     newEducation.diploma = el.target.diploma.value;
     newEducation.establishment = el.target.establishment.value;
 
-    let elmentToUpdate = this.state.id;
+    let elmentToUpdate = el.target.id;
+    //console.log(el.target);
+
     this.props.updateEducation(this.props.cvId, elmentToUpdate, newEducation);
   };
 
@@ -187,7 +190,10 @@ class Education extends Component {
                   </ModalBody>
                 </Modal>
                 <button id={el._id} onClick={this.deleteEducation}>
-                  <FontAwesomeIcon icon={faTrash} />
+                  <FontAwesomeIcon
+                    style={{ pointerEvents: "none" }}
+                    icon={faTrash}
+                  />
                 </button>
               </div>
             </div>

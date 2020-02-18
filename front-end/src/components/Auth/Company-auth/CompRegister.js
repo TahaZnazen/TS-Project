@@ -6,6 +6,7 @@ import { companyRegisterAuth } from "../../../actions/authActions";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { Alert } from "reactstrap";
+import swal from "sweetalert";
 
 class CompanyRegister extends Component {
   constructor(props) {
@@ -39,7 +40,7 @@ class CompanyRegister extends Component {
     });
   }
   render() {
-    return (
+    return !this.props.authInfo.token ? (
       <div>
         <h1 onClick={() => console.log(this.props)}>company register</h1>
 
@@ -86,6 +87,8 @@ class CompanyRegister extends Component {
           <h5>Sign In</h5>
         </Link>
       </div>
+    ) : (
+      <h1>you are already logged in</h1>
     );
   }
 }

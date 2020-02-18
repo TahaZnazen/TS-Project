@@ -25,16 +25,18 @@ class NavBar extends Component {
     console.log(this.props);
     return (
       <nav id="mainNavbar">
-        <h1>LogoPlace</h1>
         <div id="mainNav">
-          <div>
-            <Link to="/dashboard">
-              <h4>dashBoard</h4>
-            </Link>
-            <Link to="/company/jobsDashBoard">
-              <h4>jobs</h4>
-            </Link>
-          </div>
+          {this.props.authInfo.token && (
+            <div>
+              <Link to="/dashboard">
+                <h4>dashBoard</h4>
+              </Link>
+              <Link to="/company/jobsDashBoard">
+                <h4>jobs</h4>
+              </Link>
+            </div>
+          )}
+
           {this.props.authInfo.token ? (
             <div id="navDiv">
               <h4 onClick={this.onLogout.bind(this)}> logout</h4>

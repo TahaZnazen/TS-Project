@@ -7,7 +7,8 @@ import {
   GET_COMPANY_OFFERS,
   GET_COMPANY_BY_ID,
   ACCEPT_CONDIDATE,
-  REJECT_CONDIDATE
+  REJECT_CONDIDATE,
+  ADVANCED_FILTER
 } from "./types";
 import API from "../API/API";
 import axios from "axios";
@@ -24,6 +25,20 @@ export const getPosts = () => async dispatch => {
   } catch (err) {
     console.log(err);
   }
+};
+export const advancedFilters = data => dispatch => {
+  let fetchedData = [];
+  axios
+    .post("http://localhost:8080/api/post/category", data)
+    .then(res => {
+      console.log(res.data.jobs);
+      fetchedData = res.data.jobs;
+      dispatch({
+        type: ADVANCED_FILTER,
+        payload: fetchedData
+      });
+    })
+    .catch(err => console.log(err));
 };
 export const filterPosts = (skills, location, props) => dispatch => {
   let fetchedData = [];

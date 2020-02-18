@@ -1,40 +1,63 @@
+.addOfferBody {
+  width: 100vw;
+  height: 100vh;
+  background-color: #76819275;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .jobOffer {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 60vh;
+  width: 45vw;
   padding: 1%;
-  border: 1px solid rgb(153, 153, 153);
-  position: fixed;
-  left: 30vw;
-  top: 10vh;
-  background-color: #ebedef;
+  position: relative;
+  height: 80vh;
+
+  background-color: #3399ff;
+  border-radius: 12px 12px 12px 12px;
 }
-.jobOffer input {
-  width: 50vh;
-  height: 40px;
-  margin: 3px;
-}
-.jobOffer textarea {
-  width: 50vh;
-  height: 70px;
-  margin: 3px;
-}
+
 .jobOffer label {
-  width: 50vh;
+  width: 80%;
   text-align: left;
   margin: 3px;
+  font-size: 35px;
+  font-weight: bolder;
 }
 
 .jobOffer button {
-  width: 50vh;
-  height: 50px;
+  width: 80%;
+  height: 8vh;
   background: none;
   color: white;
-  background-color: #4dbd74;
+  background-color: #3399ff;
   border: none;
+  font-size: 35px;
+  border: 2px solid white;
+  transition: 0.2s;
+}
+.jobOffer button:hover {
+  background-color: white;
+  color: #3399ff;
+  transition: 0.2s;
 }
 #someInput {
   display: flex;
-  width: 90%;
+  width: 80%;
+  margin-top: 3vh;
+}
+#someInput input {
+  width: 35%;
+  height: 6vh;
+  font-size: 25px;
+}
+.bigInput {
+  width: 80%;
+  height: 6vh;
+  font-size: 35px;
+  font-family: monospace;
+  padding: 3px;
 }

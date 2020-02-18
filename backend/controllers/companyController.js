@@ -69,7 +69,6 @@ exports.CompanyOffersCandidates = async (req, res) => {
 };
 
 exports.acceptUser = async (req, res) => {
-  console.log(req.body);
   try {
     let user = await User.findById(req.body.userId);
     const Company = await company.findById(req.body.companyId);
@@ -95,6 +94,7 @@ exports.acceptUser = async (req, res) => {
         <h1>Hello, ${user.name}</h1>
         <p>${message}</p>
         <p>if you can't show up on that date feel free to contact the company on there email ${Company.email}</p>
+        <p>interview date ${date}</p>
         `
       });
     } catch (err) {
@@ -298,7 +298,7 @@ exports.startConversation = async (req, res) => {
         html: `
          <h1>Hello, ${user.name}</h1>
          <p>${companyMessage}</p>
-         
+         <a href= "https://thesis-chat.herokuapp.com/">CLICK HERE TO START CONVERSATION</a>
          `
       });
     } catch (err) {
@@ -313,19 +313,22 @@ exports.startConversation = async (req, res) => {
 exports.updatePassword = async (req, res) => {
   try {
     const Company = await company.findById(req.params.id).select("+password");
-    const iscorrect = await Company.correctPassword(
-      req.body.password,
-      Company.password
-    );
-    if (iscorrect) {
-      Company.password = req.body.newPassword;
-      Company.passwordConfirmation = req.body.passwordConfirmation;
 
-      await Company.save();
-      res.json({ message: "password changed" });
-    }
+    // const iscorrect = await Company.comparePassword(
+    //   req.body.data,
+    //   Company.password
+    // );
+    // if (iscorrect) {
+    //   Company.password = req.body.newPassword;
+    //   Company.passwordConfirmation = req.body.passwordConfirmation;
 
-    res.status(200).json({ message: "wrong password" });
+    //   await Company.save();
+    //   res.json({ message: "password changed" });
+    // }
+    Company.password = req.body.data;
+    Company.passwordConfirmation = req.body.data;
+    await Company.save();
+    res.status(200).json({ message: "degla password" });
   } catch (err) {
     console.log(err);
     res.json({ message: "fail" });
@@ -334,7 +337,8 @@ exports.updatePassword = async (req, res) => {
 
 exports.addDescription = async (req, res) => {
   try {
-    await company.findByIdAndUpdate(req.params.id, req.body);
+    console.log(req.body);
+    await company.findByIdAndUpdate(req.params.id, req.body.data);
     res.json({ message: "description updated" });
   } catch (err) {
     res.json({ err });

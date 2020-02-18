@@ -34,7 +34,7 @@ import TestBilel2 from "./components/TestBilel2";
 import Template from "./views/Forms/ValidationForms/ValidationForms";
 import ProfileUser from "./components/Profile/ProfileUser";
 import ProfileView from "./components/Profile/ProfileView";
-//import ProfileTest from "./components/Profile/ProfileElment/Profiletest";
+import Message from "./components/Auth/Message";
 class App extends Component {
   // componentDidMount() {
   //   store.dispatch(loadUser());
@@ -96,10 +96,14 @@ class App extends Component {
               <Route exact path="/test2">
                 <TestBilel2 />
               </Route>
+
               <Route exact path="/user/:id" component={ProfileView} />
 
               <Route exact path="/profileUser">
                 <ProfileUser />
+              </Route>
+              <Route exact path="/message">
+                <Message />
               </Route>
             </Switch>
           </div>

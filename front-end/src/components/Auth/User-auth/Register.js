@@ -39,7 +39,7 @@ class Register extends Component {
     });
   }
   render() {
-    return (
+    return !this.props.authInfo.token ? (
       <div className="login">
         <div className="loginInfo ">
           <h1>user register</h1>
@@ -89,6 +89,8 @@ class Register extends Component {
         </div>
         <div className="loginFormPhoto regphoto"></div>
       </div>
+    ) : (
+      <h1>you are already logged in </h1>
     );
   }
 }

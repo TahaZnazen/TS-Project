@@ -57,6 +57,7 @@
   width: 3vw;
   height: 6vh;
   border-radius: 50%;
+  background-color: #3399ff;
 }
 [type="file"] {
   cursor: inherit;

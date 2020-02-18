@@ -1,5 +1,5 @@
 .panel-collapse {
-  max-height: 500px;
+  max-height: 85vh;
   overflow: hidden;
   transition: max-height 1s ease;
 }
@@ -7,17 +7,15 @@
   max-height: 0;
 }
 .coll {
-  width: 100%;
-  display: flex;
+  margin-top: 5vh;
 }
 .panel-title {
   width: 80vw;
   text-align: center;
 }
 .coll div {
-  margin: 0 40px;
   width: 25%;
-  height: 500px;
+  height: 40vh;
   display: flex;
   justify-content: center;
 }
