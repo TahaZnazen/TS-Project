@@ -2,9 +2,9 @@
 <h1>Our Final Rbk Project</h1>
 <h1>Duration :</h1> 4 week <br/>
 <h1>Team </h1>: 4 people : <br/>
-<h4>Taha Znazen : Scrum master  </h4><br/>
-<h4>Bilel Gharbi :Product Owner<h4>  <br/>
-<h4>Hamza Danden & Farouk Guizani  . </h4><br/>
+<h4>Taha Znazen : Scrum master  </h4>
+<h4>Bilel Gharbi :Product Owner<h4>  
+<h4>Hamza Danden & Farouk Guizani  . </h4>
 
 The project is hiring managment system for developer and it field where  you have 2 options ,<br/>
 connect as user or as a  company .<br/>
